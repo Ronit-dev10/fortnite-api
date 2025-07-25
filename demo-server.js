@@ -267,6 +267,181 @@ app.get('/', (req, res) => {
                 text-transform: uppercase;
                 letter-spacing: 1px;
             }
+            .player-meta {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin: 0.5rem 0;
+                color: #a0a9c0;
+                font-size: 0.9rem;
+            }
+            .separator {
+                color: #64748b;
+            }
+            .player-level {
+                color: #00d4ff;
+                font-weight: 600;
+                font-size: 1rem;
+                margin-top: 0.5rem;
+            }
+            .stats-section {
+                margin: 2rem 0;
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 12px;
+                padding: 1.5rem;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .stats-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                color: #fff;
+                border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+                padding-bottom: 0.5rem;
+            }
+            .player-stat.highlight {
+                background: rgba(0, 212, 255, 0.1);
+                border: 1px solid rgba(0, 212, 255, 0.2);
+            }
+            .mode-stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+            .mode-card {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                padding: 1.5rem;
+                transition: all 0.3s ease;
+            }
+            .mode-card:hover {
+                border-color: rgba(0, 212, 255, 0.3);
+                transform: translateY(-2px);
+            }
+            .mode-header {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+            .mode-icon {
+                font-size: 1.5rem;
+            }
+            .mode-header h5 {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #fff;
+                margin: 0;
+            }
+            .mode-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .mode-stat {
+                text-align: center;
+                padding: 0.75rem;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+            }
+            .mode-value {
+                display: block;
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #00d4ff;
+                margin-bottom: 0.25rem;
+            }
+            .mode-label {
+                font-size: 0.75rem;
+                color: #a0a9c0;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .recent-matches {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.75rem;
+            }
+            .match-card {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                padding: 1rem;
+                text-align: center;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .match-card.win {
+                border-color: #22c55e;
+                background: rgba(34, 197, 94, 0.1);
+            }
+            .match-card.top5 {
+                border-color: #f59e0b;
+                background: rgba(245, 158, 11, 0.1);
+            }
+            .match-placement {
+                font-size: 1.1rem;
+                font-weight: 700;
+                margin-bottom: 0.25rem;
+            }
+            .match-card.win .match-placement {
+                color: #22c55e;
+            }
+            .match-card.top5 .match-placement {
+                color: #f59e0b;
+            }
+            .match-kills {
+                font-size: 0.9rem;
+                color: #a0a9c0;
+            }
+            .season-stats {
+                space-y: 1.5rem;
+            }
+            .progress-item {
+                margin-bottom: 1.5rem;
+            }
+            .progress-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+            }
+            .progress-bar {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                height: 8px;
+                overflow: hidden;
+            }
+            .progress-fill {
+                background: linear-gradient(90deg, #00d4ff, #0ea5e9);
+                height: 100%;
+                border-radius: 10px;
+                transition: width 0.5s ease;
+            }
+            .season-stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            .season-stat {
+                text-align: center;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+            }
+            .season-value {
+                display: block;
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #00d4ff;
+                margin-bottom: 0.25rem;
+            }
+            .season-label {
+                font-size: 0.8rem;
+                color: #a0a9c0;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
             .hero {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 padding: 8rem 2rem 4rem;
@@ -1081,7 +1256,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#53</td><td>sкі.<br><span class="player-skin">Using: Storm</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#54</td><td>ВКǃ<br><span class="player-skin">Using: Doctor Doom</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#55</td><td>deviantǃ<br><span class="player-skin">Using: Mystique</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
-                                <tr><td class="rank">#56</td><td>TRKF DANDEPUZO<br><span class="player-skin">Using: Iron Man</span></td><td>🇷��� RU</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#56</td><td>TRKF DANDEPUZO<br><span class="player-skin">Using: Iron Man</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#57</td><td>Sinister Polzt<br><span class="player-skin">Using: Wolverine</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#58</td><td>Twitch T1nman21<br><span class="player-skin">Using: Mancake</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#59</td><td>untalented 4jp<br><span class="player-skin">Using: Kondor</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
@@ -1109,7 +1284,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>��🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#85</td><td>chacalGOTY 7<br><span class="player-skin">Using: Ariana Grande</span></td><td>🇧🇷 BR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬🇹 GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#87</td><td>ǃ Egy Kub1x ǃ<br><span class="player-skin">Using: Venom</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -1163,7 +1338,7 @@ app.get('/', (req, res) => {
                                         <td><strong>15,670</strong></td>
                                     </tr>
                                     <tr class="top-3-row top-2">
-                                        <td class="rank">���� #2</td>
+                                        <td class="rank">🥈 #2</td>
                                         <td><strong>QuickClip_Pro</strong><br><span class="player-skin">Using: The Reaper</span></td>
                                         <td>🇨🇦 CA</td>
                                         <td><strong>0.9s</strong></td>
@@ -1527,7 +1702,7 @@ app.get('/', (req, res) => {
         <script>
             // Player database for search
             const playerDatabase = [
-                { username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875, platform: "PC", country: "🇫🇷 FR", skin: "Renegade Raider" },
+                { username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875, platform: "PC", country: "����🇷 FR", skin: "Renegade Raider" },
                 { username: "free storm kids", rank: 2, winRate: "99%", kd: "11.8", wins: 2693, kills: 31734, matches: 2721, platform: "PC", country: "🇫🇷 FR", skin: "Black Knight" },
                 { username: "Twitch matthew1x", rank: 3, winRate: "99%", kd: "13.2", wins: 2541, kills: 33542, matches: 2565, platform: "PC", country: "🇺🇸 US", skin: "Skull Trooper" },
                 { username: "pliesfv twitch", rank: 4, winRate: "99%", kd: "10.9", wins: 2387, kills: 26019, matches: 2410, platform: "PC", country: "🇺🇸 US", skin: "Galaxy" },
