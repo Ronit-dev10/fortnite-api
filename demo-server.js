@@ -1132,8 +1132,11 @@ app.get('/', (req, res) => {
                     </div>
                 </div>
             </section>
+            </div>
 
-            <section class="section" id="news">
+            <!-- News Tab -->
+            <div id="news-tab" class="tab-content">
+                <section class="section" id="news">
                 <h2 class="section-title">Latest Fortnite News & Updates</h2>
 
                 <div class="section-nav">
