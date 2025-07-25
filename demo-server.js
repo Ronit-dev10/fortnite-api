@@ -535,7 +535,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#36</td><td>twitch yjzz_<br><span class="player-skin">Using: Skye</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#37</td><td>Twitch irlsnax<br><span class="player-skin">Using: Meowscles</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
-                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
+                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>����🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
                                 <tr><td class="rank">#39</td><td>Claire まろもちch<br><span class="player-skin">Using: Brutus</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#40</td><td>CHUGGINGTON ﾃ<br><span class="player-skin">Using: TNTina</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#41</td><td>DIE OKTONAUTEN<br><span class="player-skin">Using: Midas</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
@@ -750,38 +750,170 @@ app.get('/', (req, res) => {
             </section>
 
             <section class="section" id="news">
-                <h2 class="section-title">Latest Fortnite News</h2>
-                <div class="news-grid">
-                    <div class="news-card">
-                        <div class="news-image">🎮</div>
+                <h2 class="section-title">Latest Fortnite News & Updates</h2>
+
+                <div class="section-nav">
+                    <button class="nav-btn active" data-category="all">All News</button>
+                    <button class="nav-btn" data-category="updates">Game Updates</button>
+                    <button class="nav-btn" data-category="events">Events</button>
+                    <button class="nav-btn" data-category="collaborations">Collaborations</button>
+                </div>
+
+                <div class="news-grid" id="news-container">
+                    <div class="news-card featured" data-category="updates">
+                        <div class="news-image">⭐</div>
                         <div class="news-content">
-                            <h3 class="news-title">Chapter 5 Season 1 Now Live</h3>
-                            <p class="news-date">December 3, 2023</p>
-                            <p>The new season brings fresh locations, weapons, and gameplay mechanics to the island.</p>
+                            <div class="news-badge">FEATURED</div>
+                            <h3 class="news-title">Chapter 6 Season 3: Galactic Battle</h3>
+                            <p class="news-date">July 25, 2025</p>
+                            <p>Star Wars takes over Fortnite with lightsabers, Force powers, and epic galactic combat. Experience the ultimate crossover event!</p>
+                            <div class="news-tags">
+                                <span class="tag">Star Wars</span>
+                                <span class="tag">New Season</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="news-card">
-                        <div class="news-image">🏆</div>
-                        <div class="news-content">
-                            <h3 class="news-title">FNCS Championship Results</h3>
-                            <p class="news-date">November 28, 2023</p>
-                            <p>Congratulations to all competitors in this season's Fortnite Championship Series.</p>
-                        </div>
-                    </div>
-                    <div class="news-card">
-                        <div class="news-image">🛒</div>
-                        <div class="news-content">
-                            <h3 class="news-title">Item Shop Update</h3>
-                            <p class="news-date">Daily Updates</p>
-                            <p>Check out today's featured items, skins, and limited-time offers in the item shop.</p>
-                        </div>
-                    </div>
-                    <div class="news-card">
+
+                    <div class="news-card" data-category="collaborations">
                         <div class="news-image">🎵</div>
                         <div class="news-content">
-                            <h3 class="news-title">Concert Event Announced</h3>
-                            <p class="news-date">November 25, 2023</p>
-                            <p>Join millions of players for an exclusive virtual concert experience in Party Royale.</p>
+                            <h3 class="news-title">Sabrina Carpenter Fortnite Festival</h3>
+                            <p class="news-date">April 7, 2025</p>
+                            <p>Sabrina Carpenter headlines Fortnite Festival Season 8 with exclusive performances and unlockable content.</p>
+                            <div class="news-tags">
+                                <span class="tag">Music</span>
+                                <span class="tag">Festival</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="collaborations">
+                        <div class="news-image">🎭</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Adventure Time Collaboration</h3>
+                            <p class="news-date">April 10, 2025</p>
+                            <p>Finn, Jake, Princess Bubblegum, and Marceline join the battle! Mathematical skins now available.</p>
+                            <div class="news-tags">
+                                <span class="tag">Adventure Time</span>
+                                <span class="tag">Skins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="collaborations">
+                        <div class="news-image">🥊</div>
+                        <div class="news-content">
+                            <h3 class="news-title">WWE Superstars Join Fortnite</h3>
+                            <p class="news-date">April 17, 2025</p>
+                            <p>The Undertaker and Cody Rhodes bring WWE action to the island with signature moves and entrances.</p>
+                            <div class="news-tags">
+                                <span class="tag">WWE</span>
+                                <span class="tag">Wrestlers</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="events">
+                        <div class="news-image">🦖</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Godzilla Stomps Into Fortnite</h3>
+                            <p class="news-date">January 13, 2025</p>
+                            <p>The King of Monsters brings destruction and chaos. Face off against or become the legendary kaiju!</p>
+                            <div class="news-tags">
+                                <span class="tag">Godzilla</span>
+                                <span class="tag">Kaiju</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="events">
+                        <div class="news-image">🏙️</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Crime City Event</h3>
+                            <p class="news-date">February 12, 2025</p>
+                            <p>Navigate the dangerous streets of Crime City with new challenges, locations, and criminal activities.</p>
+                            <div class="news-tags">
+                                <span class="tag">Crime City</span>
+                                <span class="tag">Urban</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="collaborations">
+                        <div class="news-image">⚔️</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Mortal Kombat Fatality</h3>
+                            <p class="news-date">February 17, 2025</p>
+                            <p>Iconic fighters from Mortal Kombat enter the arena with brutal finishing moves and classic costumes.</p>
+                            <div class="news-tags">
+                                <span class="tag">Mortal Kombat</span>
+                                <span class="tag">Fighting</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="collaborations">
+                        <div class="news-image">🚀</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Cowboy Bebop Space Cowboys</h3>
+                            <p class="news-date">February 21, 2025</p>
+                            <p>See you space cowboy! Spike Spiegel and crew bring their bounty hunting skills to the battle royale.</p>
+                            <div class="news-tags">
+                                <span class="tag">Cowboy Bebop</span>
+                                <span class="tag">Anime</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="collaborations">
+                        <div class="news-image">⚾</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Shohei Ohtani MLB Debut</h3>
+                            <p class="news-date">March 11, 2025</p>
+                            <p>The first MLB player joins Fortnite! Experience baseball-themed content and home run celebrations.</p>
+                            <div class="news-tags">
+                                <span class="tag">MLB</span>
+                                <span class="tag">Baseball</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="updates">
+                        <div class="news-image">🤖</div>
+                        <div class="news-content">
+                            <h3 class="news-title">AI-Enhanced Darth Vader Voice</h3>
+                            <p class="news-date">May 16, 2025</p>
+                            <p>Disney and Epic Games use AI to bring James Earl Jones' iconic voice to Darth Vader in-game.</p>
+                            <div class="news-tags">
+                                <span class="tag">AI Technology</span>
+                                <span class="tag">Star Wars</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="updates">
+                        <div class="news-image">🏆</div>
+                        <div class="news-content">
+                            <h3 class="news-title">FNCS Chapter 6 Season 3</h3>
+                            <p class="news-date">Live Now</p>
+                            <p>The most competitive season yet! $1M prize pool for the Galactic Battle Championship Series.</p>
+                            <div class="news-tags">
+                                <span class="tag">Competitive</span>
+                                <span class="tag">Esports</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-category="updates">
+                        <div class="news-image">🛒</div>
+                        <div class="news-content">
+                            <h3 class="news-title">Item Shop Daily Rotation</h3>
+                            <p class="news-date">Updated Daily</p>
+                            <p>New galactic-themed items, Star Wars cosmetics, and exclusive collaboration skins refresh every 24 hours.</p>
+                            <div class="news-tags">
+                                <span class="tag">Item Shop</span>
+                                <span class="tag">Cosmetics</span>
+                            </div>
                         </div>
                     </div>
                 </div>
