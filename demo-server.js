@@ -1709,7 +1709,7 @@ app.get('/', (req, res) => {
 
                     <div class="weapon-card tier-utility" data-category="utility">
                         <div class="weapon-rarity rarity-epic">Utility</div>
-                        <h4>���️ Tracking Visor</h4>
+                        <h4>👁️ Tracking Visor</h4>
                         <p>Duration: 8s • Range: 100m • Cooldown: 25s</p>
                         <p>Scans and highlights enemies through walls. Essential for strategic gameplay.</p>
                         <div class="weapon-stats">
@@ -2175,7 +2175,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Arrays for random selection
-                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦���� AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
                 const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
                 const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
 
@@ -2357,8 +2357,8 @@ app.get('/', (req, res) => {
             // API key storage
             let apiKey = localStorage.getItem('fortniteApiKey') || '';
 
-            // Save API key function
-            function saveApiKey() {
+            // Save API key function implementation
+            function realSaveApiKey() {
                 const keyInput = document.getElementById('api-key-input');
                 apiKey = keyInput.value.trim();
                 if (apiKey) {
