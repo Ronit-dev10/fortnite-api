@@ -2283,6 +2283,31 @@ app.get('/', (req, res) => {
                 event.target.classList.add('active');
             }
 
+            // Tab switching functionality
+            function showTab(tabName) {
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                // Remove active class from all tab buttons
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Show selected tab
+                const targetTab = document.getElementById(tabName + '-tab');
+                if (targetTab) {
+                    targetTab.classList.add('active');
+                }
+
+                // Add active class to clicked button
+                const clickedBtn = event?.target;
+                if (clickedBtn) {
+                    clickedBtn.classList.add('active');
+                }
+            }
+
             // API key storage
             let apiKey = localStorage.getItem('fortniteApiKey') || '';
 
