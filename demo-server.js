@@ -1421,7 +1421,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#43</td><td>M8 Mаlibucа<br><span class="player-skin">Using: Deadpool</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#44</td><td>Twitch Happyfnrr<br><span class="player-skin">Using: Kit</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#45</td><td>M8 Pоlloǃ<br><span class="player-skin">Using: Jules</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
-                                <tr><td class="rank">#46</td><td>Twitch Surprise<br><span class="player-skin">Using: Ocean</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#46</td><td>Twitch Surprise<br><span class="player-skin">Using: Ocean</span></td><td>���🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#47</td><td>Mr. Lunoxs<br><span class="player-skin">Using: Fade</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#48</td><td>Solarу Kurama<br><span class="player-skin">Using: Siona</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#49</td><td>twitch keroxr1x<br><span class="player-skin">Using: Eternal Knight</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
@@ -1463,7 +1463,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#85</td><td>chacalGOTY 7<br><span class="player-skin">Using: Ariana Grande</span></td><td>🇧🇷 BR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬🇹 GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#87</td><td>ǃ Egy Kub1x ǃ<br><span class="player-skin">Using: Venom</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#88</td><td>G8 Eltensy<br><span class="player-skin">Using: The Foundation</span></td><td>🇺🇦 UA</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#88</td><td>G8 Eltensy<br><span class="player-skin">Using: The Foundation</span></td><td>🇺���� UA</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#89</td><td>axrtiy<br><span class="player-skin">Using: Spider-Man</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#90</td><td>Twitch PapaSuun<br><span class="player-skin">Using: Marcus Fenix</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#91</td><td>falcon tаyso<br><span class="player-skin">Using: Kait Diaz</span></td><td>🇷🇸 RS</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -3090,15 +3090,34 @@ app.get('/', (req, res) => {
                 event.target.style.display = 'none';
             }
 
-            // Enter key support for search
+            // Initialize everything when DOM is loaded
             document.addEventListener('DOMContentLoaded', function() {
+                // Enter key support for search
                 const searchInput = document.getElementById('player-search-input');
                 if (searchInput) {
                     searchInput.addEventListener('keypress', function(e) {
                         if (e.key === 'Enter') {
-                            searchPlayer();
+                            searchRealPlayer();
                         }
                     });
+                }
+
+                // Initialize tab functionality
+                const tabButtons = document.querySelectorAll('.tab-btn');
+                tabButtons.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const tabName = this.getAttribute('onclick')?.match(/showTab\('(.+?)'\)/)?.[1];
+                        if (tabName) {
+                            showTab(tabName);
+                        }
+                    });
+                });
+
+                // Set home tab as default active
+                const homeTab = document.getElementById('home-tab');
+                if (homeTab) {
+                    homeTab.classList.add('active');
                 }
 
                 // Weapons filtering
