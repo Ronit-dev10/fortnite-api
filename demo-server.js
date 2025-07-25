@@ -86,20 +86,154 @@ app.get('/', (req, res) => {
                 background: linear-gradient(45deg, #00d4ff, #ff6b6b);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+                cursor: pointer;
             }
-            .nav-links {
+            .main-nav {
                 display: flex;
-                gap: 2rem;
+                gap: 1rem;
                 list-style: none;
             }
-            .nav-links a {
+            .tab-btn {
+                background: transparent;
+                border: 2px solid transparent;
                 color: #fff;
-                text-decoration: none;
-                font-weight: 500;
-                transition: color 0.3s;
+                padding: 0.8rem 1.5rem;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                font-size: 0.9rem;
             }
-            .nav-links a:hover {
+            .tab-btn:hover {
+                border-color: #00d4ff;
                 color: #00d4ff;
+            }
+            .tab-btn.active {
+                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
+                border-color: #00d4ff;
+                color: #fff;
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            }
+            .tab-content {
+                display: none;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+            .tab-content.active {
+                display: block;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .search-section {
+                background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
+                border-radius: 20px;
+                padding: 2rem;
+                margin: 2rem 0;
+                text-align: center;
+            }
+            .player-search {
+                display: flex;
+                gap: 1rem;
+                max-width: 600px;
+                margin: 1rem auto;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .search-input {
+                flex: 1;
+                min-width: 300px;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 25px;
+                padding: 1rem 1.5rem;
+                color: #fff;
+                font-size: 1rem;
+            }
+            .search-input::placeholder {
+                color: rgba(255, 255, 255, 0.7);
+            }
+            .search-btn {
+                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
+                border: none;
+                color: #fff;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+            .search-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+            }
+            .player-result {
+                background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                padding: 2rem;
+                margin: 2rem auto;
+                max-width: 800px;
+                display: none;
+            }
+            .player-result.show {
+                display: block;
+                animation: slideUp 0.5s ease-out;
+            }
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .player-header {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+            }
+            .player-avatar {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                font-weight: bold;
+            }
+            .player-info h3 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            .player-rank {
+                color: #ffd700;
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            .player-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
+            .player-stat {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 15px;
+                padding: 1.5rem;
+                text-align: center;
+            }
+            .stat-value {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #00d4ff;
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+            .stat-name {
+                color: #a0a9c0;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
             }
             .hero {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -702,7 +836,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#73</td><td>MEM CRIPPER 12<br><span class="player-skin">Using: Cluck</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#74</td><td>tuhronto ʕᵒᴥᵒʔ<br><span class="player-skin">Using: Kymera</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#75</td><td>Orangeе<br><span class="player-skin">Using: Guggimon</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#76</td><td>motionsick cam<br><span class="player-skin">Using: Sunny</span></td><td>��</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#76</td><td>motionsick cam<br><span class="player-skin">Using: Sunny</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#77</td><td>Twitch Tyrionbtw<br><span class="player-skin">Using: Zyg</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#78</td><td>xps chipzǃǃ ÿÿÿÿ<br><span class="player-skin">Using: Slone</span></td><td>🇬🇧 GB</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
