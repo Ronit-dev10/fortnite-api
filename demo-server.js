@@ -2520,8 +2520,8 @@ app.get('/', (req, res) => {
                 \`;
             }
 
-            // Show what the real data structure would look like
-            function showRealisticDemo(username, platform) {
+            // Show what the real data structure would look like implementation
+            function realShowRealisticDemo(username, platform) {
                 // This simulates the exact data structure from FortniteTracker API
                 const realisticData = generateRealisticFortniteTrackerData(username, platform);
                 displayPlayerProfile(realisticData, false);
