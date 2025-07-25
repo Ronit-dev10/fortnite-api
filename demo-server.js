@@ -2775,6 +2775,208 @@ app.get('/', (req, res) => {
                 }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds for realism
             }
 
+            // Display player profile in FortniteTracker style
+            function displayPlayerProfile(playerData, isRealData = false) {
+                const resultDiv = document.getElementById('player-result');
+                const dataSource = isRealData ? 'LIVE DATA' : 'FORTNITETRACKER FORMAT';
+                const badgeClass = isRealData ? 'live-badge' : 'demo-badge';
+
+                resultDiv.innerHTML = \`
+                    <div class="player-header">
+                        <div class="player-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2); font-size: 2rem; font-weight: bold;">
+                            \${playerData.username.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="player-info">
+                            <h3>\${playerData.username}<span class="\${badgeClass}">\${dataSource}</span></h3>
+                            <div class="player-rank">
+                                #\${formatCleanNumber(playerData.rank)} Global
+                                <span class="rank-badge">\${playerData.division}</span>
+                            </div>
+                            <div class="player-meta">
+                                <span>🎮 \${playerData.platform}</span>
+                                <span class="separator">•</span>
+                                <span>Level \${playerData.level}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overall Statistics -->
+                    <div class="stats-section">
+                        <h4 class="stats-title">Overall Battle Royale Stats</h4>
+                        <div class="player-stats-grid">
+                            <div class="player-stat highlight">
+                                <span class="stat-value number-clean">\${formatCleanNumber(playerData.totalWins)}</span>
+                                <span class="stat-name">Total Wins</span>
+                            </div>
+                            <div class="player-stat highlight">
+                                <span class="stat-value number-clean">\${playerData.overallKD}</span>
+                                <span class="stat-name">K/D Ratio</span>
+                            </div>
+                            <div class="player-stat highlight">
+                                <span class="stat-value number-clean">\${playerData.overallWinRate}%</span>
+                                <span class="stat-name">Win Rate</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value number-clean">\${formatCleanNumber(playerData.totalKills)}</span>
+                                <span class="stat-name">Total Kills</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value number-clean">\${formatCleanNumber(playerData.totalMatches)}</span>
+                                <span class="stat-name">Matches</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value number-clean">\${(playerData.totalKills / playerData.totalMatches).toFixed(1)}</span>
+                                <span class="stat-name">Kills/Match</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Game Mode Breakdown -->
+                    <div class="stats-section">
+                        <h4 class="stats-title">Game Mode Statistics</h4>
+                        <div class="mode-stats">
+                            <!-- Solo Stats -->
+                            <div class="mode-card">
+                                <div class="mode-header">
+                                    <span class="mode-icon">👤</span>
+                                    <h5>Solo</h5>
+                                </div>
+                                <div class="mode-stats-grid">
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.solo.wins)}</span>
+                                        <span class="mode-label">Wins</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${playerData.solo.kd}</span>
+                                        <span class="mode-label">K/D</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${playerData.solo.winRate}%</span>
+                                        <span class="mode-label">Win Rate</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.solo.kills)}</span>
+                                        <span class="mode-label">Kills</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.solo.matches)}</span>
+                                        <span class="mode-label">Matches</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.solo.top10)}</span>
+                                        <span class="mode-label">Top 10</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Duo Stats -->
+                            <div class="mode-card">
+                                <div class="mode-header">
+                                    <span class="mode-icon">👥</span>
+                                    <h5>Duo</h5>
+                                </div>
+                                <div class="mode-stats-grid">
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.duo.wins)}</span>
+                                        <span class="mode-label">Wins</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${playerData.duo.kd}</span>
+                                        <span class="mode-label">K/D</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${playerData.duo.winRate}%</span>
+                                        <span class="mode-label">Win Rate</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.duo.kills)}</span>
+                                        <span class="mode-label">Kills</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.duo.matches)}</span>
+                                        <span class="mode-label">Matches</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.duo.top5)}</span>
+                                        <span class="mode-label">Top 5</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Squad Stats -->
+                            <div class="mode-card">
+                                <div class="mode-header">
+                                    <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                                    <h5>Squad</h5>
+                                </div>
+                                <div class="mode-stats-grid">
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.squad.wins)}</span>
+                                        <span class="mode-label">Wins</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${playerData.squad.kd}</span>
+                                        <span class="mode-label">K/D</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${playerData.squad.winRate}%</span>
+                                        <span class="mode-label">Win Rate</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.squad.kills)}</span>
+                                        <span class="mode-label">Kills</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.squad.matches)}</span>
+                                        <span class="mode-label">Matches</span>
+                                    </div>
+                                    <div class="mode-stat">
+                                        <span class="mode-value number-clean">\${formatCleanNumber(playerData.squad.top3)}</span>
+                                        <span class="mode-label">Top 3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Season -->
+                    <div class="stats-section">
+                        <h4 class="stats-title">Chapter 6 Season 3 Progress</h4>
+                        <div class="season-stats">
+                            <div class="progress-item">
+                                <div class="progress-header">
+                                    <span>Battle Pass Tier</span>
+                                    <span>\${playerData.currentSeason.battlePassTier} / 100</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: \${playerData.currentSeason.battlePassTier}%"></div>
+                                </div>
+                            </div>
+                            <div class="season-stat-grid">
+                                <div class="season-stat">
+                                    <span class="season-value number-clean">\${formatCleanNumber(playerData.currentSeason.xp)}</span>
+                                    <span class="season-label">Season XP</span>
+                                </div>
+                                <div class="season-stat">
+                                    <span class="season-value number-clean">\${formatCleanNumber(playerData.currentSeason.wins)}</span>
+                                    <span class="season-label">Season Wins</span>
+                                </div>
+                                <div class="season-stat">
+                                    <span class="season-value number-clean">\${formatCleanNumber(playerData.currentSeason.kills)}</span>
+                                    <span class="season-label">Season Kills</span>
+                                </div>
+                                <div class="season-stat">
+                                    <span class="season-value number-clean">\${playerData.currentSeason.level}</span>
+                                    <span class="season-label">Season Level</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                \`;
+
+                resultDiv.classList.add('show');
+            }
+
             // Generate recent matches display based on username for consistency
             function generateRecentMatches(username) {
                 const container = document.getElementById('recent-matches');
