@@ -1143,7 +1143,7 @@ app.get('/', (req, res) => {
                             <p>Team up with a friend in this 50-team competition. Communication and teamwork are key to victory.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                            <span class="mode-icon">����‍👩‍👧‍👦</span>
                             <h4>Battle Royale Squads</h4>
                             <p>Form a squad of up to 4 players. Coordinate strategies and revive teammates to achieve Victory Royale.</p>
                         </div>
@@ -1722,7 +1722,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-utility" data-category="utility">
                         <div class="weapon-rarity rarity-rare">Utility</div>
                         <h4>🎵 Bass Boost Gloves</h4>
-                        <p>Damage: 75 • Range: 15m �� Cooldown: 8s</p>
+                        <p>Damage: 75 • Range: 15m • Cooldown: 8s</p>
                         <p>Shockwave attacks that knock back enemies and provide mobility boosts.</p>
                         <div class="weapon-stats">
                             <span class="stat">Shockwave: 75</span>
@@ -2716,7 +2716,7 @@ app.get('/', (req, res) => {
 
                                 <div class="mode-card">
                                     <div class="mode-header">
-                                        <span class="mode-icon">👨‍👩‍👧��👦</span>
+                                        <span class="mode-icon">👨‍👩‍👧‍👦</span>
                                         <h5>Squad</h5>
                                     </div>
                                     <div class="mode-stats-grid">
@@ -3183,7 +3183,11 @@ app.get('/', (req, res) => {
                 if (searchInput) {
                     searchInput.addEventListener('keypress', function(e) {
                         if (e.key === 'Enter') {
-                            searchRealPlayer();
+                            if (window.realSearchPlayer) {
+                                window.realSearchPlayer();
+                            } else {
+                                searchRealPlayer();
+                            }
                         }
                     });
                 }
