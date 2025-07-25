@@ -1110,7 +1110,7 @@ app.get('/', (req, res) => {
                             <p>Build, play, and share your own custom islands. Unlimited creativity with building tools and game mechanics.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">🛡���</span>
+                            <span class="mode-icon">🛡️</span>
                             <h4>Save the World</h4>
                             <p>Cooperative PvE campaign where players fight zombie-like creatures called Husks to save survivors.</p>
                         </div>
@@ -1903,34 +1903,6 @@ app.get('/', (req, res) => {
         </footer>
 
         <script>
-            // Tab switching functionality - defined first for immediate availability
-            function showTab(tabName) {
-                // Hide all tabs
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-
-                // Remove active class from all tab buttons
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-
-                // Show selected tab
-                const targetTab = document.getElementById(tabName + '-tab');
-                if (targetTab) {
-                    targetTab.classList.add('active');
-                }
-
-                // Add active class to clicked button
-                const clickedBtn = event?.target;
-                if (clickedBtn) {
-                    clickedBtn.classList.add('active');
-                }
-            }
-
-            // Make showTab available globally immediately
-            window.showTab = showTab;
-
             // Number formatting utility
             function formatNumber(num) {
                 if (num >= 1000000) {
@@ -2296,7 +2268,7 @@ app.get('/', (req, res) => {
                 },
                 'bugha': {
                     username: "Bugha", rank: 4567, winRate: "14.5%", kd: "4.1", wins: 1756, kills: 43210, matches: 12103,
-                    platform: "PC", country: "🇺�� US", skin: "World Cup Bugha", level: 678, score: 16789012, playtime: "2,876h",
+                    platform: "PC", country: "🇺🇸 US", skin: "World Cup Bugha", level: 678, score: 16789012, playtime: "2,876h",
                     solo: { wins: 987, kills: 24567, matches: 6876, kd: 4.3, winRate: "14.4%", top10: 4234 },
                     duo: { wins: 456, kills: 11234, matches: 3123, kd: 3.8, winRate: "14.6%", top5: 1876 },
                     squad: { wins: 313, kills: 7409, matches: 2104, kd: 4.2, winRate: "14.9%", top3: 1234 },
