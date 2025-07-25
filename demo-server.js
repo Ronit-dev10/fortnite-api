@@ -1282,7 +1282,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#76</td><td>motionsick cam<br><span class="player-skin">Using: Sunny</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#77</td><td>Twitch Tyrionbtw<br><span class="player-skin">Using: Zyg</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#78</td><td>xps chipzǃǃ ÿÿÿÿ<br><span class="player-skin">Using: Slone</span></td><td>🇬🇧 GB</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫��� FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱🇻 LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -1718,31 +1718,69 @@ app.get('/', (req, res) => {
                     return min + rnd * (max - min);
                 }
 
-                // Generate skill tier based on username patterns
+                // Generate realistic skill tier based on username patterns
                 let skillTier;
                 const lowerUsername = username.toLowerCase();
 
                 if (lowerUsername.includes('pro') || lowerUsername.includes('ttv') || lowerUsername.includes('twitch') ||
-                    lowerUsername.includes('yt') || lowerUsername.includes('god') || lowerUsername.includes('king')) {
-                    skillTier = seededRandom(0.8, 1.0); // High skill
-                } else if (lowerUsername.includes('noob') || lowerUsername.includes('bot') || lowerUsername.includes('kid')) {
-                    skillTier = seededRandom(0.1, 0.4); // Lower skill
+                    lowerUsername.includes('yt') || lowerUsername.includes('god') || lowerUsername.includes('king') ||
+                    lowerUsername.includes('champion') || lowerUsername.includes('elite') || lowerUsername.includes('ace')) {
+                    skillTier = seededRandom(0.85, 0.98); // Top tier players (5-20% win rate, 3-8 K/D)
+                } else if (lowerUsername.includes('noob') || lowerUsername.includes('bot') || lowerUsername.includes('kid') ||
+                          lowerUsername.includes('casual') || lowerUsername.includes('beginner')) {
+                    skillTier = seededRandom(0.05, 0.25); // Beginner players (1-3% win rate, 0.3-1.2 K/D)
                 } else {
-                    skillTier = seededRandom(0.2, 0.9); // Average distribution
+                    skillTier = seededRandom(0.2, 0.7); // Average players (2-8% win rate, 0.8-2.5 K/D)
                 }
 
-                // Generate stats based on skill tier
-                const baseWins = Math.floor(seededRandom(50, 3000) * skillTier);
-                const baseMatches = Math.floor(baseWins / (0.1 + skillTier * 0.5)) + Math.floor(seededRandom(500, 2000));
-                const baseKills = Math.floor(baseMatches * (1 + skillTier * 4));
-                const kd = (baseKills / Math.max(baseMatches - baseWins, 1)).toFixed(1);
-                const winRate = ((baseWins / baseMatches) * 100).toFixed(1) + '%';
+                // Generate realistic match count (most players have 1000-15000 matches)
+                const baseMatches = Math.floor(seededRandom(800, 15000));
 
-                // Generate rank based on skill
-                const rank = Math.floor(seededRandom(1, 50000000) * (1 - skillTier * 0.99)) + 1;
+                // Generate realistic win rate based on skill tier
+                let winRateDecimal;
+                if (skillTier > 0.9) {
+                    winRateDecimal = seededRandom(0.15, 0.35); // 15-35% for pros
+                } else if (skillTier > 0.7) {
+                    winRateDecimal = seededRandom(0.08, 0.18); // 8-18% for good players
+                } else if (skillTier > 0.4) {
+                    winRateDecimal = seededRandom(0.03, 0.10); // 3-10% for average players
+                } else {
+                    winRateDecimal = seededRandom(0.005, 0.04); // 0.5-4% for beginners
+                }
+
+                const baseWins = Math.floor(baseMatches * winRateDecimal);
+                const winRate = (winRateDecimal * 100).toFixed(1) + '%';
+
+                // Generate realistic K/D based on skill tier
+                let kdValue;
+                if (skillTier > 0.9) {
+                    kdValue = seededRandom(4.0, 12.0); // Pro level K/D
+                } else if (skillTier > 0.7) {
+                    kdValue = seededRandom(2.0, 5.0); // Good player K/D
+                } else if (skillTier > 0.4) {
+                    kdValue = seededRandom(0.8, 2.5); // Average K/D
+                } else {
+                    kdValue = seededRandom(0.3, 1.2); // Beginner K/D
+                }
+
+                const deaths = baseMatches - baseWins;
+                const baseKills = Math.floor(deaths * kdValue);
+                const kd = kdValue.toFixed(1);
+
+                // Generate rank based on skill tier (more realistic distribution)
+                let rank;
+                if (skillTier > 0.9) {
+                    rank = Math.floor(seededRandom(1, 50000)); // Top 50k players
+                } else if (skillTier > 0.7) {
+                    rank = Math.floor(seededRandom(50000, 500000)); // Top 500k players
+                } else if (skillTier > 0.4) {
+                    rank = Math.floor(seededRandom(500000, 5000000)); // Top 5M players
+                } else {
+                    rank = Math.floor(seededRandom(5000000, 50000000)); // Lower ranked players
+                }
 
                 // Arrays for random selection
-                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '���🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
                 const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
                 const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
 
