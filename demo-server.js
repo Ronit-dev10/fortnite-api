@@ -1875,6 +1875,158 @@ app.get('/', (req, res) => {
         </footer>
 
         <script>
+            // Number formatting utility
+            function formatNumber(num) {
+                if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1) + 'M';
+                } else if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                } else {
+                    return num.toLocaleString();
+                }
+            }
+
+            // Clean number display (exact numbers)
+            function formatCleanNumber(num) {
+                return num.toLocaleString();
+            }
+
+            // Generate realistic FortniteTracker data structure
+            function generateRealisticFortniteTrackerData(username, platform) {
+                // Create seed for consistency
+                let seed = 0;
+                for (let i = 0; i < username.length; i++) {
+                    seed += username.charCodeAt(i);
+                }
+
+                function seededRandom(min = 0, max = 1) {
+                    seed = (seed * 9301 + 49297) % 233280;
+                    return min + (seed / 233280) * (max - min);
+                }
+
+                // Determine skill level based on username
+                const lowerUsername = username.toLowerCase();
+                let skillLevel;
+
+                if (lowerUsername.includes('ttv') || lowerUsername.includes('twitch') || lowerUsername.includes('yt') ||
+                    lowerUsername.includes('pro') || lowerUsername.includes('god') || lowerUsername.includes('king')) {
+                    skillLevel = 'high';
+                } else if (lowerUsername.includes('noob') || lowerUsername.includes('bot') || lowerUsername.includes('casual')) {
+                    skillLevel = 'low';
+                } else {
+                    skillLevel = 'average';
+                }
+
+                // Generate realistic stats based on skill level
+                let baseStats;
+                if (skillLevel === 'high') {
+                    baseStats = {
+                        matches: Math.floor(seededRandom(5000, 25000)),
+                        winRate: seededRandom(0.15, 0.40), // 15-40% win rate for pros
+                        kd: seededRandom(3.0, 8.0), // 3-8 K/D for pros
+                        level: Math.floor(seededRandom(200, 999)),
+                        division: ['Champion', 'Unreal'][Math.floor(seededRandom(0, 2))],
+                        rank: Math.floor(seededRandom(1, 10000))
+                    };
+                } else if (skillLevel === 'low') {
+                    baseStats = {
+                        matches: Math.floor(seededRandom(500, 5000)),
+                        winRate: seededRandom(0.005, 0.03), // 0.5-3% win rate for beginners
+                        kd: seededRandom(0.2, 1.0), // 0.2-1.0 K/D for beginners
+                        level: Math.floor(seededRandom(10, 150)),
+                        division: ['Bronze', 'Silver', 'Gold'][Math.floor(seededRandom(0, 3))],
+                        rank: Math.floor(seededRandom(1000000, 10000000))
+                    };
+                } else {
+                    baseStats = {
+                        matches: Math.floor(seededRandom(1000, 10000)),
+                        winRate: seededRandom(0.02, 0.12), // 2-12% win rate for average
+                        kd: seededRandom(0.8, 2.5), // 0.8-2.5 K/D for average
+                        level: Math.floor(seededRandom(50, 300)),
+                        division: ['Gold', 'Platinum', 'Diamond'][Math.floor(seededRandom(0, 3))],
+                        rank: Math.floor(seededRandom(100000, 2000000))
+                    };
+                }
+
+                const wins = Math.floor(baseStats.matches * baseStats.winRate);
+                const deaths = baseStats.matches - wins;
+                const kills = Math.floor(deaths * baseStats.kd);
+
+                // Calculate mode-specific stats (realistic distribution)
+                const soloMatches = Math.floor(baseStats.matches * 0.45);
+                const duoMatches = Math.floor(baseStats.matches * 0.30);
+                const squadMatches = baseStats.matches - soloMatches - duoMatches;
+
+                const soloWins = Math.floor(wins * 0.4);
+                const duoWins = Math.floor(wins * 0.35);
+                const squadWins = wins - soloWins - duoWins;
+
+                const soloKills = Math.floor(kills * 0.4);
+                const duoKills = Math.floor(kills * 0.32);
+                const squadKills = kills - soloKills - duoKills;
+
+                return {
+                    username: username,
+                    platform: platform,
+                    level: baseStats.level,
+                    division: baseStats.division,
+                    rank: baseStats.rank,
+
+                    // Overall stats
+                    totalMatches: baseStats.matches,
+                    totalWins: wins,
+                    totalKills: kills,
+                    totalDeaths: deaths,
+                    overallKD: (kills / Math.max(deaths, 1)).toFixed(2),
+                    overallWinRate: (baseStats.winRate * 100).toFixed(1),
+
+                    // Solo stats
+                    solo: {
+                        matches: soloMatches,
+                        wins: soloWins,
+                        kills: soloKills,
+                        deaths: soloMatches - soloWins,
+                        kd: (soloKills / Math.max(soloMatches - soloWins, 1)).toFixed(2),
+                        winRate: ((soloWins / soloMatches) * 100).toFixed(1),
+                        top10: Math.floor(soloMatches * (0.15 + (skillLevel === 'high' ? 0.3 : skillLevel === 'average' ? 0.15 : 0.05))),
+                        top25: Math.floor(soloMatches * (0.25 + (skillLevel === 'high' ? 0.4 : skillLevel === 'average' ? 0.25 : 0.15)))
+                    },
+
+                    // Duo stats
+                    duo: {
+                        matches: duoMatches,
+                        wins: duoWins,
+                        kills: duoKills,
+                        deaths: duoMatches - duoWins,
+                        kd: (duoKills / Math.max(duoMatches - duoWins, 1)).toFixed(2),
+                        winRate: ((duoWins / duoMatches) * 100).toFixed(1),
+                        top5: Math.floor(duoMatches * (0.2 + (skillLevel === 'high' ? 0.35 : skillLevel === 'average' ? 0.2 : 0.1))),
+                        top12: Math.floor(duoMatches * (0.3 + (skillLevel === 'high' ? 0.4 : skillLevel === 'average' ? 0.25 : 0.15)))
+                    },
+
+                    // Squad stats
+                    squad: {
+                        matches: squadMatches,
+                        wins: squadWins,
+                        kills: squadKills,
+                        deaths: squadMatches - squadWins,
+                        kd: (squadKills / Math.max(squadMatches - squadWins, 1)).toFixed(2),
+                        winRate: ((squadWins / squadMatches) * 100).toFixed(1),
+                        top3: Math.floor(squadMatches * (0.25 + (skillLevel === 'high' ? 0.4 : skillLevel === 'average' ? 0.25 : 0.15))),
+                        top6: Math.floor(squadMatches * (0.35 + (skillLevel === 'high' ? 0.45 : skillLevel === 'average' ? 0.3 : 0.2)))
+                    },
+
+                    // Season stats
+                    currentSeason: {
+                        level: Math.floor(seededRandom(1, 200)),
+                        xp: Math.floor(seededRandom(100000, 5000000)),
+                        battlePassTier: Math.floor(seededRandom(10, 100)),
+                        wins: Math.floor(wins * 0.2),
+                        kills: Math.floor(kills * 0.2)
+                    }
+                };
+            }
+
             // Dynamic player generation system for worldwide search
             function generatePlayerData(username) {
                 // Create a seed based on username for consistent results
