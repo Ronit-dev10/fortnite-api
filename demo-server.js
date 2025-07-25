@@ -951,15 +951,44 @@ app.get('/', (req, res) => {
                     <h2 class="section-title">Player Search & Stats</h2>
 
                     <div class="search-section">
-                        <h3>🌍 Global Player Search</h3>
-                        <p>Enter ANY Fortnite player username to view their comprehensive statistics, recent matches, and performance data across all game modes</p>
-                        <div class="player-search">
-                            <input type="text" class="search-input" placeholder="Search any Fortnite player... (e.g., Ninja, YourUsername, FriendName)" id="player-search-input">
-                            <button class="search-btn" onclick="searchPlayer()">🔍 Search Global Database</button>
+                        <h3>🌍 Player Statistics Search</h3>
+
+                        <div class="api-mode-selector">
+                            <div class="mode-option">
+                                <input type="radio" id="demo-mode" name="api-mode" value="demo" checked>
+                                <label for="demo-mode">📊 Demo Mode (Simulated Data)</label>
+                            </div>
+                            <div class="mode-option">
+                                <input type="radio" id="live-mode" name="api-mode" value="live">
+                                <label for="live-mode">🔴 Live Data (Requires API Key)</label>
+                            </div>
                         </div>
-                        <p style="font-size: 0.85rem; color: #a0a9c0; margin-top: 1rem;">
-                            💡 Try searching for famous players like <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>SypherPK</strong> or any username!
-                        </p>
+
+                        <div id="demo-description" class="mode-description">
+                            <p>🎮 <strong>Demo Mode:</strong> Generates realistic Fortnite statistics for any username using advanced algorithms. Perfect for testing and demonstration purposes.</p>
+                        </div>
+
+                        <div id="live-description" class="mode-description" style="display: none;">
+                            <p>🔥 <strong>Live Mode:</strong> Connect to real Fortnite APIs for actual player data from Epic Games and FortniteTracker.</p>
+                            <div class="api-key-input">
+                                <input type="text" class="search-input" placeholder="Enter your FortniteTracker API Key..." id="api-key-input">
+                                <button class="search-btn secondary" onclick="saveApiKey()">💾 Save Key</button>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #a0a9c0; margin-top: 0.5rem;">
+                                Get your free API key at <a href="https://fortnitetracker.com/developers" target="_blank" style="color: #00d4ff;">FortniteTracker.com/developers</a>
+                            </p>
+                        </div>
+
+                        <div class="player-search">
+                            <input type="text" class="search-input" placeholder="Enter Fortnite username..." id="player-search-input">
+                            <button class="search-btn" onclick="searchPlayer()">🔍 Search Player</button>
+                        </div>
+
+                        <div class="search-tips">
+                            <p style="font-size: 0.85rem; color: #a0a9c0;">
+                                💡 <strong>Demo suggestions:</strong> Try <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>Bugha</strong>, <strong>Mongraal</strong>, or any creative username!
+                            </p>
+                        </div>
                     </div>
 
                     <div id="player-result" class="player-result">
@@ -1235,7 +1264,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#29</td><td>Pandore GaLaK<br><span class="player-skin">Using: Fusion</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#30</td><td>yes THAT godie<br><span class="player-skin">Using: Journey vs Hazard</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
-                                <tr><td class="rank">#32</td><td>tiktok���ーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#32</td><td>tiktokぴーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#33</td><td>185 guruu<br><span class="player-skin">Using: Rippley vs Sludge</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#34</td><td>AG ZyuPK 23<br><span class="player-skin">Using: Turk vs Riptide</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
@@ -1976,7 +2005,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Show loading state
-                resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>🔍 Searching global database...</h3><p>Loading player data for: ' + username + '</p></div>';
+                resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>�� Searching global database...</h3><p>Loading player data for: ' + username + '</p></div>';
                 resultDiv.classList.add('show');
 
                 // Simulate API delay for realism
