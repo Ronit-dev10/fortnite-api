@@ -928,8 +928,67 @@ app.get('/', (req, res) => {
                     </div>
                 </div>
             </section>
+            </div>
 
-            <section class="section" id="weapons">
+            <!-- Reload Players Tab -->
+            <div id="reload-players-tab" class="tab-content">
+                <section class="section">
+                    <h2 class="section-title">Top 100 Reload Players</h2>
+                    <p style="text-align: center; color: #a0a9c0; margin-bottom: 2rem;">Players ranked by reload speed, accuracy, and consistency</p>
+
+                    <div class="leaderboard-section">
+                        <h3>Fastest Reload Masters</h3>
+                        <div class="leaderboard-scroll">
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Player</th>
+                                        <th>Country</th>
+                                        <th>Avg Reload Time</th>
+                                        <th>Reload Accuracy</th>
+                                        <th>Fast Reloads</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reload-leaderboard">
+                                    <tr class="top-3-row top-1">
+                                        <td class="rank">👑 #1</td>
+                                        <td><strong>ReloadKing_TTV</strong><br><span class="player-skin">Using: John Wick</span></td>
+                                        <td>🇺🇸 US</td>
+                                        <td><strong>0.8s</strong></td>
+                                        <td><strong>98%</strong></td>
+                                        <td><strong>15,670</strong></td>
+                                    </tr>
+                                    <tr class="top-3-row top-2">
+                                        <td class="rank">🥈 #2</td>
+                                        <td><strong>QuickClip_Pro</strong><br><span class="player-skin">Using: The Reaper</span></td>
+                                        <td>🇨🇦 CA</td>
+                                        <td><strong>0.9s</strong></td>
+                                        <td><strong>97%</strong></td>
+                                        <td><strong>14,892</strong></td>
+                                    </tr>
+                                    <tr class="top-3-row top-3">
+                                        <td class="rank">🥉 #3</td>
+                                        <td><strong>SpeedReloader</strong><br><span class="player-skin">Using: Omega</span></td>
+                                        <td>🇬🇧 UK</td>
+                                        <td><strong>0.9s</strong></td>
+                                        <td><strong>96%</strong></td>
+                                        <td><strong>14,203</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button class="search-btn" onclick="loadAllReloadPlayers()">Load Full Top 100 Reload Rankings</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Weapons Tab -->
+            <div id="weapons-tab" class="tab-content">
+                <section class="section" id="weapons">
                 <h2 class="section-title">Chapter 6 Season 3 - Galactic Battle Weapons</h2>
 
                 <div class="section-nav">
