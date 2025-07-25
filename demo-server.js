@@ -1675,7 +1675,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-declined" data-category="all">
                         <div class="weapon-rarity rarity-rare">C-Tier</div>
                         <h4>📉 Hammer Pump Shotgun</h4>
-                        <p>DPS: 95 • Range: 35m ��� Magazine: 6</p>
+                        <p>DPS: 95 • Range: 35m • Magazine: 6</p>
                         <p>High damage potential but slow reload makes it unfavorable in current meta.</p>
                         <div class="weapon-stats">
                             <span class="stat">Damage: 95</span>
@@ -3232,6 +3232,12 @@ app.get('/', (req, res) => {
                     });
                 }
             });
+
+            // Make all functions globally available
+            window.searchRealPlayer = searchRealPlayer;
+            window.saveApiKey = saveApiKey;
+            window.showRealisticDemo = showRealisticDemo;
+            window.loadAllReloadPlayers = loadAllReloadPlayers;
         </script>
     </body>
     </html>
