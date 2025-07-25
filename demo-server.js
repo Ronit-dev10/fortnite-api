@@ -951,12 +951,15 @@ app.get('/', (req, res) => {
                     <h2 class="section-title">Player Search & Stats</h2>
 
                     <div class="search-section">
-                        <h3>Search Any Player</h3>
-                        <p>Enter a player's username to view their detailed statistics and performance data</p>
+                        <h3>🌍 Global Player Search</h3>
+                        <p>Enter ANY Fortnite player username to view their comprehensive statistics, recent matches, and performance data across all game modes</p>
                         <div class="player-search">
-                            <input type="text" class="search-input" placeholder="Enter player username..." id="player-search-input">
-                            <button class="search-btn" onclick="searchPlayer()">🔍 Search Player</button>
+                            <input type="text" class="search-input" placeholder="Search any Fortnite player... (e.g., Ninja, YourUsername, FriendName)" id="player-search-input">
+                            <button class="search-btn" onclick="searchPlayer()">🔍 Search Global Database</button>
                         </div>
+                        <p style="font-size: 0.85rem; color: #a0a9c0; margin-top: 1rem;">
+                            💡 Try searching for famous players like <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>SypherPK</strong> or any username!
+                        </p>
                     </div>
 
                     <div id="player-result" class="player-result">
@@ -1279,7 +1282,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#76</td><td>motionsick cam<br><span class="player-skin">Using: Sunny</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#77</td><td>Twitch Tyrionbtw<br><span class="player-skin">Using: Zyg</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#78</td><td>xps chipzǃǃ ÿÿÿÿ<br><span class="player-skin">Using: Slone</span></td><td>🇬🇧 GB</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫��� FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱🇻 LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
