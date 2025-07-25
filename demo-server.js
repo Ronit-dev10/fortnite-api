@@ -1491,7 +1491,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-declined" data-category="all">
                         <div class="weapon-rarity rarity-uncommon">C-Tier</div>
                         <h4>📉 Havoc Suppressed AR</h4>
-                        <p>DPS: 132 • Range: 250m • Magazine: 30</p>
+                        <p>DPS: 132 • Range: 250m �� Magazine: 30</p>
                         <p>Inconsistent performance and slow reload have dropped this from meta.</p>
                         <div class="weapon-stats">
                             <span class="stat">Damage: 24</span>
@@ -1789,22 +1789,29 @@ app.get('/', (req, res) => {
                 const skin = skins[Math.floor(seededRandom(0, skins.length))];
                 const level = Math.floor(seededRandom(1, 999));
 
-                // Generate mode-specific stats
-                const soloMultiplier = seededRandom(0.3, 0.5);
-                const duoMultiplier = seededRandom(0.25, 0.4);
-                const squadMultiplier = seededRandom(0.25, 0.4);
+                // Generate mode-specific stats (realistic distribution)
+                // Most players play more solo than duos/squads
+                const soloMatches = Math.floor(baseMatches * seededRandom(0.35, 0.55));
+                const duoMatches = Math.floor(baseMatches * seededRandom(0.2, 0.35));
+                const squadMatches = baseMatches - soloMatches - duoMatches;
 
-                const soloWins = Math.floor(baseWins * soloMultiplier);
-                const duoWins = Math.floor(baseWins * duoMultiplier);
-                const squadWins = Math.floor(baseWins * squadMultiplier);
+                // Mode-specific win rates (solo is typically harder)
+                const soloWinRate = winRateDecimal * seededRandom(0.7, 1.0); // Solo harder
+                const duoWinRate = winRateDecimal * seededRandom(0.9, 1.2); // Duo balanced
+                const squadWinRate = winRateDecimal * seededRandom(1.0, 1.3); // Squad easier
 
-                const soloMatches = Math.floor(baseMatches * 0.4);
-                const duoMatches = Math.floor(baseMatches * 0.3);
-                const squadMatches = Math.floor(baseMatches * 0.3);
+                const soloWins = Math.floor(soloMatches * soloWinRate);
+                const duoWins = Math.floor(duoMatches * duoWinRate);
+                const squadWins = Math.floor(squadMatches * squadWinRate);
 
-                const soloKills = Math.floor(baseKills * 0.4);
-                const duoKills = Math.floor(baseKills * 0.3);
-                const squadKills = Math.floor(baseKills * 0.3);
+                // K/D varies by mode (usually higher in squads due to revives)
+                const soloKD = kdValue * seededRandom(0.8, 1.1);
+                const duoKD = kdValue * seededRandom(0.9, 1.2);
+                const squadKD = kdValue * seededRandom(1.0, 1.4);
+
+                const soloKills = Math.floor((soloMatches - soloWins) * soloKD);
+                const duoKills = Math.floor((duoMatches - duoWins) * duoKD);
+                const squadKills = Math.floor((squadMatches - squadWins) * squadKD);
 
                 // Generate season stats
                 const seasonMultiplier = seededRandom(0.1, 0.3);
