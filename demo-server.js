@@ -1722,7 +1722,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-utility" data-category="utility">
                         <div class="weapon-rarity rarity-rare">Utility</div>
                         <h4>🎵 Bass Boost Gloves</h4>
-                        <p>Damage: 75 • Range: 15m • Cooldown: 8s</p>
+                        <p>Damage: 75 • Range: 15m �� Cooldown: 8s</p>
                         <p>Shockwave attacks that knock back enemies and provide mobility boosts.</p>
                         <div class="weapon-stats">
                             <span class="stat">Shockwave: 75</span>
@@ -2716,7 +2716,7 @@ app.get('/', (req, res) => {
 
                                 <div class="mode-card">
                                     <div class="mode-header">
-                                        <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                                        <span class="mode-icon">👨‍👩‍👧��👦</span>
                                         <h5>Squad</h5>
                                     </div>
                                     <div class="mode-stats-grid">
@@ -3276,11 +3276,11 @@ app.get('/', (req, res) => {
                 }
             });
 
-            // Make all functions globally available
-            window.searchRealPlayer = searchRealPlayer;
-            window.saveApiKey = saveApiKey;
-            window.showRealisticDemo = showRealisticDemo;
-            window.loadAllReloadPlayers = loadAllReloadPlayers;
+            // Connect real implementations to global placeholders
+            window.realSearchPlayer = realSearchPlayer;
+            window.realSaveApiKey = realSaveApiKey;
+            window.realShowRealisticDemo = realShowRealisticDemo;
+            window.realLoadAllReloadPlayers = realLoadAllReloadPlayers;
         </script>
     </body>
     </html>
