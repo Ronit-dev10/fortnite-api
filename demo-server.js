@@ -605,43 +605,146 @@ app.get('/', (req, res) => {
             </section>
 
             <section class="section" id="weapons">
-                <h2 class="section-title">Weapon Database</h2>
-                <div class="weapons-grid">
-                    <div class="weapon-card">
-                        <div class="weapon-rarity rarity-legendary">Legendary</div>
-                        <h4>SCAR Assault Rifle</h4>
-                        <p>Damage: 36 • Range: 300m</p>
-                        <p>High damage, accurate assault rifle perfect for mid to long range combat.</p>
+                <h2 class="section-title">Chapter 6 Season 3 - Galactic Battle Weapons</h2>
+
+                <div class="section-nav">
+                    <button class="nav-btn active" data-category="all">All Weapons</button>
+                    <button class="nav-btn" data-category="s-tier">S-Tier Meta</button>
+                    <button class="nav-btn" data-category="mythic">Mythic</button>
+                    <button class="nav-btn" data-category="utility">Utility Items</button>
+                </div>
+
+                <div class="weapons-grid" id="weapons-container">
+                    <div class="weapon-card tier-s" data-category="s-tier">
+                        <div class="weapon-rarity rarity-mythic">S-Tier</div>
+                        <h4>🔫 Spire Rifle</h4>
+                        <p>DPS: 165 • Range: 350m • Magazine: 30</p>
+                        <p>Versatile mid-to-long range weapon with tight bullet spread. Perfect for competitive play.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 33</span>
+                            <span class="stat">Fire Rate: 5.0</span>
+                            <span class="stat">Reload: 2.3s</span>
+                        </div>
                     </div>
-                    <div class="weapon-card">
-                        <div class="weapon-rarity rarity-epic">Epic</div>
-                        <h4>Pump Shotgun</h4>
-                        <p>Damage: 110 • Range: 50m</p>
-                        <p>High damage shotgun effective at close range. One-shot potential to the head.</p>
+
+                    <div class="weapon-card tier-s" data-category="s-tier">
+                        <div class="weapon-rarity rarity-legendary">S-Tier</div>
+                        <h4>💥 Sentinel Pump Shotgun</h4>
+                        <p>DPS: 180 • Range: 40m • Magazine: 8</p>
+                        <p>High damage close-quarters weapon. Rewards precise aim with devastating potential.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 120</span>
+                            <span class="stat">Fire Rate: 1.5</span>
+                            <span class="stat">Reload: 1.8s</span>
+                        </div>
                     </div>
-                    <div class="weapon-card">
-                        <div class="weapon-rarity rarity-rare">Rare</div>
-                        <h4>Hunting Rifle</h4>
-                        <p>Damage: 90 • Range: 400m</p>
-                        <p>High precision sniper rifle. Requires skill but offers massive damage potential.</p>
+
+                    <div class="weapon-card tier-s" data-category="s-tier">
+                        <div class="weapon-rarity rarity-epic">S-Tier</div>
+                        <h4>🔫 Killswitch Revolvers</h4>
+                        <p>DPS: 192 • Range: 200m • Magazine: 12</p>
+                        <p>Dual-wield pistols with rapid burst damage and quick ADS. Perfect for skilled players.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 48</span>
+                            <span class="stat">Fire Rate: 4.0</span>
+                            <span class="stat">Reload: 2.1s</span>
+                        </div>
                     </div>
-                    <div class="weapon-card">
-                        <div class="weapon-rarity rarity-uncommon">Uncommon</div>
-                        <h4>SMG</h4>
-                        <p>Damage: 19 • Range: 150m</p>
-                        <p>High fire rate weapon perfect for close combat and destroying structures.</p>
+
+                    <div class="weapon-card tier-s" data-category="s-tier">
+                        <div class="weapon-rarity rarity-legendary">S-Tier</div>
+                        <h4>⚡ Veiled Precision SMG</h4>
+                        <p>DPS: 204 • Range: 100m • Magazine: 35</p>
+                        <p>Tight hip-fire accuracy with high fire rate. Dominates close-range engagements.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 17</span>
+                            <span class="stat">Fire Rate: 12.0</span>
+                            <span class="stat">Reload: 1.5s</span>
+                        </div>
                     </div>
-                    <div class="weapon-card">
-                        <div class="weapon-rarity rarity-common">Common</div>
-                        <h4>Pistol</h4>
-                        <p>Damage: 26 • Range: 200m</p>
-                        <p>Reliable sidearm with decent damage and accuracy. Good for early game.</p>
+
+                    <div class="weapon-card tier-mythic" data-category="mythic">
+                        <div class="weapon-rarity rarity-mythic">Mythic</div>
+                        <h4>⭐ Enhanced A280-CFE Blaster</h4>
+                        <p>DPS: 148.75 • Range: 400m • Magazine: 25</p>
+                        <p>Star Wars themed mythic blaster with scope for long-range dominance.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 42</span>
+                            <span class="stat">Fire Rate: 3.5</span>
+                            <span class="stat">Reload: 2.8s</span>
+                        </div>
                     </div>
-                    <div class="weapon-card">
-                        <div class="weapon-rarity rarity-legendary">Legendary</div>
-                        <h4>Rocket Launcher</h4>
-                        <p>Damage: 121 • Range: 300m</p>
-                        <p>Explosive weapon that deals massive area damage. Limited ammo.</p>
+
+                    <div class="weapon-card tier-mythic" data-category="mythic">
+                        <div class="weapon-rarity rarity-mythic">Mythic</div>
+                        <h4>⭐ Enhanced IQA-11 Marksman</h4>
+                        <p>DPS: 140 • Range: 500m • Magazine: 10</p>
+                        <p>High-damage sniper blaster for precise long-range eliminations.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 70</span>
+                            <span class="stat">Fire Rate: 2.0</span>
+                            <span class="stat">Reload: 3.2s</span>
+                        </div>
+                    </div>
+
+                    <div class="weapon-card tier-mythic" data-category="mythic">
+                        <div class="weapon-rarity rarity-mythic">Mythic</div>
+                        <h4>⚔️ Lightsaber</h4>
+                        <p>Damage: 150 • Range: Melee • Special: Force Powers</p>
+                        <p>Iconic Star Wars weapon with block ability and Force-enhanced mobility.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Melee: 150</span>
+                            <span class="stat">Block: 100%</span>
+                            <span class="stat">Force Jump: ∞</span>
+                        </div>
+                    </div>
+
+                    <div class="weapon-card tier-utility" data-category="utility">
+                        <div class="weapon-rarity rarity-epic">Utility</div>
+                        <h4>👁️ Tracking Visor</h4>
+                        <p>Duration: 8s • Range: 100m • Cooldown: 25s</p>
+                        <p>Scans and highlights enemies through walls. Essential for strategic gameplay.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Scan Range: 100m</span>
+                            <span class="stat">Duration: 8s</span>
+                            <span class="stat">Uses: 3</span>
+                        </div>
+                    </div>
+
+                    <div class="weapon-card tier-utility" data-category="utility">
+                        <div class="weapon-rarity rarity-rare">Utility</div>
+                        <h4>🎵 Bass Boost Gloves</h4>
+                        <p>Damage: 75 • Range: 15m • Cooldown: 8s</p>
+                        <p>Shockwave attacks that knock back enemies and provide mobility boosts.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Shockwave: 75</span>
+                            <span class="stat">Knockback: High</span>
+                            <span class="stat">Mobility: +50%</span>
+                        </div>
+                    </div>
+
+                    <div class="weapon-card tier-declined" data-category="all">
+                        <div class="weapon-rarity rarity-uncommon">C-Tier</div>
+                        <h4>📉 Havoc Suppressed AR</h4>
+                        <p>DPS: 132 • Range: 250m • Magazine: 30</p>
+                        <p>Inconsistent performance and slow reload have dropped this from meta.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 24</span>
+                            <span class="stat">Fire Rate: 5.5</span>
+                            <span class="stat">Reload: 3.1s</span>
+                        </div>
+                    </div>
+
+                    <div class="weapon-card tier-declined" data-category="all">
+                        <div class="weapon-rarity rarity-rare">C-Tier</div>
+                        <h4>📉 Hammer Pump Shotgun</h4>
+                        <p>DPS: 95 • Range: 35m • Magazine: 6</p>
+                        <p>High damage potential but slow reload makes it unfavorable in current meta.</p>
+                        <div class="weapon-stats">
+                            <span class="stat">Damage: 95</span>
+                            <span class="stat">Fire Rate: 1.0</span>
+                            <span class="stat">Reload: 4.2s</span>
+                        </div>
                     </div>
                 </div>
             </section>
