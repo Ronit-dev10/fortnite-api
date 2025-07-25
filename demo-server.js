@@ -502,24 +502,30 @@ app.get('/', (req, res) => {
                 flex-wrap: wrap;
             }
             .nav-btn {
-                background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: #fff;
-                padding: 0.8rem 1.5rem;
-                border-radius: 25px;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #e2e8f0;
+                padding: 0.6rem 1rem;
+                border-radius: 6px;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                font-weight: 600;
-                font-size: 0.9rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                font-size: 0.8rem;
+                letter-spacing: 0.025em;
+                backdrop-filter: blur(10px);
             }
             .nav-btn:hover {
-                border-color: #00d4ff;
-                transform: translateY(-2px);
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(0, 212, 255, 0.4);
+                color: #00d4ff;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
             .nav-btn.active {
-                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
-                border-color: #00d4ff;
-                box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+                background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+                border-color: #0ea5e9;
+                color: #ffffff;
+                box-shadow: 0 2px 12px rgba(14, 165, 233, 0.25);
             }
             .weapon-stats {
                 display: flex;
@@ -865,7 +871,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#16</td><td>npc oo oo ah ah<br><span class="player-skin">Using: Marshmello</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>78%</td></tr>
                                 <tr><td class="rank">#17</td><td>Daywalker.36<br><span class="player-skin">Using: Lynx</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>77%</td></tr>
                                 <tr><td class="rank">#18</td><td>bﱞοﱞt<br><span class="player-skin">Using: Ragnarok</span></td><td>🇨🇺 CU</td><td><span class="division-unreal">Unreal</span></td><td>76%</td></tr>
-                                <tr><td class="rank">#19</td><td>Monto Gold7<br><span class="player-skin">Using: Ice King</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>75%</td></tr>
+                                <tr><td class="rank">#19</td><td>Monto Gold7<br><span class="player-skin">Using: Ice King</span></td><td>����🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>75%</td></tr>
                                 <tr><td class="rank">#20</td><td>TTV 313CRYPTIC<br><span class="player-skin">Using: Ninja</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>74%</td></tr>
                                 <tr><td class="rank">#21</td><td>krux 7<br><span class="player-skin">Using: Luxe</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>74%</td></tr>
                                 <tr><td class="rank">#22</td><td>Drﱞake.<br><span class="player-skin">Using: Hybrid</span></td><td>🇫🇲 FM</td><td><span class="division-unreal">Unreal</span></td><td>73%</td></tr>
@@ -978,7 +984,7 @@ app.get('/', (req, res) => {
                                     <tr class="top-3-row top-1">
                                         <td class="rank">👑 #1</td>
                                         <td><strong>ReloadKing_TTV</strong><br><span class="player-skin">Using: John Wick</span></td>
-                                        <td>🇺🇸 US</td>
+                                        <td>🇺�� US</td>
                                         <td><strong>0.8s</strong></td>
                                         <td><strong>98%</strong></td>
                                         <td><strong>15,670</strong></td>
@@ -1050,7 +1056,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-s" data-category="s-tier">
                         <div class="weapon-rarity rarity-epic">S-Tier</div>
                         <h4>🔫 Killswitch Revolvers</h4>
-                        <p>DPS: 192 ��� Range: 200m • Magazine: 12</p>
+                        <p>DPS: 192 • Range: 200m • Magazine: 12</p>
                         <p>Dual-wield pistols with rapid burst damage and quick ADS. Perfect for skilled players.</p>
                         <div class="weapon-stats">
                             <span class="stat">Damage: 48</span>
