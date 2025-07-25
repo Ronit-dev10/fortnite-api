@@ -231,7 +231,7 @@ app.get('/', (req, res) => {
                 font-weight: 700;
             }
             .division-unreal {
-                background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+                background: linear-gradient(135deg, #b83dfa, #d946ef, #ec4899);
                 color: white;
                 padding: 0.3rem 0.8rem;
                 border-radius: 20px;
@@ -239,6 +239,65 @@ app.get('/', (req, res) => {
                 font-weight: 600;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
+                box-shadow: 0 0 10px rgba(184, 61, 250, 0.3);
+            }
+            .top-3-row {
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+                border: 2px solid transparent;
+                border-image: linear-gradient(135deg, #ffd700, #ffed4e) 1;
+                position: relative;
+            }
+            .top-3-row::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: linear-gradient(135deg, #ffd700, #ffed4e);
+            }
+            .top-1 {
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+                border-image: linear-gradient(135deg, #ffd700, #ffed4e) 1;
+            }
+            .top-1::before {
+                background: linear-gradient(135deg, #ffd700, #ffed4e);
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            }
+            .top-2 {
+                background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.08));
+                border-image: linear-gradient(135deg, #c0c0c0, #e5e5e5) 1;
+            }
+            .top-2::before {
+                background: linear-gradient(135deg, #c0c0c0, #e5e5e5);
+            }
+            .top-3 {
+                background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.08));
+                border-image: linear-gradient(135deg, #cd7f32, #deb887) 1;
+            }
+            .top-3::before {
+                background: linear-gradient(135deg, #cd7f32, #deb887);
+            }
+            .player-skin {
+                font-size: 0.8rem;
+                color: #a0a9c0;
+                font-style: italic;
+            }
+            .leaderboard-scroll {
+                max-height: 600px;
+                overflow-y: auto;
+                border-radius: 10px;
+            }
+            .leaderboard-scroll::-webkit-scrollbar {
+                width: 8px;
+            }
+            .leaderboard-scroll::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+            }
+            .leaderboard-scroll::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #b83dfa, #d946ef);
+                border-radius: 4px;
             }
             .weapons-grid {
                 display: grid;
