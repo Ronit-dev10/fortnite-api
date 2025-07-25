@@ -921,7 +921,7 @@ app.get('/', (req, res) => {
                             <p>Team up with a friend in this 50-team competition. Communication and teamwork are key to victory.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">👨‍👩‍👧��👦</span>
+                            <span class="mode-icon">👨‍👩‍👧‍👦</span>
                             <h4>Battle Royale Squads</h4>
                             <p>Form a squad of up to 4 players. Coordinate strategies and revive teammates to achieve Victory Royale.</p>
                         </div>
@@ -1700,57 +1700,162 @@ app.get('/', (req, res) => {
         </footer>
 
         <script>
-            // Enhanced player database for comprehensive search
-            const playerDatabase = [
-                {
-                    username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875,
-                    platform: "PC", country: "🇫🇷 FR", skin: "Renegade Raider", level: 387, score: 14567890, playtime: "2,847h",
-                    solo: { wins: 1247, kills: 15234, matches: 1289, kd: 13.2, winRate: "96.7%", top10: 1267 },
-                    duo: { wins: 834, kills: 10567, matches: 867, kd: 12.8, winRate: "96.2%", top5: 856 },
-                    squad: { wins: 766, kills: 8766, matches: 789, kd: 11.9, winRate: "97.1%", top3: 778 },
-                    season: { xp: 1247830, wins: 47, kills: 1234, placement: "Top 1%", bpTier: 87 }
-                },
-                {
-                    username: "free storm kids", rank: 2, winRate: "99%", kd: "11.8", wins: 2693, kills: 31734, matches: 2721,
-                    platform: "PC", country: "🇫🇷 FR", skin: "Black Knight", level: 374, score: 13456789, playtime: "2,693h",
-                    solo: { wins: 1156, kills: 14123, matches: 1178, kd: 12.8, winRate: "98.1%", top10: 1167 },
-                    duo: { wins: 789, kills: 9876, matches: 812, kd: 12.1, winRate: "97.2%", top5: 801 },
-                    squad: { wins: 748, kills: 7735, matches: 731, kd: 10.9, winRate: "102.3%", top3: 729 },
-                    season: { xp: 1189456, wins: 44, kills: 1156, placement: "Top 1%", bpTier: 83 }
-                },
-                {
-                    username: "Twitch matthew1x", rank: 3, winRate: "99%", kd: "13.2", wins: 2541, kills: 33542, matches: 2565,
-                    platform: "PC", country: "🇺🇸 US", skin: "Skull Trooper", level: 361, score: 12876543, playtime: "2,541h",
-                    solo: { wins: 1098, kills: 15876, matches: 1123, kd: 14.1, winRate: "97.8%", top10: 1112 },
-                    duo: { wins: 743, kills: 9234, matches: 756, kd: 12.6, winRate: "98.3%", top5: 751 },
-                    squad: { wins: 700, kills: 8432, matches: 686, kd: 12.9, winRate: "102.0%", top3: 684 },
-                    season: { xp: 1345678, wins: 52, kills: 1387, placement: "Top 1%", bpTier: 91 }
-                },
-                {
-                    username: "Ninja", rank: 6, winRate: "85%", kd: "8.9", wins: 2100, kills: 18690, matches: 2470,
-                    platform: "PC", country: "🇺🇸 US", skin: "Icon Series", level: 342, score: 9876543, playtime: "2,100h",
-                    solo: { wins: 892, kills: 7956, matches: 1056, kd: 7.9, winRate: "84.5%", top10: 978 },
-                    duo: { wins: 634, kills: 5723, matches: 734, kd: 8.2, winRate: "86.4%", top5: 678 },
-                    squad: { wins: 574, kills: 5011, matches: 680, kd: 9.7, winRate: "84.4%", top3: 612 },
-                    season: { xp: 987654, wins: 34, kills: 892, placement: "Top 3%", bpTier: 76 }
-                },
-                {
-                    username: "Tfue", rank: 7, winRate: "82%", kd: "9.5", wins: 1987, kills: 18876, matches: 2425,
-                    platform: "PC", country: "🇺🇸 US", skin: "Crystal", level: 329, score: 8765432, playtime: "1,987h",
-                    solo: { wins: 834, kills: 8234, matches: 1023, kd: 8.9, winRate: "81.5%", top10: 912 },
-                    duo: { wins: 623, kills: 5891, matches: 743, kd: 9.2, winRate: "83.8%", top5: 678 },
-                    squad: { wins: 530, kills: 4751, matches: 659, kd: 10.4, winRate: "80.4%", top3: 589 },
-                    season: { xp: 876543, wins: 29, kills: 743, placement: "Top 5%", bpTier: 68 }
-                },
-                {
-                    username: "SypherPK", rank: 8, winRate: "79%", kd: "7.8", wins: 1876, kills: 14632, matches: 2373,
-                    platform: "PC", country: "🇺🇸 US", skin: "Aura", level: 318, score: 7654321, playtime: "1,876h",
-                    solo: { wins: 723, kills: 5987, matches: 934, kd: 7.2, winRate: "77.4%", top10: 834 },
-                    duo: { wins: 589, kills: 4521, matches: 743, kd: 7.8, winRate: "79.3%", top5: 656 },
-                    squad: { wins: 564, kills: 4124, matches: 696, kd: 8.4, winRate: "81.0%", top3: 612 },
-                    season: { xp: 765432, wins: 31, kills: 678, placement: "Top 7%", bpTier: 72 }
+            // Dynamic player generation system for worldwide search
+            function generatePlayerData(username) {
+                // Create a seed based on username for consistent results
+                let seed = 0;
+                for (let i = 0; i < username.length; i++) {
+                    seed += username.charCodeAt(i);
                 }
-            ];
+
+                // Pseudo-random number generator using seed
+                function seededRandom(min = 0, max = 1) {
+                    seed = (seed * 9301 + 49297) % 233280;
+                    const rnd = seed / 233280;
+                    return min + rnd * (max - min);
+                }
+
+                // Generate skill tier based on username patterns
+                let skillTier;
+                const lowerUsername = username.toLowerCase();
+
+                if (lowerUsername.includes('pro') || lowerUsername.includes('ttv') || lowerUsername.includes('twitch') ||
+                    lowerUsername.includes('yt') || lowerUsername.includes('god') || lowerUsername.includes('king')) {
+                    skillTier = seededRandom(0.8, 1.0); // High skill
+                } else if (lowerUsername.includes('noob') || lowerUsername.includes('bot') || lowerUsername.includes('kid')) {
+                    skillTier = seededRandom(0.1, 0.4); // Lower skill
+                } else {
+                    skillTier = seededRandom(0.2, 0.9); // Average distribution
+                }
+
+                // Generate stats based on skill tier
+                const baseWins = Math.floor(seededRandom(50, 3000) * skillTier);
+                const baseMatches = Math.floor(baseWins / (0.1 + skillTier * 0.5)) + Math.floor(seededRandom(500, 2000));
+                const baseKills = Math.floor(baseMatches * (1 + skillTier * 4));
+                const kd = (baseKills / Math.max(baseMatches - baseWins, 1)).toFixed(1);
+                const winRate = ((baseWins / baseMatches) * 100).toFixed(1) + '%';
+
+                // Generate rank based on skill
+                const rank = Math.floor(seededRandom(1, 50000000) * (1 - skillTier * 0.99)) + 1;
+
+                // Arrays for random selection
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
+                const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
+
+                const country = countries[Math.floor(seededRandom(0, countries.length))];
+                const platform = platforms[Math.floor(seededRandom(0, platforms.length))];
+                const skin = skins[Math.floor(seededRandom(0, skins.length))];
+                const level = Math.floor(seededRandom(1, 999));
+
+                // Generate mode-specific stats
+                const soloMultiplier = seededRandom(0.3, 0.5);
+                const duoMultiplier = seededRandom(0.25, 0.4);
+                const squadMultiplier = seededRandom(0.25, 0.4);
+
+                const soloWins = Math.floor(baseWins * soloMultiplier);
+                const duoWins = Math.floor(baseWins * duoMultiplier);
+                const squadWins = Math.floor(baseWins * squadMultiplier);
+
+                const soloMatches = Math.floor(baseMatches * 0.4);
+                const duoMatches = Math.floor(baseMatches * 0.3);
+                const squadMatches = Math.floor(baseMatches * 0.3);
+
+                const soloKills = Math.floor(baseKills * 0.4);
+                const duoKills = Math.floor(baseKills * 0.3);
+                const squadKills = Math.floor(baseKills * 0.3);
+
+                // Generate season stats
+                const seasonMultiplier = seededRandom(0.1, 0.3);
+                const seasonWins = Math.floor(baseWins * seasonMultiplier);
+                const seasonKills = Math.floor(baseKills * seasonMultiplier);
+                const seasonXp = Math.floor(seededRandom(50000, 2000000));
+                const bpTier = Math.min(100, Math.floor((seasonXp / 20000) + seededRandom(1, 20)));
+
+                // Determine placement percentage
+                let placementPercent;
+                if (rank <= 1000) placementPercent = "Top 0.1%";
+                else if (rank <= 10000) placementPercent = "Top 1%";
+                else if (rank <= 100000) placementPercent = "Top 5%";
+                else if (rank <= 500000) placementPercent = "Top 10%";
+                else if (rank <= 1000000) placementPercent = "Top 25%";
+                else placementPercent = "Top 50%";
+
+                return {
+                    username: username,
+                    rank: rank,
+                    winRate: winRate,
+                    kd: kd,
+                    wins: baseWins,
+                    kills: baseKills,
+                    matches: baseMatches,
+                    platform: platform,
+                    country: country,
+                    skin: skin,
+                    level: level,
+                    score: Math.floor(baseKills * 150 + baseWins * 500),
+                    playtime: Math.floor(baseMatches * seededRandom(0.3, 1.2)) + 'h',
+                    solo: {
+                        wins: soloWins,
+                        kills: soloKills,
+                        matches: soloMatches,
+                        kd: (soloKills / Math.max(soloMatches - soloWins, 1)).toFixed(1),
+                        winRate: ((soloWins / soloMatches) * 100).toFixed(1) + '%',
+                        top10: Math.floor(soloMatches * (0.3 + skillTier * 0.4))
+                    },
+                    duo: {
+                        wins: duoWins,
+                        kills: duoKills,
+                        matches: duoMatches,
+                        kd: (duoKills / Math.max(duoMatches - duoWins, 1)).toFixed(1),
+                        winRate: ((duoWins / duoMatches) * 100).toFixed(1) + '%',
+                        top5: Math.floor(duoMatches * (0.4 + skillTier * 0.3))
+                    },
+                    squad: {
+                        wins: squadWins,
+                        kills: squadKills,
+                        matches: squadMatches,
+                        kd: (squadKills / Math.max(squadMatches - squadWins, 1)).toFixed(1),
+                        winRate: ((squadWins / squadMatches) * 100).toFixed(1) + '%',
+                        top3: Math.floor(squadMatches * (0.5 + skillTier * 0.3))
+                    },
+                    season: {
+                        xp: seasonXp,
+                        wins: seasonWins,
+                        kills: seasonKills,
+                        placement: placementPercent,
+                        bpTier: bpTier
+                    }
+                };
+            }
+
+            // VIP players database (for famous players with preset stats)
+            const vipPlayers = {
+                'ninja': {
+                    username: "Ninja", rank: 1247, winRate: "28.7%", kd: "2.3", wins: 5562, kills: 89754, matches: 19387,
+                    platform: "PC", country: "🇺🇸 US", skin: "Icon Series Ninja", level: 999, score: 23456789, playtime: "8,432h",
+                    solo: { wins: 2834, kills: 45123, matches: 9876, kd: 5.2, winRate: "28.7%", top10: 7234 },
+                    duo: { wins: 1456, kills: 23456, matches: 5123, kd: 4.8, winRate: "28.4%", top5: 3876 },
+                    squad: { wins: 1272, kills: 21175, matches: 4388, kd: 6.1, winRate: "29.0%", top3: 3234 },
+                    season: { xp: 1987654, wins: 187, kills: 2847, placement: "Top 0.1%", bpTier: 100 }
+                },
+                'tfue': {
+                    username: "Tfue", rank: 2156, winRate: "24.3%", kd: "3.1", wins: 4321, kills: 67894, matches: 17789,
+                    platform: "PC", country: "🇺🇸 US", skin: "Crystal", level: 876, score: 19876543, playtime: "7,234h",
+                    solo: { wins: 2156, kills: 34567, matches: 8976, kd: 4.2, winRate: "24.0%", top10: 6234 },
+                    duo: { wins: 1234, kills: 18765, matches: 4987, kd: 3.8, winRate: "24.7%", top5: 3456 },
+                    squad: { wins: 931, kills: 14562, matches: 3826, kd: 4.5, winRate: "24.3%", top3: 2876 },
+                    season: { xp: 1654321, wins: 123, kills: 1987, placement: "Top 0.1%", bpTier: 97 }
+                },
+                'sypherpk': {
+                    username: "SypherPK", rank: 3876, winRate: "19.8%", kd: "2.7", wins: 3456, kills: 54321, matches: 17456,
+                    platform: "PC", country: "🇺🇸 US", skin: "Aura", level: 743, score: 15432198, playtime: "6,987h",
+                    solo: { wins: 1678, kills: 27654, matches: 8765, kd: 3.4, winRate: "19.1%", top10: 5432 },
+                    duo: { wins: 987, kills: 14567, matches: 4876, kd: 3.1, winRate: "20.2%", top5: 2987 },
+                    squad: { wins: 791, kills: 12100, matches: 3815, kd: 3.8, winRate: "20.7%", top3: 2234 },
+                    season: { xp: 1234567, wins: 89, kills: 1543, placement: "Top 1%", bpTier: 89 }
+                }
+            };
 
             // Tab switching functionality
             function showTab(tabName) {
