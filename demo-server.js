@@ -519,6 +519,80 @@ app.get('/', (req, res) => {
                 display: inline-block;
                 margin-left: 0.5rem;
             }
+            .platform-selector {
+                margin: 1.5rem 0;
+                text-align: center;
+            }
+            .platform-selector label {
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 1rem;
+                display: block;
+            }
+            .platform-options {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .platform-options input[type="radio"] {
+                display: none;
+            }
+            .platform-btn {
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #e2e8f0;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .platform-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(0, 212, 255, 0.4);
+                color: #00d4ff;
+                transform: translateY(-1px);
+            }
+            .platform-options input[type="radio"]:checked + .platform-btn {
+                background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+                border-color: #0ea5e9;
+                color: #ffffff;
+                box-shadow: 0 2px 12px rgba(14, 165, 233, 0.25);
+            }
+            .loading-spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 2px solid rgba(0, 212, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: #00d4ff;
+                animation: spin 1s ease-in-out infinite;
+            }
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+            .rank-badge {
+                background: linear-gradient(135deg, #b83dfa, #d946ef);
+                color: white;
+                padding: 0.3rem 0.8rem;
+                border-radius: 15px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: inline-block;
+                margin-left: 0.5rem;
+                box-shadow: 0 0 10px rgba(184, 61, 250, 0.3);
+            }
+            .number-clean {
+                font-family: 'Courier New', monospace;
+                font-weight: 600;
+            }
             .hero {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 padding: 8rem 2rem 4rem;
@@ -1038,7 +1112,7 @@ app.get('/', (req, res) => {
                                 <label for="platform-pc" class="platform-btn">🖥️ PC</label>
 
                                 <input type="radio" id="platform-xbox" name="platform" value="gamepad">
-                                <label for="platform-xbox" class="platform-btn">🎮 Xbox</label>
+                                <label for="platform-xbox" class="platform-btn">���� Xbox</label>
 
                                 <input type="radio" id="platform-ps" name="platform" value="touch">
                                 <label for="platform-ps" class="platform-btn">🕹️ PlayStation</label>
@@ -1346,7 +1420,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#42</td><td>motionfv<br><span class="player-skin">Using: Maya</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#43</td><td>M8 Mаlibucа<br><span class="player-skin">Using: Deadpool</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#44</td><td>Twitch Happyfnrr<br><span class="player-skin">Using: Kit</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
-                                <tr><td class="rank">#45</td><td>M8 Pоlloǃ<br><span class="player-skin">Using: Jules</span></td><td>���</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#45</td><td>M8 Pоlloǃ<br><span class="player-skin">Using: Jules</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#46</td><td>Twitch Surprise<br><span class="player-skin">Using: Ocean</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#47</td><td>Mr. Lunoxs<br><span class="player-skin">Using: Fade</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#48</td><td>Solarу Kurama<br><span class="player-skin">Using: Siona</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
