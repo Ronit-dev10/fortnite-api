@@ -178,18 +178,26 @@ app.get('/', (req, res) => {
                 color: rgba(255, 255, 255, 0.7);
             }
             .search-btn {
-                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
+                background: linear-gradient(135deg, #0ea5e9, #06b6d4);
                 border: none;
-                color: #fff;
-                padding: 1rem 2rem;
-                border-radius: 25px;
+                color: #ffffff;
+                padding: 0.875rem 1.75rem;
+                border-radius: 8px;
                 cursor: pointer;
                 font-weight: 600;
-                transition: all 0.3s ease;
+                font-size: 0.875rem;
+                letter-spacing: 0.025em;
+                transition: all 0.2s ease;
+                box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
             }
             .search-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+                background: linear-gradient(135deg, #0284c7, #0891b2);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+            }
+            .search-btn:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
             }
             .player-result {
                 background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
@@ -738,7 +746,7 @@ app.get('/', (req, res) => {
                             <p>Team up with a friend in this 50-team competition. Communication and teamwork are key to victory.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                            <span class="mode-icon">👨‍👩‍👧‍����</span>
                             <h4>Battle Royale Squads</h4>
                             <p>Form a squad of up to 4 players. Coordinate strategies and revive teammates to achieve Victory Royale.</p>
                         </div>
@@ -782,7 +790,7 @@ app.get('/', (req, res) => {
                             <div class="player-info">
                                 <h3 id="player-name">Player Name</h3>
                                 <div class="player-rank" id="player-rank">#1 Global</div>
-                                <div id="player-country">🇺🇸 United States</div>
+                                <div id="player-country">����🇸 United States</div>
                                 <div id="player-skin">Using: Renegade Raider</div>
                             </div>
                         </div>
@@ -871,7 +879,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#16</td><td>npc oo oo ah ah<br><span class="player-skin">Using: Marshmello</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>78%</td></tr>
                                 <tr><td class="rank">#17</td><td>Daywalker.36<br><span class="player-skin">Using: Lynx</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>77%</td></tr>
                                 <tr><td class="rank">#18</td><td>bﱞοﱞt<br><span class="player-skin">Using: Ragnarok</span></td><td>🇨🇺 CU</td><td><span class="division-unreal">Unreal</span></td><td>76%</td></tr>
-                                <tr><td class="rank">#19</td><td>Monto Gold7<br><span class="player-skin">Using: Ice King</span></td><td>����🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>75%</td></tr>
+                                <tr><td class="rank">#19</td><td>Monto Gold7<br><span class="player-skin">Using: Ice King</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>75%</td></tr>
                                 <tr><td class="rank">#20</td><td>TTV 313CRYPTIC<br><span class="player-skin">Using: Ninja</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>74%</td></tr>
                                 <tr><td class="rank">#21</td><td>krux 7<br><span class="player-skin">Using: Luxe</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>74%</td></tr>
                                 <tr><td class="rank">#22</td><td>Drﱞake.<br><span class="player-skin">Using: Hybrid</span></td><td>🇫🇲 FM</td><td><span class="division-unreal">Unreal</span></td><td>73%</td></tr>
@@ -984,7 +992,7 @@ app.get('/', (req, res) => {
                                     <tr class="top-3-row top-1">
                                         <td class="rank">👑 #1</td>
                                         <td><strong>ReloadKing_TTV</strong><br><span class="player-skin">Using: John Wick</span></td>
-                                        <td>🇺�� US</td>
+                                        <td>🇺🇸 US</td>
                                         <td><strong>0.8s</strong></td>
                                         <td><strong>98%</strong></td>
                                         <td><strong>15,670</strong></td>
