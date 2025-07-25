@@ -1235,7 +1235,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#29</td><td>Pandore GaLaK<br><span class="player-skin">Using: Fusion</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#30</td><td>yes THAT godie<br><span class="player-skin">Using: Journey vs Hazard</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
-                                <tr><td class="rank">#32</td><td>tiktokぴーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#32</td><td>tiktok���ーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#33</td><td>185 guruu<br><span class="player-skin">Using: Rippley vs Sludge</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#34</td><td>AG ZyuPK 23<br><span class="player-skin">Using: Turk vs Riptide</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
@@ -1780,7 +1780,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Arrays for random selection
-                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮���� IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
                 const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
                 const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
 
@@ -1852,31 +1852,31 @@ app.get('/', (req, res) => {
                     country: country,
                     skin: skin,
                     level: level,
-                    score: Math.floor(baseKills * 150 + baseWins * 500),
-                    playtime: Math.floor(baseMatches * seededRandom(0.3, 1.2)) + 'h',
+                    score: Math.floor(baseKills * 150 + baseWins * 500 + (seasonXp * 0.1)),
+                    playtime: Math.floor(baseMatches * seededRandom(0.15, 0.35)) + 'h',
                     solo: {
                         wins: soloWins,
                         kills: soloKills,
                         matches: soloMatches,
-                        kd: (soloKills / Math.max(soloMatches - soloWins, 1)).toFixed(1),
-                        winRate: ((soloWins / soloMatches) * 100).toFixed(1) + '%',
-                        top10: Math.floor(soloMatches * (0.3 + skillTier * 0.4))
+                        kd: soloKD.toFixed(1),
+                        winRate: ((soloWins / Math.max(soloMatches, 1)) * 100).toFixed(1) + '%',
+                        top10: Math.floor(soloMatches * (0.15 + skillTier * 0.25))
                     },
                     duo: {
                         wins: duoWins,
                         kills: duoKills,
                         matches: duoMatches,
-                        kd: (duoKills / Math.max(duoMatches - duoWins, 1)).toFixed(1),
-                        winRate: ((duoWins / duoMatches) * 100).toFixed(1) + '%',
-                        top5: Math.floor(duoMatches * (0.4 + skillTier * 0.3))
+                        kd: duoKD.toFixed(1),
+                        winRate: ((duoWins / Math.max(duoMatches, 1)) * 100).toFixed(1) + '%',
+                        top5: Math.floor(duoMatches * (0.25 + skillTier * 0.30))
                     },
                     squad: {
                         wins: squadWins,
                         kills: squadKills,
                         matches: squadMatches,
-                        kd: (squadKills / Math.max(squadMatches - squadWins, 1)).toFixed(1),
-                        winRate: ((squadWins / squadMatches) * 100).toFixed(1) + '%',
-                        top3: Math.floor(squadMatches * (0.5 + skillTier * 0.3))
+                        kd: squadKD.toFixed(1),
+                        winRate: ((squadWins / Math.max(squadMatches, 1)) * 100).toFixed(1) + '%',
+                        top3: Math.floor(squadMatches * (0.35 + skillTier * 0.35))
                     },
                     season: {
                         xp: seasonXp,
