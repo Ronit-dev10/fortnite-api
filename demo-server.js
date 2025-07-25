@@ -442,6 +442,83 @@ app.get('/', (req, res) => {
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
             }
+            .api-mode-selector {
+                display: flex;
+                gap: 2rem;
+                justify-content: center;
+                margin: 1.5rem 0;
+                flex-wrap: wrap;
+            }
+            .mode-option {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .mode-option input[type="radio"] {
+                accent-color: #00d4ff;
+                transform: scale(1.2);
+            }
+            .mode-option label {
+                font-weight: 600;
+                cursor: pointer;
+                transition: color 0.2s ease;
+            }
+            .mode-option label:hover {
+                color: #00d4ff;
+            }
+            .mode-description {
+                background: rgba(0, 212, 255, 0.1);
+                border: 1px solid rgba(0, 212, 255, 0.2);
+                border-radius: 8px;
+                padding: 1rem;
+                margin: 1rem 0;
+                text-align: center;
+            }
+            .api-key-input {
+                display: flex;
+                gap: 1rem;
+                margin: 1rem 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .search-btn.secondary {
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: #e2e8f0;
+            }
+            .search-btn.secondary:hover {
+                background: rgba(255, 255, 255, 0.15);
+                border-color: #00d4ff;
+                color: #00d4ff;
+            }
+            .search-tips {
+                margin-top: 1rem;
+                text-align: center;
+            }
+            .demo-badge {
+                background: linear-gradient(45deg, #f59e0b, #f97316);
+                color: white;
+                padding: 0.2rem 0.6rem;
+                border-radius: 12px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: inline-block;
+                margin-left: 0.5rem;
+            }
+            .live-badge {
+                background: linear-gradient(45deg, #22c55e, #16a34a);
+                color: white;
+                padding: 0.2rem 0.6rem;
+                border-radius: 12px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: inline-block;
+                margin-left: 0.5rem;
+            }
             .hero {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 padding: 8rem 2rem 4rem;
@@ -1270,7 +1347,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#36</td><td>twitch yjzz_<br><span class="player-skin">Using: Skye</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#37</td><td>Twitch irlsnax<br><span class="player-skin">Using: Meowscles</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
-                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
+                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷���� RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
                                 <tr><td class="rank">#39</td><td>Claire まろもちch<br><span class="player-skin">Using: Brutus</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#40</td><td>CHUGGINGTON ﾃ<br><span class="player-skin">Using: TNTina</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#41</td><td>DIE OKTONAUTEN<br><span class="player-skin">Using: Midas</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
@@ -1318,7 +1395,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#85</td><td>chacalGOTY 7<br><span class="player-skin">Using: Ariana Grande</span></td><td>🇧🇷 BR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬🇹 GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬���� GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#87</td><td>ǃ Egy Kub1x ǃ<br><span class="player-skin">Using: Venom</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#88</td><td>G8 Eltensy<br><span class="player-skin">Using: The Foundation</span></td><td>🇺🇦 UA</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#89</td><td>axrtiy<br><span class="player-skin">Using: Spider-Man</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -2005,7 +2082,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Show loading state
-                resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>�� Searching global database...</h3><p>Loading player data for: ' + username + '</p></div>';
+                resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>🔍 Searching global database...</h3><p>Loading player data for: ' + username + '</p></div>';
                 resultDiv.classList.add('show');
 
                 // Simulate API delay for realism
