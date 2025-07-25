@@ -854,7 +854,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#29</td><td>Pandore GaLaK<br><span class="player-skin">Using: Fusion</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#30</td><td>yes THAT godie<br><span class="player-skin">Using: Journey vs Hazard</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
-                                <tr><td class="rank">#32</td><td>tiktokぴーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#32</td><td>tiktok���ーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#33</td><td>185 guruu<br><span class="player-skin">Using: Rippley vs Sludge</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#34</td><td>AG ZyuPK 23<br><span class="player-skin">Using: Turk vs Riptide</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
@@ -1162,7 +1162,7 @@ app.get('/', (req, res) => {
                     </div>
 
                     <div class="news-card" data-category="collaborations">
-                        <div class="news-image">🎵</div>
+                        <div class="news-image">����</div>
                         <div class="news-content">
                             <h3 class="news-title">Sabrina Carpenter Fortnite Festival</h3>
                             <p class="news-date">April 7, 2025</p>
@@ -1305,42 +1305,7 @@ app.get('/', (req, res) => {
                     </div>
                 </div>
             </section>
-
-            <section class="section">
-                <h2 class="section-title">Platform Features</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <span class="feature-icon">📊</span>
-                        <h3 class="feature-title">Advanced Statistics</h3>
-                        <p class="feature-desc">Track detailed performance metrics including accuracy, damage per minute, building speed, and survival time across all game modes.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🎯</span>
-                        <h3 class="feature-title">Performance Analytics</h3>
-                        <p class="feature-desc">Analyze your gameplay patterns, identify strengths and weaknesses, and get personalized tips to improve your game.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">👥</span>
-                        <h3 class="feature-title">Squad Tracking</h3>
-                        <p class="feature-desc">Monitor your squad's combined performance, compare team statistics, and optimize your group strategy.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">📈</span>
-                        <h3 class="feature-title">Progress Monitoring</h3>
-                        <p class="feature-desc">Watch your improvement over time with detailed graphs showing skill progression and ranking changes.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🔔</span>
-                        <h3 class="feature-title">Real-time Alerts</h3>
-                        <p class="feature-desc">Get notified about new seasons, events, item shop updates, and when your friends are online.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🌍</span>
-                        <h3 class="feature-title">Global Rankings</h3>
-                        <p class="feature-desc">See how you rank against players worldwide and in your region across different game modes and time periods.</p>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
 
         <footer class="footer">
