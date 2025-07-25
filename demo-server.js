@@ -1028,42 +1028,34 @@ app.get('/', (req, res) => {
                     <h2 class="section-title">Player Search & Stats</h2>
 
                     <div class="search-section">
-                        <h3>🌍 Player Statistics Search</h3>
+                        <h3>🔥 Real FortniteTracker Search</h3>
+                        <p>Search actual Fortnite players and get their real statistics from FortniteTracker.com</p>
 
-                        <div class="api-mode-selector">
-                            <div class="mode-option">
-                                <input type="radio" id="demo-mode" name="api-mode" value="demo" checked>
-                                <label for="demo-mode">📊 Demo Mode (Simulated Data)</label>
-                            </div>
-                            <div class="mode-option">
-                                <input type="radio" id="live-mode" name="api-mode" value="live">
-                                <label for="live-mode">🔴 Live Data (Requires API Key)</label>
-                            </div>
-                        </div>
+                        <div class="platform-selector">
+                            <label>🎮 Platform:</label>
+                            <div class="platform-options">
+                                <input type="radio" id="platform-pc" name="platform" value="kbm" checked>
+                                <label for="platform-pc" class="platform-btn">🖥️ PC</label>
 
-                        <div id="demo-description" class="mode-description">
-                            <p>🎮 <strong>Demo Mode:</strong> Generates realistic Fortnite statistics for any username using advanced algorithms. Perfect for testing and demonstration purposes.</p>
-                        </div>
+                                <input type="radio" id="platform-xbox" name="platform" value="gamepad">
+                                <label for="platform-xbox" class="platform-btn">🎮 Xbox</label>
 
-                        <div id="live-description" class="mode-description" style="display: none;">
-                            <p>🔥 <strong>Live Mode:</strong> Connect to real Fortnite APIs for actual player data from Epic Games and FortniteTracker.</p>
-                            <div class="api-key-input">
-                                <input type="text" class="search-input" placeholder="Enter your FortniteTracker API Key..." id="api-key-input">
-                                <button class="search-btn secondary" onclick="saveApiKey()">💾 Save Key</button>
+                                <input type="radio" id="platform-ps" name="platform" value="touch">
+                                <label for="platform-ps" class="platform-btn">🕹️ PlayStation</label>
                             </div>
-                            <p style="font-size: 0.8rem; color: #a0a9c0; margin-top: 0.5rem;">
-                                Get your free API key at <a href="https://fortnitetracker.com/developers" target="_blank" style="color: #00d4ff;">FortniteTracker.com/developers</a>
-                            </p>
                         </div>
 
                         <div class="player-search">
-                            <input type="text" class="search-input" placeholder="Enter Fortnite username..." id="player-search-input">
-                            <button class="search-btn" onclick="searchPlayer()">🔍 Search Player</button>
+                            <input type="text" class="search-input" placeholder="Enter exact Fortnite username..." id="player-search-input">
+                            <button class="search-btn" onclick="searchRealPlayer()">🔍 Search FortniteTracker</button>
                         </div>
 
                         <div class="search-tips">
                             <p style="font-size: 0.85rem; color: #a0a9c0;">
-                                💡 <strong>Demo suggestions:</strong> Try <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>Bugha</strong>, <strong>Mongraal</strong>, or any creative username!
+                                ⚡ <strong>Real Data:</strong> This searches actual FortniteTracker.com data. Try <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>SypherPK</strong> or any real player!
+                            </p>
+                            <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">
+                                📝 Enter the exact username as it appears in-game for best results
                             </p>
                         </div>
                     </div>
@@ -1354,7 +1346,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#42</td><td>motionfv<br><span class="player-skin">Using: Maya</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#43</td><td>M8 Mаlibucа<br><span class="player-skin">Using: Deadpool</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#44</td><td>Twitch Happyfnrr<br><span class="player-skin">Using: Kit</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
-                                <tr><td class="rank">#45</td><td>M8 Pоlloǃ<br><span class="player-skin">Using: Jules</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#45</td><td>M8 Pоlloǃ<br><span class="player-skin">Using: Jules</span></td><td>���</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#46</td><td>Twitch Surprise<br><span class="player-skin">Using: Ocean</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#47</td><td>Mr. Lunoxs<br><span class="player-skin">Using: Fade</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#48</td><td>Solarу Kurama<br><span class="player-skin">Using: Siona</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
@@ -1372,7 +1364,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#60</td><td>0fkq<br><span class="player-skin">Using: Lexa</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#61</td><td>Nadporučík Vagy<br><span class="player-skin">Using: Reese</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#62</td><td>Accused.Qertzzo<br><span class="player-skin">Using: The Mandalorian</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
-                                <tr><td class="rank">#63</td><td>DТ Rise<br><span class="player-skin">Using: Menace</span></td><td>���</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#63</td><td>DТ Rise<br><span class="player-skin">Using: Menace</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
                                 <tr><td class="rank">#64</td><td>Podporučík Riol<br><span class="player-skin">Using: Agent Jones</span></td><td>🇸🇰 SK</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
                                 <tr><td class="rank">#65</td><td>fقne spقidar<br><span class="player-skin">Using: The Visitor</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
                                 <tr><td class="rank">#66</td><td>rezotoǃ<br><span class="player-skin">Using: The Scientist</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
