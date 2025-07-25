@@ -1430,7 +1430,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#52</td><td>bigmuffin555<br><span class="player-skin">Using: Groot</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#53</td><td>sкі.<br><span class="player-skin">Using: Storm</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#54</td><td>ВКǃ<br><span class="player-skin">Using: Doctor Doom</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
-                                <tr><td class="rank">#55</td><td>deviantǃ<br><span class="player-skin">Using: Mystique</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#55</td><td>deviant��<br><span class="player-skin">Using: Mystique</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#56</td><td>TRKF DANDEPUZO<br><span class="player-skin">Using: Iron Man</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#57</td><td>Sinister Polzt<br><span class="player-skin">Using: Wolverine</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#58</td><td>Twitch T1nman21<br><span class="player-skin">Using: Mancake</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
@@ -1472,7 +1472,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#94</td><td>2AM Zenon<br><span class="player-skin">Using: Ronin</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#95</td><td>paranoid andrоid<br><span class="player-skin">Using: Gunnar</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#96</td><td>156 TURTL3 JO<br><span class="player-skin">Using: Stormfarer</span></td><td>🇷🇴 RO</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
-                                <tr><td class="rank">#97</td><td>ノノチ<br><span class="player-skin">Using: The Imagined</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#97</td><td>���ノチ<br><span class="player-skin">Using: The Imagined</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#98</td><td>Twitch 7Zyrox7<br><span class="player-skin">Using: Tsuki 2.0</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#99</td><td>twitter masnfn6<br><span class="player-skin">Using: Kiara K.O.</span></td><td>🇸🇪 SE</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#100</td><td>Twitch-xjoaxyf<br><span class="player-skin">Using: Adira</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
@@ -3007,6 +3007,46 @@ app.get('/', (req, res) => {
                 \`;
 
                 resultDiv.classList.add('show');
+            }
+
+            // Load all reload players function
+            function loadAllReloadPlayers() {
+                const tbody = document.getElementById('reload-leaderboard');
+                if (!tbody) return;
+
+                const countries = ["🇺🇸 US", "🇨🇦 CA", "🇬🇧 UK", "🇩🇪 DE", "🇫🇷 FR", "🇯🇵 JP", "🇦🇺 AU", "🇧🇷 BR", "🇲🇽 MX", "🇰🇷 KR"];
+                const skins = ["Crystal", "Aura", "Dynamo", "Superhero", "Driver", "OG Default", "Fishstick", "Peely", "Midas", "Kit"];
+
+                // Clear existing rows except top 3
+                const existingRows = tbody.querySelectorAll('tr');
+                for (let i = 3; i < existingRows.length; i++) {
+                    existingRows[i].remove();
+                }
+
+                // Add remaining 97 players
+                for (let i = 4; i <= 100; i++) {
+                    const row = document.createElement('tr');
+                    const username = 'ReloadPro' + i + '_' + Math.random().toString(36).substr(2, 5);
+                    const avgTime = (0.8 + Math.random() * 0.8).toFixed(1) + 's';
+                    const accuracy = (85 + Math.random() * 13).toFixed(0) + '%';
+                    const fastReloads = Math.floor(13000 - (i * 120) + Math.random() * 500).toLocaleString();
+                    const country = countries[Math.floor(Math.random() * countries.length)];
+                    const skin = skins[Math.floor(Math.random() * skins.length)];
+
+                    row.innerHTML = '<td class="rank">#' + i + '</td>' +
+                        '<td>' + username + '<br><span class="player-skin">Using: ' + skin + '</span></td>' +
+                        '<td>' + country + '</td>' +
+                        '<td>' + avgTime + '</td>' +
+                        '<td>' + accuracy + '</td>' +
+                        '<td>' + fastReloads + '</td>';
+
+                    tbody.appendChild(row);
+                }
+
+                // Hide the load button
+                if (event && event.target) {
+                    event.target.style.display = 'none';
+                }
             }
 
             // Generate recent matches display based on username for consistency
