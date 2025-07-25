@@ -12,120 +12,206 @@ app.get('/', (req, res) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Fortnite API Demo</title>
+        <title>Fortnite API</title>
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
             body {
-                font-family: Arial, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #f5f5f5;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             .container {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                padding: 40px;
+                max-width: 900px;
+                width: 90%;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            .title {
+                font-size: 3rem;
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 10px;
+            }
+            .subtitle {
+                color: #666;
+                font-size: 1.2rem;
+            }
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin: 40px 0;
+            }
+            .feature-card {
                 background: white;
                 padding: 30px;
-                border-radius: 10px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }
-            h1 {
-                color: #333;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
                 text-align: center;
-                margin-bottom: 30px;
+                transition: transform 0.3s ease;
             }
-            .api-section {
-                margin: 20px 0;
-                padding: 20px;
-                background: #f8f9fa;
-                border-radius: 5px;
-                border-left: 4px solid #007bff;
+            .feature-card:hover {
+                transform: translateY(-5px);
             }
-            .endpoint {
-                background: #e9ecef;
-                padding: 10px;
-                border-radius: 3px;
-                font-family: monospace;
-                margin: 10px 0;
+            .feature-icon {
+                font-size: 3rem;
+                margin-bottom: 20px;
+                display: block;
             }
-            .description {
+            .feature-title {
+                font-size: 1.3rem;
+                color: #333;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+            .feature-desc {
                 color: #666;
-                margin: 10px 0;
+                line-height: 1.6;
             }
-            .warning {
-                background: #fff3cd;
-                border: 1px solid #ffeaa7;
-                color: #856404;
-                padding: 15px;
-                border-radius: 5px;
-                margin: 20px 0;
+            .stats-section {
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                padding: 40px;
+                border-radius: 15px;
+                margin: 40px 0;
+                text-align: center;
+            }
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 30px;
+                margin-top: 30px;
+            }
+            .stat-item {
+                text-align: center;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+                font-weight: bold;
+                display: block;
+            }
+            .stat-label {
+                font-size: 1rem;
+                opacity: 0.9;
+            }
+            .cta-section {
+                text-align: center;
+                margin-top: 40px;
+            }
+            .cta-button {
+                display: inline-block;
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                padding: 15px 40px;
+                border-radius: 50px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            }
+            .cta-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
             }
             .footer {
                 text-align: center;
                 margin-top: 40px;
-                color: #666;
-                font-size: 14px;
+                color: #888;
+                font-size: 0.9rem;
+            }
+            .footer a {
+                color: #667eea;
+                text-decoration: none;
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <h1>🎮 Fortnite API Library</h1>
-            
-            <div class="warning">
-                <strong>⚠️ Demo Note:</strong> This is a demonstration of the Fortnite API Node.js library. 
-                To use the actual API functionality, you need to provide Epic Games credentials and tokens.
+            <div class="header">
+                <h1 class="title">Fortnite API</h1>
+                <p class="subtitle">Professional Node.js library for Fortnite data integration</p>
             </div>
 
-            <div class="api-section">
-                <h3>📊 Available API Endpoints</h3>
-                <div class="description">This library provides access to various Fortnite data:</div>
-                
-                <div class="endpoint">GET /api/status - Check Fortnite server status</div>
-                <div class="endpoint">GET /api/news - Get Fortnite news</div>
-                <div class="endpoint">GET /api/stats/:username/:platform - Get player stats</div>
-                <div class="endpoint">GET /api/leaderboard/:platform/:type - Get leaderboard</div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Player Statistics</h3>
+                    <p class="feature-desc">Access comprehensive Battle Royale stats including wins, kills, K/D ratios, and match history across all platforms.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📰</span>
+                    <h3 class="feature-title">Game News</h3>
+                    <p class="feature-desc">Stay updated with the latest Fortnite news, announcements, and in-game events directly from Epic Games.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">Leaderboards</h3>
+                    <p class="feature-desc">Retrieve global leaderboards for Solo, Duo, and Squad modes across PC, PlayStation, and Xbox platforms.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🛒</span>
+                    <h3 class="feature-title">Item Shop</h3>
+                    <p class="feature-desc">Access current item shop data including featured items, daily items, and pricing information.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title">Server Status</h3>
+                    <p class="feature-desc">Monitor Fortnite server status and availability to ensure optimal user experience.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">Player Lookup</h3>
+                    <p class="feature-desc">Search and retrieve player information by username or ID across all supported platforms.</p>
+                </div>
             </div>
 
-            <div class="api-section">
-                <h3>🔧 Setup Requirements</h3>
-                <div class="description">To use this API, you need:</div>
-                <ul>
-                    <li>Epic Games account credentials</li>
-                    <li>Client Launcher Token</li>
-                    <li>Fortnite Client Token</li>
-                    <li>Two-factor authentication disabled</li>
-                    <li>At least one Fortnite login</li>
-                </ul>
+            <div class="stats-section">
+                <h2>Trusted by Developers Worldwide</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">3.4.0</span>
+                        <span class="stat-label">Latest Version</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">API Endpoints</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Platforms Supported</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="api-section">
-                <h3>📚 Usage Example</h3>
-                <pre style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 5px; overflow-x: auto;">
-const Fortnite = require("fortnite-api");
-
-let fortniteAPI = new Fortnite([
-    "EMAIL_ACCOUNT",
-    "PASSWORD", 
-    "CLIENT_LAUNCHER_TOKEN",
-    "FORTNITE_CLIENT_TOKEN"
-]);
-
-fortniteAPI.login().then(() => {
-    // Get player stats
-    fortniteAPI.getStatsBR("username", "pc", "weekly")
-        .then(stats => console.log(stats))
-        .catch(err => console.log(err));
-});
-                </pre>
-            </div>
-
-            <div class="api-section">
-                <h3>🚀 Installation</h3>
-                <div class="endpoint">npm install fortnite-api</div>
+            <div class="cta-section">
+                <a href="https://github.com/qlaffont/fortnite-api" target="_blank" class="cta-button">
+                    View Documentation
+                </a>
             </div>
 
             <div class="footer">
-                <p>For more information, check the <a href="https://github.com/qlaffont/fortnite-api" target="_blank">GitHub repository</a></p>
-                <p>Version: 3.4.0 | Author: Quentin Laffont</p>
+                <p>Created by <a href="https://github.com/qlaffont" target="_blank">Quentin Laffont</a> | MIT License</p>
             </div>
         </div>
     </body>
