@@ -730,8 +730,66 @@ app.get('/', (req, res) => {
                     </div>
                 </div>
             </section>
+            </div>
 
-            <section class="section" id="leaderboards">
+            <!-- Player Search Tab -->
+            <div id="search-tab" class="tab-content">
+                <section class="section">
+                    <h2 class="section-title">Player Search & Stats</h2>
+
+                    <div class="search-section">
+                        <h3>Search Any Player</h3>
+                        <p>Enter a player's username to view their detailed statistics and performance data</p>
+                        <div class="player-search">
+                            <input type="text" class="search-input" placeholder="Enter player username..." id="player-search-input">
+                            <button class="search-btn" onclick="searchPlayer()">🔍 Search Player</button>
+                        </div>
+                    </div>
+
+                    <div id="player-result" class="player-result">
+                        <div class="player-header">
+                            <div class="player-avatar" id="player-avatar">?</div>
+                            <div class="player-info">
+                                <h3 id="player-name">Player Name</h3>
+                                <div class="player-rank" id="player-rank">#1 Global</div>
+                                <div id="player-country">🇺🇸 United States</div>
+                                <div id="player-skin">Using: Renegade Raider</div>
+                            </div>
+                        </div>
+
+                        <div class="player-stats-grid">
+                            <div class="player-stat">
+                                <span class="stat-value" id="player-wins">0</span>
+                                <span class="stat-name">Total Wins</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value" id="player-kd">0.0</span>
+                                <span class="stat-name">K/D Ratio</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value" id="player-winrate">0%</span>
+                                <span class="stat-name">Win Rate</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value" id="player-kills">0</span>
+                                <span class="stat-name">Total Kills</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value" id="player-matches">0</span>
+                                <span class="stat-name">Matches Played</span>
+                            </div>
+                            <div class="player-stat">
+                                <span class="stat-value" id="player-platform">PC</span>
+                                <span class="stat-name">Platform</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Leaderboards Tab -->
+            <div id="leaderboards-tab" class="tab-content">
+                <section class="section" id="leaderboards">
                 <h2 class="section-title">Global Leaderboards</h2>
                 <div class="leaderboard-section">
                     <h3>Top 100 Ranked Players - Unreal Division</h3>
