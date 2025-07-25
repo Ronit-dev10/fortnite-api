@@ -63,6 +63,14 @@ app.get('/', (req, res) => {
                     btn.classList.remove('active');
                 });
 
+                // Hide search result when switching away from search tab
+                if (tabName !== 'search') {
+                    const playerResult = document.getElementById('player-result');
+                    if (playerResult) {
+                        playerResult.classList.remove('show');
+                    }
+                }
+
                 // Show selected tab
                 const targetTab = document.getElementById(tabName + '-tab');
                 if (targetTab) {
@@ -1143,7 +1151,7 @@ app.get('/', (req, res) => {
                             <p>Team up with a friend in this 50-team competition. Communication and teamwork are key to victory.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">����‍👩‍👧‍👦</span>
+                            <span class="mode-icon">👨‍👩‍👧‍👦</span>
                             <h4>Battle Royale Squads</h4>
                             <p>Form a squad of up to 4 players. Coordinate strategies and revive teammates to achieve Victory Royale.</p>
                         </div>
@@ -2175,7 +2183,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Arrays for random selection
-                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮�� IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
                 const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
                 const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
 
