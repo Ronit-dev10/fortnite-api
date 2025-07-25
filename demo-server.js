@@ -2003,7 +2003,7 @@ app.get('/', (req, res) => {
 
                                 <div class="mode-card">
                                     <div class="mode-header">
-                                        <span class="mode-icon">���</span>
+                                        <span class="mode-icon">👥</span>
                                         <h5>Duo</h5>
                                     </div>
                                     <div class="mode-stats-grid">
@@ -2166,31 +2166,56 @@ app.get('/', (req, res) => {
                 }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds for realism
             }
 
-            // Generate recent matches display
-            function generateRecentMatches() {
+            // Generate recent matches display based on username for consistency
+            function generateRecentMatches(username) {
                 const container = document.getElementById('recent-matches');
                 container.innerHTML = '';
 
-                const placements = ['#1', '#3', '#7', '#1', '#12', '#5', '#2', '#15', '#1', '#8'];
-                const kills = [8, 5, 3, 12, 2, 7, 9, 1, 15, 4];
+                // Create seed from username for consistent match history
+                let seed = 0;
+                for (let i = 0; i < username.length; i++) {
+                    seed += username.charCodeAt(i);
+                }
 
-                placements.forEach((placement, index) => {
+                function seededRandom(min = 0, max = 1) {
+                    seed = (seed * 9301 + 49297) % 233280;
+                    const rnd = seed / 233280;
+                    return min + rnd * (max - min);
+                }
+
+                // Generate 10 recent matches
+                for (let i = 0; i < 10; i++) {
                     const matchCard = document.createElement('div');
                     matchCard.className = 'match-card';
 
-                    if (placement === '#1') {
+                    // Generate placement (higher skill usernames get better placements)
+                    const skillBonus = username.toLowerCase().includes('pro') || username.toLowerCase().includes('ttv') ? 0.3 : 0;
+                    const placementRoll = seededRandom(0, 1) + skillBonus;
+
+                    let placement, kills;
+                    if (placementRoll > 0.85) {
+                        placement = '#1';
+                        kills = Math.floor(seededRandom(5, 20));
                         matchCard.classList.add('win');
-                    } else if (parseInt(placement.slice(1)) <= 5) {
+                    } else if (placementRoll > 0.6) {
+                        placement = '#' + Math.floor(seededRandom(2, 6));
+                        kills = Math.floor(seededRandom(3, 12));
                         matchCard.classList.add('top5');
+                    } else if (placementRoll > 0.3) {
+                        placement = '#' + Math.floor(seededRandom(6, 25));
+                        kills = Math.floor(seededRandom(1, 8));
+                    } else {
+                        placement = '#' + Math.floor(seededRandom(25, 100));
+                        kills = Math.floor(seededRandom(0, 5));
                     }
 
                     matchCard.innerHTML = \`
                         <div class="match-placement">\${placement}</div>
-                        <div class="match-kills">\${kills[index]} kills</div>
+                        <div class="match-kills">\${kills} kills</div>
                     \`;
 
                     container.appendChild(matchCard);
-                });
+                }
             }
 
             // Load all reload players
