@@ -671,7 +671,9 @@ app.get('/', (req, res) => {
         </section>
 
         <div class="container">
-            <section class="section" id="stats">
+            <!-- Home Tab -->
+            <div id="home-tab" class="tab-content active">
+                <section class="section" id="stats">
                 <h2 class="section-title">Live Game Statistics</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
