@@ -828,7 +828,7 @@ app.get('/', (req, res) => {
                                 </tr>
                                 <tr><td class="rank">#4</td><td>pliesfv twitch<br><span class="player-skin">Using: Galaxy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>99%</td></tr>
                                 <tr><td class="rank">#5</td><td>Twitch Perkcules<br><span class="player-skin">Using: Ghoul Trooper</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>88%</td></tr>
-                                <tr><td class="rank">#6</td><td>twitch zupamk<br><span class="player-skin">Using: John Wick</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>87%</td></tr>
+                                <tr><td class="rank">#6</td><td>twitch zupamk<br><span class="player-skin">Using: John Wick</span></td><td>����</td><td><span class="division-unreal">Unreal</span></td><td>87%</td></tr>
                                 <tr><td class="rank">#7</td><td>Poručík Ghoustl<br><span class="player-skin">Using: Omega</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>86%</td></tr>
                                 <tr><td class="rank">#8</td><td>аhsul1<br><span class="player-skin">Using: Fishstick</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>84%</td></tr>
                                 <tr><td class="rank">#9</td><td>twtch 2xwasheyyǃ<br><span class="player-skin">Using: Travis Scott</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>84%</td></tr>
@@ -854,7 +854,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#29</td><td>Pandore GaLaK<br><span class="player-skin">Using: Fusion</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#30</td><td>yes THAT godie<br><span class="player-skin">Using: Journey vs Hazard</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
-                                <tr><td class="rank">#32</td><td>tiktok���ーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#32</td><td>tiktokぴーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#33</td><td>185 guruu<br><span class="player-skin">Using: Rippley vs Sludge</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#34</td><td>AG ZyuPK 23<br><span class="player-skin">Using: Turk vs Riptide</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
@@ -1162,7 +1162,7 @@ app.get('/', (req, res) => {
                     </div>
 
                     <div class="news-card" data-category="collaborations">
-                        <div class="news-image">����</div>
+                        <div class="news-image">🎵</div>
                         <div class="news-content">
                             <h3 class="news-title">Sabrina Carpenter Fortnite Festival</h3>
                             <p class="news-date">April 7, 2025</p>
@@ -1322,8 +1322,120 @@ app.get('/', (req, res) => {
         </footer>
 
         <script>
-            // Navigation filtering functionality
+            // Player database for search
+            const playerDatabase = [
+                { username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875, platform: "PC", country: "🇫🇷 FR", skin: "Renegade Raider" },
+                { username: "free storm kids", rank: 2, winRate: "99%", kd: "11.8", wins: 2693, kills: 31734, matches: 2721, platform: "PC", country: "🇫🇷 FR", skin: "Black Knight" },
+                { username: "Twitch matthew1x", rank: 3, winRate: "99%", kd: "13.2", wins: 2541, kills: 33542, matches: 2565, platform: "PC", country: "🇺🇸 US", skin: "Skull Trooper" },
+                { username: "pliesfv twitch", rank: 4, winRate: "99%", kd: "10.9", wins: 2387, kills: 26019, matches: 2410, platform: "PC", country: "🇺🇸 US", skin: "Galaxy" },
+                { username: "Twitch Perkcules", rank: 5, winRate: "88%", kd: "12.7", wins: 2234, kills: 28402, matches: 2540, platform: "PC", country: "🇺🇸 US", skin: "Ghoul Trooper" },
+                { username: "Ninja", rank: 6, winRate: "85%", kd: "8.9", wins: 2100, kills: 18690, matches: 2470, platform: "PC", country: "🇺🇸 US", skin: "Icon Series" },
+                { username: "Tfue", rank: 7, winRate: "82%", kd: "9.5", wins: 1987, kills: 18876, matches: 2425, platform: "PC", country: "🇺🇸 US", skin: "Crystal" },
+                { username: "SypherPK", rank: 8, winRate: "79%", kd: "7.8", wins: 1876, kills: 14632, matches: 2373, platform: "PC", country: "🇺🇸 US", skin: "Aura" },
+                { username: "Bugha", rank: 9, winRate: "88%", kd: "11.2", wins: 1756, kills: 19664, matches: 1995, platform: "PC", country: "🇺🇸 US", skin: "World Cup" },
+                { username: "Mongraal", rank: 10, winRate: "84%", kd: "9.7", wins: 1689, kills: 16383, matches: 2010, platform: "PC", country: "🇬🇧 UK", skin: "Elite Agent" }
+            ];
+
+            // Tab switching functionality
+            function showTab(tabName) {
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                // Remove active class from all tab buttons
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Show selected tab
+                document.getElementById(tabName + '-tab').classList.add('active');
+
+                // Add active class to clicked button
+                event.target.classList.add('active');
+            }
+
+            // Player search functionality
+            function searchPlayer() {
+                const searchInput = document.getElementById('player-search-input');
+                const username = searchInput.value.trim().toLowerCase();
+                const resultDiv = document.getElementById('player-result');
+
+                if (!username) {
+                    alert('Please enter a player username');
+                    return;
+                }
+
+                // Search for player
+                const player = playerDatabase.find(p => p.username.toLowerCase().includes(username));
+
+                if (player) {
+                    // Update player result display
+                    document.getElementById('player-avatar').textContent = player.username.charAt(0).toUpperCase();
+                    document.getElementById('player-name').textContent = player.username;
+                    document.getElementById('player-rank').textContent = '#' + player.rank + ' Global';
+                    document.getElementById('player-country').textContent = player.country;
+                    document.getElementById('player-skin').textContent = 'Using: ' + player.skin;
+                    document.getElementById('player-wins').textContent = player.wins.toLocaleString();
+                    document.getElementById('player-kd').textContent = player.kd;
+                    document.getElementById('player-winrate').textContent = player.winRate;
+                    document.getElementById('player-kills').textContent = player.kills.toLocaleString();
+                    document.getElementById('player-matches').textContent = player.matches.toLocaleString();
+                    document.getElementById('player-platform').textContent = player.platform;
+
+                    resultDiv.classList.add('show');
+                } else {
+                    alert('Player not found. Try searching for: Ninja, Tfue, SypherPK, Bugha, or Mongraal');
+                }
+            }
+
+            // Load all reload players
+            function loadAllReloadPlayers() {
+                const tbody = document.getElementById('reload-leaderboard');
+                const countries = ["🇺🇸 US", "🇨🇦 CA", "🇬🇧 UK", "🇩🇪 DE", "🇫🇷 FR", "🇯🇵 JP", "🇦🇺 AU", "🇧🇷 BR", "🇲🇽 MX", "🇰🇷 KR"];
+                const skins = ["Crystal", "Aura", "Dynamo", "Superhero", "Driver", "OG Default", "Fishstick", "Peely", "Midas", "Kit"];
+
+                // Clear existing rows except top 3
+                const existingRows = tbody.querySelectorAll('tr');
+                for (let i = 3; i < existingRows.length; i++) {
+                    existingRows[i].remove();
+                }
+
+                // Add remaining 97 players
+                for (let i = 4; i <= 100; i++) {
+                    const row = document.createElement('tr');
+                    const username = 'ReloadPro' + i + '_' + Math.random().toString(36).substr(2, 5);
+                    const avgTime = (0.8 + Math.random() * 0.8).toFixed(1) + 's';
+                    const accuracy = (85 + Math.random() * 13).toFixed(0) + '%';
+                    const fastReloads = Math.floor(13000 - (i * 120) + Math.random() * 500).toLocaleString();
+                    const country = countries[Math.floor(Math.random() * countries.length)];
+                    const skin = skins[Math.floor(Math.random() * skins.length)];
+
+                    row.innerHTML = \`
+                        <td class="rank">#\${i}</td>
+                        <td>\${username}<br><span class="player-skin">Using: \${skin}</span></td>
+                        <td>\${country}</td>
+                        <td>\${avgTime}</td>
+                        <td>\${accuracy}</td>
+                        <td>\${fastReloads}</td>
+                    \`;
+                    tbody.appendChild(row);
+                }
+
+                event.target.style.display = 'none';
+            }
+
+            // Enter key support for search
             document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('player-search-input');
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            searchPlayer();
+                        }
+                    });
+                }
+
                 // Weapons filtering
                 const weaponBtns = document.querySelectorAll('#weapons .nav-btn');
                 const weaponCards = document.querySelectorAll('#weapons-container .weapon-card');
@@ -1386,24 +1498,12 @@ app.get('/', (req, res) => {
                     });
                 });
 
-                // Smooth scrolling for navigation
-                document.querySelectorAll('.nav-links a').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
-                        if (target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
-                    });
-                });
-
                 // Add transition styles to cards
-                [...weaponCards, ...newsCards].forEach(card => {
-                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                });
+                if (weaponCards.length && newsCards.length) {
+                    [...weaponCards, ...newsCards].forEach(card => {
+                        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    });
+                }
             });
         </script>
     </body>
