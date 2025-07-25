@@ -1477,7 +1477,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#28</td><td>BabyChief 代<br><span class="player-skin">Using: 8-Ball vs Scratch</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>71%</td></tr>
                                 <tr><td class="rank">#29</td><td>Pandore GaLaK<br><span class="player-skin">Using: Fusion</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#30</td><td>yes THAT godie<br><span class="player-skin">Using: Journey vs Hazard</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
-                                <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺���� US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#32</td><td>tiktokぴーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#33</td><td>185 guruu<br><span class="player-skin">Using: Rippley vs Sludge</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
                                 <tr><td class="rank">#34</td><td>AG ZyuPK 23<br><span class="player-skin">Using: Turk vs Riptide</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
@@ -2399,8 +2399,8 @@ app.get('/', (req, res) => {
                 }
             });
 
-            // Real FortniteTracker search function
-            async function searchRealPlayer() {
+            // Real FortniteTracker search function implementation
+            async function realSearchPlayer() {
                 const searchInput = document.getElementById('player-search-input');
                 const username = searchInput.value.trim();
                 const resultDiv = document.getElementById('player-result');
