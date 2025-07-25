@@ -94,25 +94,49 @@ app.get('/', (req, res) => {
                 list-style: none;
             }
             .tab-btn {
-                background: transparent;
-                border: 2px solid transparent;
-                color: #fff;
-                padding: 0.8rem 1.5rem;
-                border-radius: 25px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                color: #e2e8f0;
+                padding: 0.7rem 1.2rem;
+                border-radius: 8px;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                font-weight: 600;
-                font-size: 0.9rem;
+                transition: all 0.2s ease;
+                font-weight: 500;
+                font-size: 0.875rem;
+                letter-spacing: 0.025em;
+                backdrop-filter: blur(10px);
+                position: relative;
+                overflow: hidden;
+            }
+            .tab-btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transition: left 0.5s ease;
             }
             .tab-btn:hover {
-                border-color: #00d4ff;
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(0, 212, 255, 0.5);
                 color: #00d4ff;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            .tab-btn:hover::before {
+                left: 100%;
             }
             .tab-btn.active {
-                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
-                border-color: #00d4ff;
-                color: #fff;
-                box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+                background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+                border-color: #0ea5e9;
+                color: #ffffff;
+                box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+                transform: translateY(-1px);
+            }
+            .tab-btn.active::before {
+                display: none;
             }
             .tab-content {
                 display: none;
@@ -828,7 +852,7 @@ app.get('/', (req, res) => {
                                 </tr>
                                 <tr><td class="rank">#4</td><td>pliesfv twitch<br><span class="player-skin">Using: Galaxy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>99%</td></tr>
                                 <tr><td class="rank">#5</td><td>Twitch Perkcules<br><span class="player-skin">Using: Ghoul Trooper</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>88%</td></tr>
-                                <tr><td class="rank">#6</td><td>twitch zupamk<br><span class="player-skin">Using: John Wick</span></td><td>����</td><td><span class="division-unreal">Unreal</span></td><td>87%</td></tr>
+                                <tr><td class="rank">#6</td><td>twitch zupamk<br><span class="player-skin">Using: John Wick</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>87%</td></tr>
                                 <tr><td class="rank">#7</td><td>Poručík Ghoustl<br><span class="player-skin">Using: Omega</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>86%</td></tr>
                                 <tr><td class="rank">#8</td><td>аhsul1<br><span class="player-skin">Using: Fishstick</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>84%</td></tr>
                                 <tr><td class="rank">#9</td><td>twtch 2xwasheyyǃ<br><span class="player-skin">Using: Travis Scott</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>84%</td></tr>
@@ -1026,7 +1050,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-s" data-category="s-tier">
                         <div class="weapon-rarity rarity-epic">S-Tier</div>
                         <h4>🔫 Killswitch Revolvers</h4>
-                        <p>DPS: 192 • Range: 200m • Magazine: 12</p>
+                        <p>DPS: 192 ��� Range: 200m • Magazine: 12</p>
                         <p>Dual-wield pistols with rapid burst damage and quick ADS. Perfect for skilled players.</p>
                         <div class="weapon-stats">
                             <span class="stat">Damage: 48</span>
