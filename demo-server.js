@@ -1472,7 +1472,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#94</td><td>2AM Zenon<br><span class="player-skin">Using: Ronin</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#95</td><td>paranoid andrоid<br><span class="player-skin">Using: Gunnar</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#96</td><td>156 TURTL3 JO<br><span class="player-skin">Using: Stormfarer</span></td><td>🇷🇴 RO</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
-                                <tr><td class="rank">#97</td><td>����ノチ<br><span class="player-skin">Using: The Imagined</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#97</td><td>���ノチ<br><span class="player-skin">Using: The Imagined</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#98</td><td>Twitch 7Zyrox7<br><span class="player-skin">Using: Tsuki 2.0</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#99</td><td>twitter masnfn6<br><span class="player-skin">Using: Kiara K.O.</span></td><td>🇸🇪 SE</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
                                 <tr><td class="rank">#100</td><td>Twitch-xjoaxyf<br><span class="player-skin">Using: Adira</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
@@ -1675,7 +1675,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-declined" data-category="all">
                         <div class="weapon-rarity rarity-rare">C-Tier</div>
                         <h4>📉 Hammer Pump Shotgun</h4>
-                        <p>DPS: 95 • Range: 35m • Magazine: 6</p>
+                        <p>DPS: 95 • Range: 35m ��� Magazine: 6</p>
                         <p>High damage potential but slow reload makes it unfavorable in current meta.</p>
                         <div class="weapon-stats">
                             <span class="stat">Damage: 95</span>
@@ -2355,13 +2355,6 @@ app.get('/', (req, res) => {
                     keyInput.value = apiKey;
                 }
             });
-
-            // Make functions globally available
-            window.showTab = showTab;
-            window.searchRealPlayer = searchRealPlayer;
-            window.saveApiKey = saveApiKey;
-            window.showRealisticDemo = showRealisticDemo;
-            window.loadAllReloadPlayers = loadAllReloadPlayers;
 
             // Real FortniteTracker search function
             async function searchRealPlayer() {
