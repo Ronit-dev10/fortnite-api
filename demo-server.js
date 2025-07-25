@@ -921,7 +921,7 @@ app.get('/', (req, res) => {
                             <p>Team up with a friend in this 50-team competition. Communication and teamwork are key to victory.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                            <span class="mode-icon">👨‍👩‍👧��👦</span>
                             <h4>Battle Royale Squads</h4>
                             <p>Form a squad of up to 4 players. Coordinate strategies and revive teammates to achieve Victory Royale.</p>
                         </div>
@@ -1771,7 +1771,7 @@ app.get('/', (req, res) => {
                 event.target.classList.add('active');
             }
 
-            // Player search functionality
+            // Enhanced player search functionality
             function searchPlayer() {
                 const searchInput = document.getElementById('player-search-input');
                 const username = searchInput.value.trim().toLowerCase();
@@ -1786,23 +1786,91 @@ app.get('/', (req, res) => {
                 const player = playerDatabase.find(p => p.username.toLowerCase().includes(username));
 
                 if (player) {
-                    // Update player result display
+                    // Update player header
                     document.getElementById('player-avatar').textContent = player.username.charAt(0).toUpperCase();
                     document.getElementById('player-name').textContent = player.username;
                     document.getElementById('player-rank').textContent = '#' + player.rank + ' Global';
                     document.getElementById('player-country').textContent = player.country;
-                    document.getElementById('player-skin').textContent = 'Using: ' + player.skin;
+                    document.getElementById('player-platform').textContent = player.platform;
+                    document.getElementById('player-skin').textContent = player.skin;
+                    document.getElementById('player-level').textContent = player.level;
+
+                    // Update overall stats
                     document.getElementById('player-wins').textContent = player.wins.toLocaleString();
                     document.getElementById('player-kd').textContent = player.kd;
                     document.getElementById('player-winrate').textContent = player.winRate;
                     document.getElementById('player-kills').textContent = player.kills.toLocaleString();
                     document.getElementById('player-matches').textContent = player.matches.toLocaleString();
-                    document.getElementById('player-platform').textContent = player.platform;
+                    document.getElementById('player-kpm').textContent = (player.kills / player.matches).toFixed(1);
+                    document.getElementById('player-score').textContent = player.score.toLocaleString();
+                    document.getElementById('player-playtime').textContent = player.playtime;
+
+                    // Update solo stats
+                    document.getElementById('solo-wins').textContent = player.solo.wins.toLocaleString();
+                    document.getElementById('solo-kd').textContent = player.solo.kd;
+                    document.getElementById('solo-winrate').textContent = player.solo.winRate;
+                    document.getElementById('solo-kills').textContent = player.solo.kills.toLocaleString();
+                    document.getElementById('solo-matches').textContent = player.solo.matches.toLocaleString();
+                    document.getElementById('solo-top10').textContent = player.solo.top10.toLocaleString();
+
+                    // Update duo stats
+                    document.getElementById('duo-wins').textContent = player.duo.wins.toLocaleString();
+                    document.getElementById('duo-kd').textContent = player.duo.kd;
+                    document.getElementById('duo-winrate').textContent = player.duo.winRate;
+                    document.getElementById('duo-kills').textContent = player.duo.kills.toLocaleString();
+                    document.getElementById('duo-matches').textContent = player.duo.matches.toLocaleString();
+                    document.getElementById('duo-top5').textContent = player.duo.top5.toLocaleString();
+
+                    // Update squad stats
+                    document.getElementById('squad-wins').textContent = player.squad.wins.toLocaleString();
+                    document.getElementById('squad-kd').textContent = player.squad.kd;
+                    document.getElementById('squad-winrate').textContent = player.squad.winRate;
+                    document.getElementById('squad-kills').textContent = player.squad.kills.toLocaleString();
+                    document.getElementById('squad-matches').textContent = player.squad.matches.toLocaleString();
+                    document.getElementById('squad-top3').textContent = player.squad.top3.toLocaleString();
+
+                    // Update season stats
+                    document.getElementById('season-xp').textContent = player.season.xp.toLocaleString();
+                    document.getElementById('season-wins').textContent = player.season.wins;
+                    document.getElementById('season-kills').textContent = player.season.kills.toLocaleString();
+                    document.getElementById('season-placement').textContent = player.season.placement;
+                    document.getElementById('bp-tier').textContent = player.season.bpTier + ' / 100';
+                    document.getElementById('bp-progress').style.width = player.season.bpTier + '%';
+
+                    // Generate recent matches
+                    generateRecentMatches();
 
                     resultDiv.classList.add('show');
                 } else {
-                    alert('Player not found. Try searching for: Ninja, Tfue, SypherPK, Bugha, or Mongraal');
+                    alert('Player not found. Try searching for: free refresh kid, Ninja, Tfue, SypherPK, Twitch matthew1x, or free storm kids');
                 }
+            }
+
+            // Generate recent matches display
+            function generateRecentMatches() {
+                const container = document.getElementById('recent-matches');
+                container.innerHTML = '';
+
+                const placements = ['#1', '#3', '#7', '#1', '#12', '#5', '#2', '#15', '#1', '#8'];
+                const kills = [8, 5, 3, 12, 2, 7, 9, 1, 15, 4];
+
+                placements.forEach((placement, index) => {
+                    const matchCard = document.createElement('div');
+                    matchCard.className = 'match-card';
+
+                    if (placement === '#1') {
+                        matchCard.classList.add('win');
+                    } else if (parseInt(placement.slice(1)) <= 5) {
+                        matchCard.classList.add('top5');
+                    }
+
+                    matchCard.innerHTML = \`
+                        <div class="match-placement">\${placement}</div>
+                        <div class="match-kills">\${kills[index]} kills</div>
+                    \`;
+
+                    container.appendChild(matchCard);
+                });
             }
 
             // Load all reload players
