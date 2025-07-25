@@ -1875,6 +1875,34 @@ app.get('/', (req, res) => {
         </footer>
 
         <script>
+            // Tab switching functionality - defined first for immediate availability
+            function showTab(tabName) {
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                // Remove active class from all tab buttons
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Show selected tab
+                const targetTab = document.getElementById(tabName + '-tab');
+                if (targetTab) {
+                    targetTab.classList.add('active');
+                }
+
+                // Add active class to clicked button
+                const clickedBtn = event?.target;
+                if (clickedBtn) {
+                    clickedBtn.classList.add('active');
+                }
+            }
+
+            // Make showTab available globally immediately
+            window.showTab = showTab;
+
             // Number formatting utility
             function formatNumber(num) {
                 if (num >= 1000000) {
