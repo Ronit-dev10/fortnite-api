@@ -398,52 +398,227 @@ app.get('/', (req, res) => {
             <section class="section" id="leaderboards">
                 <h2 class="section-title">Global Leaderboards</h2>
                 <div class="leaderboard-section">
-                    <h3>Top Solo Players (Season 5)</h3>
+                    <h3>Top Ranked Players - Unreal Division</h3>
                     <table class="leaderboard-table">
                         <thead>
                             <tr>
                                 <th>Rank</th>
                                 <th>Player</th>
-                                <th>Wins</th>
-                                <th>K/D Ratio</th>
+                                <th>Country</th>
+                                <th>Division</th>
                                 <th>Win Rate</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="rank">#1</td>
-                                <td>Ninja</td>
-                                <td>2,847</td>
-                                <td>12.4</td>
-                                <td>34.2%</td>
+                                <td>free refresh kid</td>
+                                <td>🇫🇷 FR</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>99%</td>
                             </tr>
                             <tr>
                                 <td class="rank">#2</td>
-                                <td>Tfue</td>
-                                <td>2,693</td>
-                                <td>11.8</td>
-                                <td>32.1%</td>
+                                <td>free storm kids</td>
+                                <td>🇫🇷 FR</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>99%</td>
                             </tr>
                             <tr>
                                 <td class="rank">#3</td>
-                                <td>SypherPK</td>
-                                <td>2,541</td>
-                                <td>10.9</td>
-                                <td>29.8%</td>
+                                <td>Twitch matthew1x</td>
+                                <td>🇺🇸 US</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>99%</td>
                             </tr>
                             <tr>
                                 <td class="rank">#4</td>
-                                <td>Bugha</td>
-                                <td>2,387</td>
-                                <td>13.2</td>
-                                <td>31.5%</td>
+                                <td>pliesfv twitch</td>
+                                <td>🇺🇸 US</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>99%</td>
                             </tr>
                             <tr>
                                 <td class="rank">#5</td>
-                                <td>Mongraal</td>
-                                <td>2,234</td>
-                                <td>12.7</td>
-                                <td>28.9%</td>
+                                <td>Twitch Perkcules</td>
+                                <td>🇺🇸 US</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>88%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#6</td>
+                                <td>twitch zupamk</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>87%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#7</td>
+                                <td>Poručík Ghoustl</td>
+                                <td>🇨🇿 CZ</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>86%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#8</td>
+                                <td>аhsul1</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>84%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#9</td>
+                                <td>twtch 2xwasheyyǃ</td>
+                                <td>🇨🇦 CA</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>84%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#10</td>
+                                <td>200IQ simo</td>
+                                <td>🇫🇮 FI</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>83%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#11</td>
+                                <td>200IQ spark</td>
+                                <td>🇫🇮 FI</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>83%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#12</td>
+                                <td>Wendiger Schmali</td>
+                                <td>🇩🇪 DE</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>81%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#13</td>
+                                <td>Twitch Zensita</td>
+                                <td>🇺🇸 US</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>81%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#14</td>
+                                <td>twitch freeswag</td>
+                                <td>🇺🇸 US</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>80%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#15</td>
+                                <td>Scorcﱞh</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>78%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#16</td>
+                                <td>npc oo oo ah ah</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>78%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#17</td>
+                                <td>Daywalker.36</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>77%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#18</td>
+                                <td>bﱞοﱞt</td>
+                                <td>🇨🇺 CU</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>76%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#19</td>
+                                <td>Monto Gold7</td>
+                                <td>🇷🇺 RU</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>75%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#20</td>
+                                <td>TTV 313CRYPTIC</td>
+                                <td>🇨🇦 CA</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>74%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#21</td>
+                                <td>krux 7</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>74%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#22</td>
+                                <td>Drﱞake.</td>
+                                <td>🇫🇲 FM</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>73%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#23</td>
+                                <td>Bonnіe Blue</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>73%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#24</td>
+                                <td>TIKTOK KIS CHANY</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>71%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#25</td>
+                                <td>Emboar 18</td>
+                                <td>🇺🇦 UA</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>71%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#26</td>
+                                <td>ǃloco</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>71%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#27</td>
+                                <td>PTH zaytox</td>
+                                <td>🇩🇪 DE</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>71%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#28</td>
+                                <td>BabyChief 代</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>71%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#29</td>
+                                <td>Pandore GaLaK</td>
+                                <td>🇫🇷 FR</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>70%</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">#30</td>
+                                <td>yes THAT godie</td>
+                                <td>🌍</td>
+                                <td><span class="division-unreal">Unreal</span></td>
+                                <td>70%</td>
                             </tr>
                         </tbody>
                     </table>
