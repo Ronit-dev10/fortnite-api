@@ -1284,7 +1284,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>��🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#85</td><td>chacalGOTY 7<br><span class="player-skin">Using: Ariana Grande</span></td><td>🇧🇷 BR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬🇹 GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#87</td><td>ǃ Egy Kub1x ǃ<br><span class="player-skin">Using: Venom</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -1700,18 +1700,56 @@ app.get('/', (req, res) => {
         </footer>
 
         <script>
-            // Player database for search
+            // Enhanced player database for comprehensive search
             const playerDatabase = [
-                { username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875, platform: "PC", country: "����🇷 FR", skin: "Renegade Raider" },
-                { username: "free storm kids", rank: 2, winRate: "99%", kd: "11.8", wins: 2693, kills: 31734, matches: 2721, platform: "PC", country: "🇫🇷 FR", skin: "Black Knight" },
-                { username: "Twitch matthew1x", rank: 3, winRate: "99%", kd: "13.2", wins: 2541, kills: 33542, matches: 2565, platform: "PC", country: "🇺🇸 US", skin: "Skull Trooper" },
-                { username: "pliesfv twitch", rank: 4, winRate: "99%", kd: "10.9", wins: 2387, kills: 26019, matches: 2410, platform: "PC", country: "🇺🇸 US", skin: "Galaxy" },
-                { username: "Twitch Perkcules", rank: 5, winRate: "88%", kd: "12.7", wins: 2234, kills: 28402, matches: 2540, platform: "PC", country: "🇺🇸 US", skin: "Ghoul Trooper" },
-                { username: "Ninja", rank: 6, winRate: "85%", kd: "8.9", wins: 2100, kills: 18690, matches: 2470, platform: "PC", country: "🇺🇸 US", skin: "Icon Series" },
-                { username: "Tfue", rank: 7, winRate: "82%", kd: "9.5", wins: 1987, kills: 18876, matches: 2425, platform: "PC", country: "🇺🇸 US", skin: "Crystal" },
-                { username: "SypherPK", rank: 8, winRate: "79%", kd: "7.8", wins: 1876, kills: 14632, matches: 2373, platform: "PC", country: "🇺🇸 US", skin: "Aura" },
-                { username: "Bugha", rank: 9, winRate: "88%", kd: "11.2", wins: 1756, kills: 19664, matches: 1995, platform: "PC", country: "🇺🇸 US", skin: "World Cup" },
-                { username: "Mongraal", rank: 10, winRate: "84%", kd: "9.7", wins: 1689, kills: 16383, matches: 2010, platform: "PC", country: "🇬🇧 UK", skin: "Elite Agent" }
+                {
+                    username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875,
+                    platform: "PC", country: "🇫🇷 FR", skin: "Renegade Raider", level: 387, score: 14567890, playtime: "2,847h",
+                    solo: { wins: 1247, kills: 15234, matches: 1289, kd: 13.2, winRate: "96.7%", top10: 1267 },
+                    duo: { wins: 834, kills: 10567, matches: 867, kd: 12.8, winRate: "96.2%", top5: 856 },
+                    squad: { wins: 766, kills: 8766, matches: 789, kd: 11.9, winRate: "97.1%", top3: 778 },
+                    season: { xp: 1247830, wins: 47, kills: 1234, placement: "Top 1%", bpTier: 87 }
+                },
+                {
+                    username: "free storm kids", rank: 2, winRate: "99%", kd: "11.8", wins: 2693, kills: 31734, matches: 2721,
+                    platform: "PC", country: "🇫🇷 FR", skin: "Black Knight", level: 374, score: 13456789, playtime: "2,693h",
+                    solo: { wins: 1156, kills: 14123, matches: 1178, kd: 12.8, winRate: "98.1%", top10: 1167 },
+                    duo: { wins: 789, kills: 9876, matches: 812, kd: 12.1, winRate: "97.2%", top5: 801 },
+                    squad: { wins: 748, kills: 7735, matches: 731, kd: 10.9, winRate: "102.3%", top3: 729 },
+                    season: { xp: 1189456, wins: 44, kills: 1156, placement: "Top 1%", bpTier: 83 }
+                },
+                {
+                    username: "Twitch matthew1x", rank: 3, winRate: "99%", kd: "13.2", wins: 2541, kills: 33542, matches: 2565,
+                    platform: "PC", country: "🇺🇸 US", skin: "Skull Trooper", level: 361, score: 12876543, playtime: "2,541h",
+                    solo: { wins: 1098, kills: 15876, matches: 1123, kd: 14.1, winRate: "97.8%", top10: 1112 },
+                    duo: { wins: 743, kills: 9234, matches: 756, kd: 12.6, winRate: "98.3%", top5: 751 },
+                    squad: { wins: 700, kills: 8432, matches: 686, kd: 12.9, winRate: "102.0%", top3: 684 },
+                    season: { xp: 1345678, wins: 52, kills: 1387, placement: "Top 1%", bpTier: 91 }
+                },
+                {
+                    username: "Ninja", rank: 6, winRate: "85%", kd: "8.9", wins: 2100, kills: 18690, matches: 2470,
+                    platform: "PC", country: "🇺🇸 US", skin: "Icon Series", level: 342, score: 9876543, playtime: "2,100h",
+                    solo: { wins: 892, kills: 7956, matches: 1056, kd: 7.9, winRate: "84.5%", top10: 978 },
+                    duo: { wins: 634, kills: 5723, matches: 734, kd: 8.2, winRate: "86.4%", top5: 678 },
+                    squad: { wins: 574, kills: 5011, matches: 680, kd: 9.7, winRate: "84.4%", top3: 612 },
+                    season: { xp: 987654, wins: 34, kills: 892, placement: "Top 3%", bpTier: 76 }
+                },
+                {
+                    username: "Tfue", rank: 7, winRate: "82%", kd: "9.5", wins: 1987, kills: 18876, matches: 2425,
+                    platform: "PC", country: "🇺🇸 US", skin: "Crystal", level: 329, score: 8765432, playtime: "1,987h",
+                    solo: { wins: 834, kills: 8234, matches: 1023, kd: 8.9, winRate: "81.5%", top10: 912 },
+                    duo: { wins: 623, kills: 5891, matches: 743, kd: 9.2, winRate: "83.8%", top5: 678 },
+                    squad: { wins: 530, kills: 4751, matches: 659, kd: 10.4, winRate: "80.4%", top3: 589 },
+                    season: { xp: 876543, wins: 29, kills: 743, placement: "Top 5%", bpTier: 68 }
+                },
+                {
+                    username: "SypherPK", rank: 8, winRate: "79%", kd: "7.8", wins: 1876, kills: 14632, matches: 2373,
+                    platform: "PC", country: "🇺🇸 US", skin: "Aura", level: 318, score: 7654321, playtime: "1,876h",
+                    solo: { wins: 723, kills: 5987, matches: 934, kd: 7.2, winRate: "77.4%", top10: 834 },
+                    duo: { wins: 589, kills: 4521, matches: 743, kd: 7.8, winRate: "79.3%", top5: 656 },
+                    squad: { wins: 564, kills: 4124, matches: 696, kd: 8.4, winRate: "81.0%", top3: 612 },
+                    season: { xp: 765432, wins: 31, kills: 678, placement: "Top 7%", bpTier: 72 }
+                }
             ];
 
             // Tab switching functionality
