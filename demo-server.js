@@ -746,7 +746,7 @@ app.get('/', (req, res) => {
                             <p>Team up with a friend in this 50-team competition. Communication and teamwork are key to victory.</p>
                         </div>
                         <div class="mode-card">
-                            <span class="mode-icon">👨‍👩‍👧‍����</span>
+                            <span class="mode-icon">👨‍👩‍👧‍👦</span>
                             <h4>Battle Royale Squads</h4>
                             <p>Form a squad of up to 4 players. Coordinate strategies and revive teammates to achieve Victory Royale.</p>
                         </div>
@@ -790,35 +790,200 @@ app.get('/', (req, res) => {
                             <div class="player-info">
                                 <h3 id="player-name">Player Name</h3>
                                 <div class="player-rank" id="player-rank">#1 Global</div>
-                                <div id="player-country">����🇸 United States</div>
-                                <div id="player-skin">Using: Renegade Raider</div>
+                                <div class="player-meta">
+                                    <span id="player-country">🇺🇸 United States</span>
+                                    <span class="separator">•</span>
+                                    <span id="player-platform">PC</span>
+                                    <span class="separator">•</span>
+                                    <span id="player-skin">Renegade Raider</span>
+                                </div>
+                                <div class="player-level">Level <span id="player-level">387</span></div>
                             </div>
                         </div>
 
-                        <div class="player-stats-grid">
-                            <div class="player-stat">
-                                <span class="stat-value" id="player-wins">0</span>
-                                <span class="stat-name">Total Wins</span>
+                        <!-- Overall Stats -->
+                        <div class="stats-section">
+                            <h4 class="stats-title">Overall Statistics</h4>
+                            <div class="player-stats-grid">
+                                <div class="player-stat highlight">
+                                    <span class="stat-value" id="player-wins">0</span>
+                                    <span class="stat-name">Wins</span>
+                                </div>
+                                <div class="player-stat highlight">
+                                    <span class="stat-value" id="player-kd">0.0</span>
+                                    <span class="stat-name">K/D Ratio</span>
+                                </div>
+                                <div class="player-stat highlight">
+                                    <span class="stat-value" id="player-winrate">0%</span>
+                                    <span class="stat-name">Win Rate</span>
+                                </div>
+                                <div class="player-stat">
+                                    <span class="stat-value" id="player-kills">0</span>
+                                    <span class="stat-name">Kills</span>
+                                </div>
+                                <div class="player-stat">
+                                    <span class="stat-value" id="player-matches">0</span>
+                                    <span class="stat-name">Matches</span>
+                                </div>
+                                <div class="player-stat">
+                                    <span class="stat-value" id="player-kpm">0.0</span>
+                                    <span class="stat-name">Kills/Match</span>
+                                </div>
+                                <div class="player-stat">
+                                    <span class="stat-value" id="player-score">0</span>
+                                    <span class="stat-name">Score</span>
+                                </div>
+                                <div class="player-stat">
+                                    <span class="stat-value" id="player-playtime">0h</span>
+                                    <span class="stat-name">Playtime</span>
+                                </div>
                             </div>
-                            <div class="player-stat">
-                                <span class="stat-value" id="player-kd">0.0</span>
-                                <span class="stat-name">K/D Ratio</span>
+                        </div>
+
+                        <!-- Game Mode Stats -->
+                        <div class="stats-section">
+                            <h4 class="stats-title">Game Mode Breakdown</h4>
+                            <div class="mode-stats">
+                                <div class="mode-card">
+                                    <div class="mode-header">
+                                        <span class="mode-icon">👤</span>
+                                        <h5>Solo</h5>
+                                    </div>
+                                    <div class="mode-stats-grid">
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="solo-wins">0</span>
+                                            <span class="mode-label">Wins</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="solo-kd">0.0</span>
+                                            <span class="mode-label">K/D</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="solo-winrate">0%</span>
+                                            <span class="mode-label">Win%</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="solo-kills">0</span>
+                                            <span class="mode-label">Kills</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="solo-matches">0</span>
+                                            <span class="mode-label">Matches</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="solo-top10">0</span>
+                                            <span class="mode-label">Top 10</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mode-card">
+                                    <div class="mode-header">
+                                        <span class="mode-icon">👥</span>
+                                        <h5>Duo</h5>
+                                    </div>
+                                    <div class="mode-stats-grid">
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="duo-wins">0</span>
+                                            <span class="mode-label">Wins</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="duo-kd">0.0</span>
+                                            <span class="mode-label">K/D</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="duo-winrate">0%</span>
+                                            <span class="mode-label">Win%</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="duo-kills">0</span>
+                                            <span class="mode-label">Kills</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="duo-matches">0</span>
+                                            <span class="mode-label">Matches</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="duo-top5">0</span>
+                                            <span class="mode-label">Top 5</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mode-card">
+                                    <div class="mode-header">
+                                        <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                                        <h5>Squad</h5>
+                                    </div>
+                                    <div class="mode-stats-grid">
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="squad-wins">0</span>
+                                            <span class="mode-label">Wins</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="squad-kd">0.0</span>
+                                            <span class="mode-label">K/D</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="squad-winrate">0%</span>
+                                            <span class="mode-label">Win%</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="squad-kills">0</span>
+                                            <span class="mode-label">Kills</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="squad-matches">0</span>
+                                            <span class="mode-label">Matches</span>
+                                        </div>
+                                        <div class="mode-stat">
+                                            <span class="mode-value" id="squad-top3">0</span>
+                                            <span class="mode-label">Top 3</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="player-stat">
-                                <span class="stat-value" id="player-winrate">0%</span>
-                                <span class="stat-name">Win Rate</span>
+                        </div>
+
+                        <!-- Recent Performance -->
+                        <div class="stats-section">
+                            <h4 class="stats-title">Recent Performance (Last 10 Matches)</h4>
+                            <div class="recent-matches" id="recent-matches">
+                                <!-- Recent matches will be populated by JavaScript -->
                             </div>
-                            <div class="player-stat">
-                                <span class="stat-value" id="player-kills">0</span>
-                                <span class="stat-name">Total Kills</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-value" id="player-matches">0</span>
-                                <span class="stat-name">Matches Played</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-value" id="player-platform">PC</span>
-                                <span class="stat-name">Platform</span>
+                        </div>
+
+                        <!-- Season Progress -->
+                        <div class="stats-section">
+                            <h4 class="stats-title">Chapter 6 Season 3 Progress</h4>
+                            <div class="season-stats">
+                                <div class="progress-item">
+                                    <div class="progress-header">
+                                        <span>Battle Pass Tier</span>
+                                        <span id="bp-tier">87 / 100</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="bp-progress" style="width: 87%"></div>
+                                    </div>
+                                </div>
+                                <div class="season-stat-grid">
+                                    <div class="season-stat">
+                                        <span class="season-value" id="season-xp">1,247,830</span>
+                                        <span class="season-label">Season XP</span>
+                                    </div>
+                                    <div class="season-stat">
+                                        <span class="season-value" id="season-wins">47</span>
+                                        <span class="season-label">Season Wins</span>
+                                    </div>
+                                    <div class="season-stat">
+                                        <span class="season-value" id="season-kills">1,234</span>
+                                        <span class="season-label">Season Kills</span>
+                                    </div>
+                                    <div class="season-stat">
+                                        <span class="season-value" id="season-placement">Top 12%</span>
+                                        <span class="season-label">Avg Placement</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -916,7 +1081,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#53</td><td>sкі.<br><span class="player-skin">Using: Storm</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#54</td><td>ВКǃ<br><span class="player-skin">Using: Doctor Doom</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#55</td><td>deviantǃ<br><span class="player-skin">Using: Mystique</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
-                                <tr><td class="rank">#56</td><td>TRKF DANDEPUZO<br><span class="player-skin">Using: Iron Man</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#56</td><td>TRKF DANDEPUZO<br><span class="player-skin">Using: Iron Man</span></td><td>🇷��� RU</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#57</td><td>Sinister Polzt<br><span class="player-skin">Using: Wolverine</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#58</td><td>Twitch T1nman21<br><span class="player-skin">Using: Mancake</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#59</td><td>untalented 4jp<br><span class="player-skin">Using: Kondor</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
@@ -998,7 +1163,7 @@ app.get('/', (req, res) => {
                                         <td><strong>15,670</strong></td>
                                     </tr>
                                     <tr class="top-3-row top-2">
-                                        <td class="rank">🥈 #2</td>
+                                        <td class="rank">���� #2</td>
                                         <td><strong>QuickClip_Pro</strong><br><span class="player-skin">Using: The Reaper</span></td>
                                         <td>🇨🇦 CA</td>
                                         <td><strong>0.9s</strong></td>
