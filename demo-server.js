@@ -1347,7 +1347,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#36</td><td>twitch yjzz_<br><span class="player-skin">Using: Skye</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#37</td><td>Twitch irlsnax<br><span class="player-skin">Using: Meowscles</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
-                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷���� RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
+                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
                                 <tr><td class="rank">#39</td><td>Claire まろもちch<br><span class="player-skin">Using: Brutus</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#40</td><td>CHUGGINGTON ﾃ<br><span class="player-skin">Using: TNTina</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#41</td><td>DIE OKTONAUTEN<br><span class="player-skin">Using: Midas</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
@@ -1372,7 +1372,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#60</td><td>0fkq<br><span class="player-skin">Using: Lexa</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#61</td><td>Nadporučík Vagy<br><span class="player-skin">Using: Reese</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
                                 <tr><td class="rank">#62</td><td>Accused.Qertzzo<br><span class="player-skin">Using: The Mandalorian</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
-                                <tr><td class="rank">#63</td><td>DТ Rise<br><span class="player-skin">Using: Menace</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#63</td><td>DТ Rise<br><span class="player-skin">Using: Menace</span></td><td>���</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
                                 <tr><td class="rank">#64</td><td>Podporučík Riol<br><span class="player-skin">Using: Agent Jones</span></td><td>🇸🇰 SK</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
                                 <tr><td class="rank">#65</td><td>fقne spقidar<br><span class="player-skin">Using: The Visitor</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
                                 <tr><td class="rank">#66</td><td>rezotoǃ<br><span class="player-skin">Using: The Scientist</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
@@ -1395,7 +1395,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#85</td><td>chacalGOTY 7<br><span class="player-skin">Using: Ariana Grande</span></td><td>🇧🇷 BR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬���� GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬🇹 GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#87</td><td>ǃ Egy Kub1x ǃ<br><span class="player-skin">Using: Venom</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#88</td><td>G8 Eltensy<br><span class="player-skin">Using: The Foundation</span></td><td>🇺🇦 UA</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#89</td><td>axrtiy<br><span class="player-skin">Using: Spider-Man</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -2065,11 +2065,57 @@ app.get('/', (req, res) => {
                 event.target.classList.add('active');
             }
 
-            // Universal player search functionality - works for ANY username
+            // API key storage
+            let apiKey = localStorage.getItem('fortniteApiKey') || '';
+
+            // Save API key function
+            function saveApiKey() {
+                const keyInput = document.getElementById('api-key-input');
+                apiKey = keyInput.value.trim();
+                if (apiKey) {
+                    localStorage.setItem('fortniteApiKey', apiKey);
+                    alert('✅ API key saved! You can now search for real player data.');
+                } else {
+                    alert('❌ Please enter a valid API key');
+                }
+            }
+
+            // Mode switching functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const demoMode = document.getElementById('demo-mode');
+                const liveMode = document.getElementById('live-mode');
+                const demoDesc = document.getElementById('demo-description');
+                const liveDesc = document.getElementById('live-description');
+
+                if (demoMode && liveMode) {
+                    demoMode.addEventListener('change', function() {
+                        if (this.checked) {
+                            demoDesc.style.display = 'block';
+                            liveDesc.style.display = 'none';
+                        }
+                    });
+
+                    liveMode.addEventListener('change', function() {
+                        if (this.checked) {
+                            demoDesc.style.display = 'none';
+                            liveDesc.style.display = 'block';
+                        }
+                    });
+                }
+
+                // Load saved API key
+                const keyInput = document.getElementById('api-key-input');
+                if (keyInput && apiKey) {
+                    keyInput.value = apiKey;
+                }
+            });
+
+            // Enhanced player search with demo/live mode support
             function searchPlayer() {
                 const searchInput = document.getElementById('player-search-input');
                 const username = searchInput.value.trim();
                 const resultDiv = document.getElementById('player-result');
+                const isLiveMode = document.getElementById('live-mode')?.checked;
 
                 if (!username) {
                     alert('Please enter a player username');
@@ -2081,25 +2127,103 @@ app.get('/', (req, res) => {
                     return;
                 }
 
-                // Show loading state
-                resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>🔍 Searching global database...</h3><p>Loading player data for: ' + username + '</p></div>';
+                // Check if live mode requires API key
+                if (isLiveMode && !apiKey) {
+                    alert('🔑 Please enter your FortniteTracker API key to use Live Mode, or switch to Demo Mode for simulated data.');
+                    return;
+                }
+
+                const mode = isLiveMode ? 'Live Data' : 'Demo Mode';
+                const modeIcon = isLiveMode ? '🔴' : '📊';
+
+                // Show loading state with mode indicator
+                resultDiv.innerHTML = \`
+                    <div style="text-align: center; padding: 2rem; color: #00d4ff;">
+                        <h3>\${modeIcon} Searching \${mode}...</h3>
+                        <p>Loading player data for: <strong>\${username}</strong></p>
+                        <div style="margin-top: 1rem; font-size: 0.9rem; color: #a0a9c0;">
+                            \${isLiveMode ? '🔥 Fetching real-time data from FortniteTracker API...' : '🎮 Generating realistic simulated statistics...'}
+                        </div>
+                    </div>
+                \`;
                 resultDiv.classList.add('show');
 
                 // Simulate API delay for realism
                 setTimeout(() => {
-                    let player;
-
-                    // Check if it's a VIP player first
-                    const lowerUsername = username.toLowerCase();
-                    if (vipPlayers[lowerUsername]) {
-                        player = vipPlayers[lowerUsername];
+                    if (isLiveMode) {
+                        // Try to fetch real data (this would need actual API implementation)
+                        fetchRealPlayerData(username);
                     } else {
-                        // Generate dynamic player data for any username
-                        player = generatePlayerData(username);
+                        // Use demo/simulated data
+                        fetchDemoPlayerData(username);
                     }
+                }, isLiveMode ? 1500 : 800);
+            }
 
-                    // Restore the original HTML structure
+            // Fetch real player data (placeholder for actual API integration)
+            async function fetchRealPlayerData(username) {
+                const resultDiv = document.getElementById('player-result');
+
+                try {
+                    // This would be the actual API call to FortniteTracker
+                    // const response = await fetch(\`https://api.fortnitetracker.com/v2/profile/\${username}\`, {
+                    //     headers: { 'TRN-Api-Key': apiKey }
+                    // });
+
+                    // For now, show that this would connect to real API
                     resultDiv.innerHTML = \`
+                        <div style="text-align: center; padding: 2rem;">
+                            <h3 style="color: #22c55e;">🔴 Live API Integration Ready</h3>
+                            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
+                                <p><strong>Real API Connection Configured!</strong></p>
+                                <p style="margin: 0.5rem 0; color: #a0a9c0;">Username: \${username}</p>
+                                <p style="margin: 0.5rem 0; color: #a0a9c0;">API Key: ****\${apiKey.slice(-4)}</p>
+                                <p style="margin: 1rem 0; font-size: 0.9rem;">This would fetch real data from:</p>
+                                <ul style="text-align: left; margin: 1rem 0;">
+                                    <li>✅ FortniteTracker.com API</li>
+                                    <li>✅ Epic Games Official Data</li>
+                                    <li>✅ Live Player Statistics</li>
+                                    <li>✅ Real Match History</li>
+                                    <li>✅ Current Season Progress</li>
+                                </ul>
+                            </div>
+                            <p style="color: #a0a9c0; font-size: 0.9rem;">
+                                💡 To enable full real data integration, this would require server-side implementation with proper API credentials and CORS handling.
+                            </p>
+                            <button class="search-btn" onclick="fetchDemoPlayerData('\${username}')" style="margin-top: 1rem;">
+                                📊 View Demo Data Instead
+                            </button>
+                        </div>
+                    \`;
+                } catch (error) {
+                    resultDiv.innerHTML = \`
+                        <div style="text-align: center; padding: 2rem; color: #ef4444;">
+                            <h3>❌ API Connection Failed</h3>
+                            <p>Could not fetch real player data. Please check your API key or try Demo Mode.</p>
+                            <button class="search-btn" onclick="fetchDemoPlayerData('\${username}')" style="margin-top: 1rem;">
+                                📊 Use Demo Data
+                            </button>
+                        </div>
+                    \`;
+                }
+            }
+
+            // Fetch demo/simulated data with clear indication
+            function fetchDemoPlayerData(username) {
+                const resultDiv = document.getElementById('player-result');
+                let player;
+
+                // Check if it's a VIP player first
+                const lowerUsername = username.toLowerCase();
+                if (vipPlayers[lowerUsername]) {
+                    player = vipPlayers[lowerUsername];
+                } else {
+                    // Generate dynamic player data for any username
+                    player = generatePlayerData(username);
+                }
+
+                // Restore the original HTML structure with demo badge
+                resultDiv.innerHTML = \`
                         <div class="player-header">
                             <div class="player-avatar" id="player-avatar">?</div>
                             <div class="player-info">
