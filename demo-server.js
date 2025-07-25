@@ -75,8 +75,51 @@ app.get('/', (req, res) => {
                 }
             }
 
+            // Essential functions that need to be available immediately
+            function searchRealPlayer() {
+                // This will be properly implemented in the main script section
+                // For now, show a loading message
+                const resultDiv = document.getElementById('player-result');
+                if (resultDiv) {
+                    resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>🔍 Initializing search...</h3><p>Please wait while the search system loads...</p></div>';
+                    resultDiv.classList.add('show');
+                }
+
+                // Call the real implementation once it's loaded
+                setTimeout(() => {
+                    if (window.realSearchPlayer) {
+                        window.realSearchPlayer();
+                    }
+                }, 100);
+            }
+
+            function loadAllReloadPlayers() {
+                // Placeholder - will be implemented in main script
+                if (window.realLoadAllReloadPlayers) {
+                    window.realLoadAllReloadPlayers();
+                }
+            }
+
+            function showRealisticDemo(username, platform) {
+                // Placeholder - will be implemented in main script
+                if (window.realShowRealisticDemo) {
+                    window.realShowRealisticDemo(username, platform);
+                }
+            }
+
+            function saveApiKey() {
+                // Placeholder - will be implemented in main script
+                if (window.realSaveApiKey) {
+                    window.realSaveApiKey();
+                }
+            }
+
             // Make available globally
             window.showTab = showTab;
+            window.searchRealPlayer = searchRealPlayer;
+            window.loadAllReloadPlayers = loadAllReloadPlayers;
+            window.showRealisticDemo = showRealisticDemo;
+            window.saveApiKey = saveApiKey;
         </script>
         <style>
             * {
