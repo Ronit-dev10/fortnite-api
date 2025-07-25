@@ -63,11 +63,21 @@ app.get('/', (req, res) => {
                     btn.classList.remove('active');
                 });
 
-                // Hide search result when switching away from search tab
+                // Reset search completely when switching away from search tab
                 if (tabName !== 'search') {
                     const playerResult = document.getElementById('player-result');
+                    const searchInput = document.getElementById('player-search-input');
+                    const pcRadio = document.getElementById('platform-pc');
+
                     if (playerResult) {
                         playerResult.classList.remove('show');
+                        playerResult.innerHTML = '';
+                    }
+                    if (searchInput) {
+                        searchInput.value = '';
+                    }
+                    if (pcRadio) {
+                        pcRadio.checked = true;
                     }
                 }
 
@@ -85,20 +95,24 @@ app.get('/', (req, res) => {
 
             // Essential functions that need to be available immediately
             function searchRealPlayer() {
-                // This will be properly implemented in the main script section
-                // For now, show a loading message
+                // Show immediate loading state
                 const resultDiv = document.getElementById('player-result');
                 if (resultDiv) {
-                    resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>🔍 Initializing search...</h3><p>Please wait while the search system loads...</p></div>';
+                    resultDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>🔍 Searching...</h3><p>Finding player data...</p></div>';
                     resultDiv.classList.add('show');
                 }
 
-                // Call the real implementation once it's loaded
-                setTimeout(() => {
-                    if (window.realSearchPlayer) {
-                        window.realSearchPlayer();
-                    }
-                }, 100);
+                // Call the real implementation immediately (faster)
+                if (window.realSearchPlayer) {
+                    window.realSearchPlayer();
+                } else {
+                    // Minimal delay if not loaded yet
+                    setTimeout(() => {
+                        if (window.realSearchPlayer) {
+                            window.realSearchPlayer();
+                        }
+                    }, 50);
+                }
             }
 
             function loadAllReloadPlayers() {
@@ -2183,7 +2197,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Arrays for random selection
-                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮�� IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
                 const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
                 const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
 
@@ -2985,7 +2999,7 @@ app.get('/', (req, res) => {
                             <!-- Squad Stats -->
                             <div class="mode-card">
                                 <div class="mode-header">
-                                    <span class="mode-icon">👨‍👩‍👧‍👦</span>
+                                    <span class="mode-icon">👨‍👩‍👧���👦</span>
                                     <h5>Squad</h5>
                                 </div>
                                 <div class="mode-stats-grid">
