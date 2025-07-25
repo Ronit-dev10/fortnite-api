@@ -467,230 +467,140 @@ app.get('/', (req, res) => {
             <section class="section" id="leaderboards">
                 <h2 class="section-title">Global Leaderboards</h2>
                 <div class="leaderboard-section">
-                    <h3>Top Ranked Players - Unreal Division</h3>
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Player</th>
-                                <th>Country</th>
-                                <th>Division</th>
-                                <th>Win Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="rank">#1</td>
-                                <td>free refresh kid</td>
-                                <td>🇫🇷 FR</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>99%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#2</td>
-                                <td>free storm kids</td>
-                                <td>🇫🇷 FR</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>99%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#3</td>
-                                <td>Twitch matthew1x</td>
-                                <td>🇺🇸 US</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>99%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#4</td>
-                                <td>pliesfv twitch</td>
-                                <td>🇺🇸 US</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>99%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#5</td>
-                                <td>Twitch Perkcules</td>
-                                <td>🇺🇸 US</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>88%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#6</td>
-                                <td>twitch zupamk</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>87%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#7</td>
-                                <td>Poručík Ghoustl</td>
-                                <td>🇨🇿 CZ</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>86%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#8</td>
-                                <td>аhsul1</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>84%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#9</td>
-                                <td>twtch 2xwasheyyǃ</td>
-                                <td>🇨🇦 CA</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>84%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#10</td>
-                                <td>200IQ simo</td>
-                                <td>🇫🇮 FI</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>83%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#11</td>
-                                <td>200IQ spark</td>
-                                <td>🇫🇮 FI</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>83%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#12</td>
-                                <td>Wendiger Schmali</td>
-                                <td>🇩🇪 DE</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>81%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#13</td>
-                                <td>Twitch Zensita</td>
-                                <td>🇺🇸 US</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>81%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#14</td>
-                                <td>twitch freeswag</td>
-                                <td>🇺🇸 US</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>80%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#15</td>
-                                <td>Scorcﱞh</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>78%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#16</td>
-                                <td>npc oo oo ah ah</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>78%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#17</td>
-                                <td>Daywalker.36</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>77%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#18</td>
-                                <td>bﱞοﱞt</td>
-                                <td>🇨🇺 CU</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>76%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#19</td>
-                                <td>Monto Gold7</td>
-                                <td>🇷🇺 RU</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>75%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#20</td>
-                                <td>TTV 313CRYPTIC</td>
-                                <td>🇨🇦 CA</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>74%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#21</td>
-                                <td>krux 7</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>74%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#22</td>
-                                <td>Drﱞake.</td>
-                                <td>🇫🇲 FM</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>73%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#23</td>
-                                <td>Bonnіe Blue</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>73%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#24</td>
-                                <td>TIKTOK KIS CHANY</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>71%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#25</td>
-                                <td>Emboar 18</td>
-                                <td>🇺🇦 UA</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>71%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#26</td>
-                                <td>ǃloco</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>71%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#27</td>
-                                <td>PTH zaytox</td>
-                                <td>🇩🇪 DE</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>71%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#28</td>
-                                <td>BabyChief 代</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>71%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#29</td>
-                                <td>Pandore GaLaK</td>
-                                <td>🇫🇷 FR</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>70%</td>
-                            </tr>
-                            <tr>
-                                <td class="rank">#30</td>
-                                <td>yes THAT godie</td>
-                                <td>🌍</td>
-                                <td><span class="division-unreal">Unreal</span></td>
-                                <td>70%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h3>Top 100 Ranked Players - Unreal Division</h3>
+                    <div class="leaderboard-scroll">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Country</th>
+                                    <th>Division</th>
+                                    <th>Win Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="top-3-row top-1">
+                                    <td class="rank">👑 #1</td>
+                                    <td><strong>free refresh kid</strong><br><span class="player-skin">Using: Renegade Raider</span></td>
+                                    <td>🇫🇷 FR</td>
+                                    <td><span class="division-unreal">Unreal</span></td>
+                                    <td><strong>99%</strong></td>
+                                </tr>
+                                <tr class="top-3-row top-2">
+                                    <td class="rank">🥈 #2</td>
+                                    <td><strong>free storm kids</strong><br><span class="player-skin">Using: Black Knight</span></td>
+                                    <td>🇫🇷 FR</td>
+                                    <td><span class="division-unreal">Unreal</span></td>
+                                    <td><strong>99%</strong></td>
+                                </tr>
+                                <tr class="top-3-row top-3">
+                                    <td class="rank">🥉 #3</td>
+                                    <td><strong>Twitch matthew1x</strong><br><span class="player-skin">Using: Skull Trooper</span></td>
+                                    <td>🇺🇸 US</td>
+                                    <td><span class="division-unreal">Unreal</span></td>
+                                    <td><strong>99%</strong></td>
+                                </tr>
+                                <tr><td class="rank">#4</td><td>pliesfv twitch<br><span class="player-skin">Using: Galaxy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>99%</td></tr>
+                                <tr><td class="rank">#5</td><td>Twitch Perkcules<br><span class="player-skin">Using: Ghoul Trooper</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>88%</td></tr>
+                                <tr><td class="rank">#6</td><td>twitch zupamk<br><span class="player-skin">Using: John Wick</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>87%</td></tr>
+                                <tr><td class="rank">#7</td><td>Poručík Ghoustl<br><span class="player-skin">Using: Omega</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>86%</td></tr>
+                                <tr><td class="rank">#8</td><td>аhsul1<br><span class="player-skin">Using: Fishstick</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>84%</td></tr>
+                                <tr><td class="rank">#9</td><td>twtch 2xwasheyyǃ<br><span class="player-skin">Using: Travis Scott</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>84%</td></tr>
+                                <tr><td class="rank">#10</td><td>200IQ simo<br><span class="player-skin">Using: Peely</span></td><td>🇫🇮 FI</td><td><span class="division-unreal">Unreal</span></td><td>83%</td></tr>
+                                <tr><td class="rank">#11</td><td>200IQ spark<br><span class="player-skin">Using: Crystal</span></td><td>🇫🇮 FI</td><td><span class="division-unreal">Unreal</span></td><td>83%</td></tr>
+                                <tr><td class="rank">#12</td><td>Wendiger Schmali<br><span class="player-skin">Using: Aura</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>81%</td></tr>
+                                <tr><td class="rank">#13</td><td>Twitch Zensita<br><span class="player-skin">Using: Wonder Woman</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>81%</td></tr>
+                                <tr><td class="rank">#14</td><td>twitch freeswag<br><span class="player-skin">Using: Midas</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>80%</td></tr>
+                                <tr><td class="rank">#15</td><td>Scorcﱞh<br><span class="player-skin">Using: Drift</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>78%</td></tr>
+                                <tr><td class="rank">#16</td><td>npc oo oo ah ah<br><span class="player-skin">Using: Marshmello</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>78%</td></tr>
+                                <tr><td class="rank">#17</td><td>Daywalker.36<br><span class="player-skin">Using: Lynx</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>77%</td></tr>
+                                <tr><td class="rank">#18</td><td>bﱞοﱞt<br><span class="player-skin">Using: Ragnarok</span></td><td>🇨🇺 CU</td><td><span class="division-unreal">Unreal</span></td><td>76%</td></tr>
+                                <tr><td class="rank">#19</td><td>Monto Gold7<br><span class="player-skin">Using: Ice King</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>75%</td></tr>
+                                <tr><td class="rank">#20</td><td>TTV 313CRYPTIC<br><span class="player-skin">Using: Ninja</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>74%</td></tr>
+                                <tr><td class="rank">#21</td><td>krux 7<br><span class="player-skin">Using: Luxe</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>74%</td></tr>
+                                <tr><td class="rank">#22</td><td>Drﱞake.<br><span class="player-skin">Using: Hybrid</span></td><td>🇫🇲 FM</td><td><span class="division-unreal">Unreal</span></td><td>73%</td></tr>
+                                <tr><td class="rank">#23</td><td>Bonnіe Blue<br><span class="player-skin">Using: Vendetta</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>73%</td></tr>
+                                <tr><td class="rank">#24</td><td>TIKTOK KIS CHANY<br><span class="player-skin">Using: Catalyst</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>71%</td></tr>
+                                <tr><td class="rank">#25</td><td>Emboar 18<br><span class="player-skin">Using: X-Lord</span></td><td>🇺🇦 UA</td><td><span class="division-unreal">Unreal</span></td><td>71%</td></tr>
+                                <tr><td class="rank">#26</td><td>ǃloco<br><span class="player-skin">Using: Ultima Knight</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>71%</td></tr>
+                                <tr><td class="rank">#27</td><td>PTH zaytox<br><span class="player-skin">Using: Sparkle Supreme</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>71%</td></tr>
+                                <tr><td class="rank">#28</td><td>BabyChief 代<br><span class="player-skin">Using: 8-Ball vs Scratch</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>71%</td></tr>
+                                <tr><td class="rank">#29</td><td>Pandore GaLaK<br><span class="player-skin">Using: Fusion</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#30</td><td>yes THAT godie<br><span class="player-skin">Using: Journey vs Hazard</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#31</td><td>ℭreature<br><span class="player-skin">Using: Remedy vs Toxin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#32</td><td>tiktokぴーたーらぜりで検索<br><span class="player-skin">Using: Sorana</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#33</td><td>185 guruu<br><span class="player-skin">Using: Rippley vs Sludge</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#34</td><td>AG ZyuPK 23<br><span class="player-skin">Using: Turk vs Riptide</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>70%</td></tr>
+                                <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
+                                <tr><td class="rank">#36</td><td>twitch yjzz_<br><span class="player-skin">Using: Skye</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
+                                <tr><td class="rank">#37</td><td>Twitch irlsnax<br><span class="player-skin">Using: Meowscles</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
+                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
+                                <tr><td class="rank">#39</td><td>Claire まろもちch<br><span class="player-skin">Using: Brutus</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#40</td><td>CHUGGINGTON ﾃ<br><span class="player-skin">Using: TNTina</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#41</td><td>DIE OKTONAUTEN<br><span class="player-skin">Using: Midas</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#42</td><td>motionfv<br><span class="player-skin">Using: Maya</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#43</td><td>M8 Mаlibucа<br><span class="player-skin">Using: Deadpool</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#44</td><td>Twitch Happyfnrr<br><span class="player-skin">Using: Kit</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#45</td><td>M8 Pоlloǃ<br><span class="player-skin">Using: Jules</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#46</td><td>Twitch Surprise<br><span class="player-skin">Using: Ocean</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#47</td><td>Mr. Lunoxs<br><span class="player-skin">Using: Fade</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#48</td><td>Solarу Kurama<br><span class="player-skin">Using: Siona</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
+                                <tr><td class="rank">#49</td><td>twitch keroxr1x<br><span class="player-skin">Using: Eternal Knight</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#50</td><td>220W SaNyaGoD-<br><span class="player-skin">Using: Thor</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#51</td><td>Twitch Coltin1x<br><span class="player-skin">Using: She-Hulk</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#52</td><td>bigmuffin555<br><span class="player-skin">Using: Groot</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#53</td><td>sкі.<br><span class="player-skin">Using: Storm</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#54</td><td>ВКǃ<br><span class="player-skin">Using: Doctor Doom</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#55</td><td>deviantǃ<br><span class="player-skin">Using: Mystique</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#56</td><td>TRKF DANDEPUZO<br><span class="player-skin">Using: Iron Man</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#57</td><td>Sinister Polzt<br><span class="player-skin">Using: Wolverine</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#58</td><td>Twitch T1nman21<br><span class="player-skin">Using: Mancake</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#59</td><td>untalented 4jp<br><span class="player-skin">Using: Kondor</span></td><td>🇯🇵 JP</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#60</td><td>0fkq<br><span class="player-skin">Using: Lexa</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#61</td><td>Nadporučík Vagy<br><span class="player-skin">Using: Reese</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>66%</td></tr>
+                                <tr><td class="rank">#62</td><td>Accused.Qertzzo<br><span class="player-skin">Using: The Mandalorian</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#63</td><td>DТ Rise<br><span class="player-skin">Using: Menace</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#64</td><td>Podporučík Riol<br><span class="player-skin">Using: Agent Jones</span></td><td>🇸🇰 SK</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#65</td><td>fقne spقidar<br><span class="player-skin">Using: The Visitor</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#66</td><td>rezotoǃ<br><span class="player-skin">Using: The Scientist</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#67</td><td>999 Explaint<br><span class="player-skin">Using: The Paradigm</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#68</td><td>FA_MisterX<br><span class="player-skin">Using: Foundation</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#69</td><td>CYC ZukeyAim<br><span class="player-skin">Using: Raz</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#70</td><td>E-Girl Batchii<br><span class="player-skin">Using: Lara Croft</span></td><td>🇨🇦 CA</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#71</td><td>NGS ゆずかなChannel<br><span class="player-skin">Using: Raven</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#72</td><td>250aim<br><span class="player-skin">Using: Tarana</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>65%</td></tr>
+                                <tr><td class="rank">#73</td><td>MEM CRIPPER 12<br><span class="player-skin">Using: Cluck</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#74</td><td>tuhronto ʕᵒᴥᵒʔ<br><span class="player-skin">Using: Kymera</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#75</td><td>Orangeе<br><span class="player-skin">Using: Guggimon</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#76</td><td>motionsick cam<br><span class="player-skin">Using: Sunny</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#77</td><td>Twitch Tyrionbtw<br><span class="player-skin">Using: Zyg</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#78</td><td>xps chipzǃǃ ÿÿÿÿ<br><span class="player-skin">Using: Slone</span></td><td>🇬🇧 GB</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱🇻 LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#84</td><td>phwim<br><span class="player-skin">Using: Dark Jonesy</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#85</td><td>chacalGOTY 7<br><span class="player-skin">Using: Ariana Grande</span></td><td>🇧🇷 BR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#86</td><td>Xezi On Kick<br><span class="player-skin">Using: Carnage</span></td><td>🇬🇹 GT</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#87</td><td>ǃ Egy Kub1x ǃ<br><span class="player-skin">Using: Venom</span></td><td>🇨🇿 CZ</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#88</td><td>G8 Eltensy<br><span class="player-skin">Using: The Foundation</span></td><td>🇺🇦 UA</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#89</td><td>axrtiy<br><span class="player-skin">Using: Spider-Man</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#90</td><td>Twitch PapaSuun<br><span class="player-skin">Using: Marcus Fenix</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#91</td><td>falcon tаyso<br><span class="player-skin">Using: Kait Diaz</span></td><td>🇷🇸 RS</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#92</td><td>Twitch Swаy6k<br><span class="player-skin">Using: The Rock</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#93</td><td>M8 MarіusCОW<br><span class="player-skin">Using: Haven</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#94</td><td>2AM Zenon<br><span class="player-skin">Using: Ronin</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#95</td><td>paranoid andrоid<br><span class="player-skin">Using: Gunnar</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#96</td><td>156 TURTL3 JO<br><span class="player-skin">Using: Stormfarer</span></td><td>🇷🇴 RO</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#97</td><td>ノノチ<br><span class="player-skin">Using: The Imagined</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#98</td><td>Twitch 7Zyrox7<br><span class="player-skin">Using: Tsuki 2.0</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#99</td><td>twitter masnfn6<br><span class="player-skin">Using: Kiara K.O.</span></td><td>🇸🇪 SE</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                                <tr><td class="rank">#100</td><td>Twitch-xjoaxyf<br><span class="player-skin">Using: Adira</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>63%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
