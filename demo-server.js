@@ -6,39 +6,204 @@ const port = process.env.PORT || 3000;
 
 // Mock player database for search functionality
 const playerDatabase = [
-    { username: "free refresh kid", rank: 1, winRate: "99%", kd: "12.4", wins: 2847, kills: 34567, matches: 2875, platform: "PC", country: "FR", skin: "Renegade Raider" },
-    { username: "free storm kids", rank: 2, winRate: "99%", kd: "11.8", wins: 2693, kills: 31734, matches: 2721, platform: "PC", country: "FR", skin: "Black Knight" },
-    { username: "Twitch matthew1x", rank: 3, winRate: "99%", kd: "13.2", wins: 2541, kills: 33542, matches: 2565, platform: "PC", country: "US", skin: "Skull Trooper" },
-    { username: "pliesfv twitch", rank: 4, winRate: "99%", kd: "10.9", wins: 2387, kills: 26019, matches: 2410, platform: "PC", country: "US", skin: "Galaxy" },
-    { username: "Twitch Perkcules", rank: 5, winRate: "88%", kd: "12.7", wins: 2234, kills: 28402, matches: 2540, platform: "PC", country: "US", skin: "Ghoul Trooper" },
-    { username: "Ninja", rank: 6, winRate: "85%", kd: "8.9", wins: 2100, kills: 18690, matches: 2470, platform: "PC", country: "US", skin: "Icon Series" },
-    { username: "Tfue", rank: 7, winRate: "82%", kd: "9.5", wins: 1987, kills: 18876, matches: 2425, platform: "PC", country: "US", skin: "Crystal" },
-    { username: "SypherPK", rank: 8, winRate: "79%", kd: "7.8", wins: 1876, kills: 14632, matches: 2373, platform: "PC", country: "US", skin: "Aura" },
-    { username: "Bugha", rank: 9, winRate: "88%", kd: "11.2", wins: 1756, kills: 19664, matches: 1995, platform: "PC", country: "US", skin: "World Cup" },
-    { username: "Mongraal", rank: 10, winRate: "84%", kd: "9.7", wins: 1689, kills: 16383, matches: 2010, platform: "PC", country: "UK", skin: "Elite Agent" }
+  {
+    username: 'free refresh kid',
+    rank: 1,
+    winRate: '99%',
+    kd: '12.4',
+    wins: 2847,
+    kills: 34567,
+    matches: 2875,
+    platform: 'PC',
+    country: 'FR',
+    skin: 'Renegade Raider',
+  },
+  {
+    username: 'free storm kids',
+    rank: 2,
+    winRate: '99%',
+    kd: '11.8',
+    wins: 2693,
+    kills: 31734,
+    matches: 2721,
+    platform: 'PC',
+    country: 'FR',
+    skin: 'Black Knight',
+  },
+  {
+    username: 'Twitch matthew1x',
+    rank: 3,
+    winRate: '99%',
+    kd: '13.2',
+    wins: 2541,
+    kills: 33542,
+    matches: 2565,
+    platform: 'PC',
+    country: 'US',
+    skin: 'Skull Trooper',
+  },
+  {
+    username: 'pliesfv twitch',
+    rank: 4,
+    winRate: '99%',
+    kd: '10.9',
+    wins: 2387,
+    kills: 26019,
+    matches: 2410,
+    platform: 'PC',
+    country: 'US',
+    skin: 'Galaxy',
+  },
+  {
+    username: 'Twitch Perkcules',
+    rank: 5,
+    winRate: '88%',
+    kd: '12.7',
+    wins: 2234,
+    kills: 28402,
+    matches: 2540,
+    platform: 'PC',
+    country: 'US',
+    skin: 'Ghoul Trooper',
+  },
+  {
+    username: 'Ninja',
+    rank: 6,
+    winRate: '85%',
+    kd: '8.9',
+    wins: 2100,
+    kills: 18690,
+    matches: 2470,
+    platform: 'PC',
+    country: 'US',
+    skin: 'Icon Series',
+  },
+  {
+    username: 'Tfue',
+    rank: 7,
+    winRate: '82%',
+    kd: '9.5',
+    wins: 1987,
+    kills: 18876,
+    matches: 2425,
+    platform: 'PC',
+    country: 'US',
+    skin: 'Crystal',
+  },
+  {
+    username: 'SypherPK',
+    rank: 8,
+    winRate: '79%',
+    kd: '7.8',
+    wins: 1876,
+    kills: 14632,
+    matches: 2373,
+    platform: 'PC',
+    country: 'US',
+    skin: 'Aura',
+  },
+  {
+    username: 'Bugha',
+    rank: 9,
+    winRate: '88%',
+    kd: '11.2',
+    wins: 1756,
+    kills: 19664,
+    matches: 1995,
+    platform: 'PC',
+    country: 'US',
+    skin: 'World Cup',
+  },
+  {
+    username: 'Mongraal',
+    rank: 10,
+    winRate: '84%',
+    kd: '9.7',
+    wins: 1689,
+    kills: 16383,
+    matches: 2010,
+    platform: 'PC',
+    country: 'UK',
+    skin: 'Elite Agent',
+  },
 ];
 
 // Reload players data (different from ranked players)
 const reloadPlayers = [
-    { username: "ReloadKing_TTV", rank: 1, avgReloadTime: "0.8s", reloadAccuracy: "98%", fastReloads: 15670, country: "US", skin: "John Wick" },
-    { username: "QuickClip_Pro", rank: 2, avgReloadTime: "0.9s", reloadAccuracy: "97%", fastReloads: 14892, country: "CA", skin: "The Reaper" },
-    { username: "SpeedReloader", rank: 3, avgReloadTime: "0.9s", reloadAccuracy: "96%", fastReloads: 14203, country: "UK", skin: "Omega" },
-    { username: "InstantAmmo_YT", rank: 4, avgReloadTime: "1.0s", reloadAccuracy: "98%", fastReloads: 13945, country: "DE", skin: "Black Knight" },
-    { username: "ReloadMaster", rank: 5, avgReloadTime: "1.0s", reloadAccuracy: "95%", fastReloads: 13567, country: "FR", skin: "Galaxy" }
-    // ... continuing with 95 more players
+  {
+    username: 'ReloadKing_TTV',
+    rank: 1,
+    avgReloadTime: '0.8s',
+    reloadAccuracy: '98%',
+    fastReloads: 15670,
+    country: 'US',
+    skin: 'John Wick',
+  },
+  {
+    username: 'QuickClip_Pro',
+    rank: 2,
+    avgReloadTime: '0.9s',
+    reloadAccuracy: '97%',
+    fastReloads: 14892,
+    country: 'CA',
+    skin: 'The Reaper',
+  },
+  {
+    username: 'SpeedReloader',
+    rank: 3,
+    avgReloadTime: '0.9s',
+    reloadAccuracy: '96%',
+    fastReloads: 14203,
+    country: 'UK',
+    skin: 'Omega',
+  },
+  {
+    username: 'InstantAmmo_YT',
+    rank: 4,
+    avgReloadTime: '1.0s',
+    reloadAccuracy: '98%',
+    fastReloads: 13945,
+    country: 'DE',
+    skin: 'Black Knight',
+  },
+  {
+    username: 'ReloadMaster',
+    rank: 5,
+    avgReloadTime: '1.0s',
+    reloadAccuracy: '95%',
+    fastReloads: 13567,
+    country: 'FR',
+    skin: 'Galaxy',
+  },
+  // ... continuing with 95 more players
 ];
 
 // Generate more reload players
 for (let i = 6; i <= 100; i++) {
-    reloadPlayers.push({
-        username: `ReloadPro${i}_${Math.random().toString(36).substr(2, 5)}`,
-        rank: i,
-        avgReloadTime: `${(0.8 + Math.random() * 0.8).toFixed(1)}s`,
-        reloadAccuracy: `${(85 + Math.random() * 13).toFixed(0)}%`,
-        fastReloads: Math.floor(13000 - (i * 120) + Math.random() * 500),
-        country: ["US", "CA", "UK", "DE", "FR", "JP", "AU", "BR", "MX", "KR"][Math.floor(Math.random() * 10)],
-        skin: ["Crystal", "Aura", "Dynamo", "Superhero", "Driver", "Og Defaults", "Fishstick", "Peely", "Midas", "Kit"][Math.floor(Math.random() * 10)]
-    });
+  reloadPlayers.push({
+    username: `ReloadPro${i}_${Math.random()
+      .toString(36)
+      .substr(2, 5)}`,
+    rank: i,
+    avgReloadTime: `${(0.8 + Math.random() * 0.8).toFixed(1)}s`,
+    reloadAccuracy: `${(85 + Math.random() * 13).toFixed(0)}%`,
+    fastReloads: Math.floor(13000 - i * 120 + Math.random() * 500),
+    country: ['US', 'CA', 'UK', 'DE', 'FR', 'JP', 'AU', 'BR', 'MX', 'KR'][
+      Math.floor(Math.random() * 10)
+    ],
+    skin: [
+      'Crystal',
+      'Aura',
+      'Dynamo',
+      'Superhero',
+      'Driver',
+      'Og Defaults',
+      'Fishstick',
+      'Peely',
+      'Midas',
+      'Kit',
+    ][Math.floor(Math.random() * 10)],
+  });
 }
 
 // Serve static HTML page
@@ -3316,18 +3481,18 @@ app.get('/', (req, res) => {
 // API endpoints for demonstration (these would require actual credentials to work)
 app.get('/api/status', (req, res) => {
   res.json({
-    message: "This endpoint would check Fortnite server status",
-    note: "Requires authentication with Epic Games credentials",
-    method: "checkFortniteStatus()"
+    message: 'This endpoint would check Fortnite server status',
+    note: 'Requires authentication with Epic Games credentials',
+    method: 'checkFortniteStatus()',
   });
 });
 
 app.get('/api/news', (req, res) => {
   res.json({
-    message: "This endpoint would fetch Fortnite news",
-    note: "Requires authentication with Epic Games credentials", 
-    method: "getFortniteNews(lang)",
-    example: "fortniteAPI.getFortniteNews('en')"
+    message: 'This endpoint would fetch Fortnite news',
+    note: 'Requires authentication with Epic Games credentials',
+    method: 'getFortniteNews(lang)',
+    example: "fortniteAPI.getFortniteNews('en')",
   });
 });
 
@@ -3335,9 +3500,9 @@ app.get('/api/stats/:username/:platform', (req, res) => {
   const { username, platform } = req.params;
   res.json({
     message: `This endpoint would fetch stats for ${username} on ${platform}`,
-    note: "Requires authentication with Epic Games credentials",
-    method: "getStatsBR(username, platform, timeWindow)",
-    example: `fortniteAPI.getStatsBR('${username}', '${platform}', 'weekly')`
+    note: 'Requires authentication with Epic Games credentials',
+    method: 'getStatsBR(username, platform, timeWindow)',
+    example: `fortniteAPI.getStatsBR('${username}', '${platform}', 'weekly')`,
   });
 });
 
@@ -3345,9 +3510,9 @@ app.get('/api/leaderboard/:platform/:type', (req, res) => {
   const { platform, type } = req.params;
   res.json({
     message: `This endpoint would fetch ${type} leaderboard for ${platform}`,
-    note: "Requires authentication with Epic Games credentials",
-    method: "getScoreLeaderBoard(platform, type)",
-    example: `fortniteAPI.getScoreLeaderBoard('${platform}', FortniteApi.${type.toUpperCase()})`
+    note: 'Requires authentication with Epic Games credentials',
+    method: 'getScoreLeaderBoard(platform, type)',
+    example: `fortniteAPI.getScoreLeaderBoard('${platform}', FortniteApi.${type.toUpperCase()})`,
   });
 });
 
