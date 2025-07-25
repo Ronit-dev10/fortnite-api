@@ -659,18 +659,18 @@ class FortniteApi {
       );
 
       if (!response.ok) {
-        throw new Error(Error fetching data: ${ response.statusText });
+        throw new Error(Error fetching data: ${response.statusText});
       }
 
       const data = await response.json();
 
       if (data.error) {
-        throw new Error(API error: ${ data.error });
+        throw new Error(API error: ${data.error});
       }
 
       return data; // Return the raw stats data from Fortnite Tracker API
     } catch (err) {
-      throw new Error(Failed to fetch from Fortnite Tracker API: ${ err.message });
+      throw new Error(Failed to fetch from Fortnite Tracker API: ${err.message});
     }
   }
 }
