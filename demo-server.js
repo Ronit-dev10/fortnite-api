@@ -230,6 +230,16 @@ app.get('/', (req, res) => {
                 color: #ffd700;
                 font-weight: 700;
             }
+            .division-unreal {
+                background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+                color: white;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
             .weapons-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
