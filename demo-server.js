@@ -589,7 +589,7 @@ app.get('/', (req, res) => {
                                 <tr class="top-3-row top-3">
                                     <td class="rank">🥉 #3</td>
                                     <td><strong>Twitch matthew1x</strong><br><span class="player-skin">Using: Skull Trooper</span></td>
-                                    <td>����🇸 US</td>
+                                    <td>🇺🇸 US</td>
                                     <td><span class="division-unreal">Unreal</span></td>
                                     <td><strong>99%</strong></td>
                                 </tr>
@@ -669,7 +669,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#77</td><td>Twitch Tyrionbtw<br><span class="player-skin">Using: Zyg</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#78</td><td>xps chipzǃǃ ÿÿÿÿ<br><span class="player-skin">Using: Slone</span></td><td>🇬🇧 GB</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱��� LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱🇻 LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
@@ -1060,6 +1060,92 @@ app.get('/', (req, res) => {
                 <p>&copy; 2023 Fortnite Central. All rights reserved. Not affiliated with Epic Games.</p>
             </div>
         </footer>
+
+        <script>
+            // Navigation filtering functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                // Weapons filtering
+                const weaponBtns = document.querySelectorAll('#weapons .nav-btn');
+                const weaponCards = document.querySelectorAll('#weapons-container .weapon-card');
+
+                weaponBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const category = btn.getAttribute('data-category');
+
+                        // Update active button
+                        weaponBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        // Filter weapons
+                        weaponCards.forEach(card => {
+                            if (category === 'all' || card.getAttribute('data-category') === category || card.classList.contains('tier-' + category.replace('-tier', ''))) {
+                                card.style.display = 'block';
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 50);
+                            } else {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    });
+                });
+
+                // News filtering
+                const newsBtns = document.querySelectorAll('#news .nav-btn');
+                const newsCards = document.querySelectorAll('#news-container .news-card');
+
+                newsBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const category = btn.getAttribute('data-category');
+
+                        // Update active button
+                        newsBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        // Filter news
+                        newsCards.forEach(card => {
+                            if (category === 'all' || card.getAttribute('data-category') === category) {
+                                card.style.display = 'block';
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 50);
+                            } else {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px)';
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    });
+                });
+
+                // Smooth scrolling for navigation
+                document.querySelectorAll('.nav-links a').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+
+                // Add transition styles to cards
+                [...weaponCards, ...newsCards].forEach(card => {
+                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                });
+            });
+        </script>
     </body>
     </html>
   `);
