@@ -1491,7 +1491,7 @@ app.get('/', (req, res) => {
                     <div class="weapon-card tier-declined" data-category="all">
                         <div class="weapon-rarity rarity-uncommon">C-Tier</div>
                         <h4>📉 Havoc Suppressed AR</h4>
-                        <p>DPS: 132 • Range: 250m �� Magazine: 30</p>
+                        <p>DPS: 132 • Range: 250m • Magazine: 30</p>
                         <p>Inconsistent performance and slow reload have dropped this from meta.</p>
                         <div class="weapon-stats">
                             <span class="stat">Damage: 24</span>
@@ -1780,7 +1780,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Arrays for random selection
-                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮🇹 IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
+                const countries = ['🇺🇸 US', '🇬🇧 UK', '🇩🇪 DE', '🇫🇷 FR', '🇨🇦 CA', '🇯🇵 JP', '🇦🇺 AU', '🇧🇷 BR', '🇲🇽 MX', '🇰🇷 KR', '🇷🇺 RU', '🇮���� IT', '🇪🇸 ES', '🇳🇱 NL', '🇸🇪 SE', '🇳🇴 NO', '🇩🇰 DK', '🇫🇮 FI', '🇵🇱 PL', '🇨🇿 CZ'];
                 const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch', 'Mobile'];
                 const skins = ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Ghoul Trooper', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Lynx', 'Omega', 'John Wick', 'Travis Scott', 'Marshmello', 'Wonder Woman', 'Spider-Man', 'Darth Vader', 'Goku', 'Naruto', 'Master Chief', 'Kratos', 'The Rock', 'LeBron James', 'Ariana Grande', 'Bruno Mars'];
 
@@ -1813,12 +1813,23 @@ app.get('/', (req, res) => {
                 const duoKills = Math.floor((duoMatches - duoWins) * duoKD);
                 const squadKills = Math.floor((squadMatches - squadWins) * squadKD);
 
-                // Generate season stats
-                const seasonMultiplier = seededRandom(0.1, 0.3);
-                const seasonWins = Math.floor(baseWins * seasonMultiplier);
-                const seasonKills = Math.floor(baseKills * seasonMultiplier);
-                const seasonXp = Math.floor(seededRandom(50000, 2000000));
-                const bpTier = Math.min(100, Math.floor((seasonXp / 20000) + seededRandom(1, 20)));
+                // Generate realistic season stats (Chapter 6 Season 3 is ongoing)
+                // Season progress based on typical player activity
+                const seasonProgress = seededRandom(0.3, 0.9); // Season is 30-90% complete
+                const dailyMatches = seededRandom(2, 15); // Players play 2-15 matches per day
+                const daysPlayed = Math.floor(seasonProgress * 90); // ~90 day season
+                const seasonMatches = Math.floor(dailyMatches * daysPlayed);
+
+                const seasonWins = Math.floor(seasonMatches * winRateDecimal);
+                const seasonKills = Math.floor(seasonMatches * (baseKills / baseMatches));
+
+                // XP based on playtime and performance
+                const baseXP = seasonMatches * seededRandom(800, 1500); // XP per match
+                const bonusXP = seasonWins * seededRandom(300, 800); // Bonus for wins
+                const seasonXp = Math.floor(baseXP + bonusXP);
+
+                // Battle Pass tier based on XP (20,000 XP per tier average)
+                const bpTier = Math.min(100, Math.floor(seasonXp / 20000) + Math.floor(seededRandom(0, 10)));
 
                 // Determine placement percentage
                 let placementPercent;
