@@ -650,12 +650,14 @@ app.get('/', (req, res) => {
     <body>
         <nav class="navbar">
             <div class="nav-container">
-                <div class="logo">Fortnite Central</div>
-                <ul class="nav-links">
-                    <li><a href="#stats">Stats</a></li>
-                    <li><a href="#leaderboards">Leaderboards</a></li>
-                    <li><a href="#weapons">Weapons</a></li>
-                    <li><a href="#news">News</a></li>
+                <div class="logo" onclick="showTab('home')">Fortnite Central</div>
+                <ul class="main-nav">
+                    <li><button class="tab-btn active" onclick="showTab('home')">Home</button></li>
+                    <li><button class="tab-btn" onclick="showTab('search')">Player Search</button></li>
+                    <li><button class="tab-btn" onclick="showTab('leaderboards')">Leaderboards</button></li>
+                    <li><button class="tab-btn" onclick="showTab('reload-players')">Reload Players</button></li>
+                    <li><button class="tab-btn" onclick="showTab('weapons')">Weapons</button></li>
+                    <li><button class="tab-btn" onclick="showTab('news')">News</button></li>
                 </ul>
             </div>
         </nav>
