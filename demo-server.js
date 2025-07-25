@@ -299,6 +299,98 @@ app.get('/', (req, res) => {
                 background: linear-gradient(135deg, #b83dfa, #d946ef);
                 border-radius: 4px;
             }
+            .section-nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+            }
+            .nav-btn {
+                background: linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: #fff;
+                padding: 0.8rem 1.5rem;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+            .nav-btn:hover {
+                border-color: #00d4ff;
+                transform: translateY(-2px);
+            }
+            .nav-btn.active {
+                background: linear-gradient(135deg, #00d4ff, #0ea5e9);
+                border-color: #00d4ff;
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            }
+            .weapon-stats {
+                display: flex;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            .stat {
+                background: rgba(0, 212, 255, 0.1);
+                color: #00d4ff;
+                padding: 0.3rem 0.8rem;
+                border-radius: 15px;
+                font-size: 0.8rem;
+                font-weight: 500;
+            }
+            .tier-s {
+                border: 2px solid #00d4ff;
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            }
+            .tier-mythic {
+                border: 2px solid #b83dfa;
+                box-shadow: 0 0 20px rgba(184, 61, 250, 0.2);
+            }
+            .tier-utility {
+                border: 2px solid #22c55e;
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+            }
+            .tier-declined {
+                border: 2px solid #6b7280;
+                opacity: 0.7;
+            }
+            .news-badge {
+                background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+                color: white;
+                padding: 0.3rem 0.8rem;
+                border-radius: 15px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: inline-block;
+                margin-bottom: 0.5rem;
+            }
+            .news-card.featured {
+                border: 2px solid #ffd700;
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            }
+            .news-tags {
+                display: flex;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            .tag {
+                background: rgba(0, 212, 255, 0.2);
+                color: #00d4ff;
+                padding: 0.2rem 0.6rem;
+                border-radius: 12px;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .rarity-mythic {
+                background: linear-gradient(135deg, #b83dfa, #d946ef);
+                box-shadow: 0 0 15px rgba(184, 61, 250, 0.4);
+            }
             .weapons-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -497,7 +589,7 @@ app.get('/', (req, res) => {
                                 <tr class="top-3-row top-3">
                                     <td class="rank">🥉 #3</td>
                                     <td><strong>Twitch matthew1x</strong><br><span class="player-skin">Using: Skull Trooper</span></td>
-                                    <td>🇺🇸 US</td>
+                                    <td>����🇸 US</td>
                                     <td><span class="division-unreal">Unreal</span></td>
                                     <td><strong>99%</strong></td>
                                 </tr>
@@ -535,7 +627,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#35</td><td>twitch ethannmk<br><span class="player-skin">Using: Cameo vs Chic</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#36</td><td>twitch yjzz_<br><span class="player-skin">Using: Skye</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>69%</td></tr>
                                 <tr><td class="rank">#37</td><td>Twitch irlsnax<br><span class="player-skin">Using: Meowscles</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
-                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>����🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
+                                <tr><td class="rank">#38</td><td>hоwly666<br><span class="player-skin">Using: Agent Peely</span></td><td>🇷🇺 RU</td><td><span class="division-unreal">Unreal</span></td><td>68%</td></tr>
                                 <tr><td class="rank">#39</td><td>Claire まろもちch<br><span class="player-skin">Using: Brutus</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#40</td><td>CHUGGINGTON ﾃ<br><span class="player-skin">Using: TNTina</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
                                 <tr><td class="rank">#41</td><td>DIE OKTONAUTEN<br><span class="player-skin">Using: Midas</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>67%</td></tr>
@@ -577,7 +669,7 @@ app.get('/', (req, res) => {
                                 <tr><td class="rank">#77</td><td>Twitch Tyrionbtw<br><span class="player-skin">Using: Zyg</span></td><td>🌍</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#78</td><td>xps chipzǃǃ ÿÿÿÿ<br><span class="player-skin">Using: Slone</span></td><td>🇬🇧 GB</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#79</td><td>EOZ 0eht<br><span class="player-skin">Using: Charlotte</span></td><td>🇫🇷 FR</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
-                                <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱🇻 LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
+                                <tr><td class="rank">#80</td><td>Toizee .<br><span class="player-skin">Using: Kor</span></td><td>🇱��� LV</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#81</td><td>Quality 5<br><span class="player-skin">Using: J.B. Chimpanski</span></td><td>🇩🇪 DE</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#82</td><td>Tiktok Gavzzxᵗᵗᵛ<br><span class="player-skin">Using: Fabio Sparklemane</span></td><td>🇻🇮 VI</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
                                 <tr><td class="rank">#83</td><td>tyt voidianaǃ<br><span class="player-skin">Using: Torin</span></td><td>🇺🇸 US</td><td><span class="division-unreal">Unreal</span></td><td>64%</td></tr>
