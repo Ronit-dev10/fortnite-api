@@ -924,7 +924,7 @@ app.get('/', (req, res) => {
                         spellcheck="false"
                     >
                     <button class="search-btn" onclick="searchPlayer()" id="searchBtn">
-                        🔍 Search Live
+                        🔍 Search FortniteTracker
                     </button>
                 </div>
                 
