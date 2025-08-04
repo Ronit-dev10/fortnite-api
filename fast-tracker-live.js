@@ -208,7 +208,7 @@ function extractCountry(html) {
             if (match.includes('🇬🇧') || match.includes('UK')) return 'UK';
             if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
             if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
-            if (match.includes('🇫����') || match.includes('France')) return 'FR';
+            if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
             if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
         }
     }
@@ -664,6 +664,18 @@ app.get('/', (req, res) => {
                 color: #ffd700;
                 font-size: 1.2rem;
                 font-weight: 600;
+            }
+
+            .battle-royale-rank {
+                color: #00d4ff;
+                font-size: 1rem;
+                font-weight: 600;
+                margin-top: 0.25rem;
+                padding: 0.3rem 0.8rem;
+                background: rgba(0, 212, 255, 0.1);
+                border-radius: 15px;
+                display: inline-block;
+                border: 1px solid rgba(0, 212, 255, 0.3);
             }
             
             .player-meta {
