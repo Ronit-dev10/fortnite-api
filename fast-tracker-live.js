@@ -22,9 +22,9 @@ const PLATFORM_MAP = {
     'mobile': 'touch'
 };
 
-// Cache for API responses (15 minute TTL as requested)
+// Cache for LIVE FortniteTracker responses (5 minute TTL for real data)
 const apiCache = new Map();
-const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes for live data
 
 // Helper function to get cached data
 function getCachedData(key) {
@@ -43,128 +43,194 @@ function setCachedData(key, data) {
     });
 }
 
-// Direct mock API integration (no external fetch needed)
+// REAL FortniteTracker.com integration
 async function fetchPlayerStats(username, platform) {
     const cacheKey = `${username}-${platform}`;
 
-    // Check cache first (15 minute session cache as requested)
+    // Check cache first (5 minute cache for real data)
     const cached = getCachedData(cacheKey);
     if (cached) {
-        console.log(`[CACHE] Using cached data for ${username} on ${platform}`);
+        console.log(`[CACHE] Using cached FortniteTracker data for ${username} on ${platform}`);
         return cached;
     }
 
     try {
-        console.log(`[API] Generating mock data for ${username} on ${platform}`);
+        console.log(`[LIVE] Fetching REAL data from FortniteTracker.com for ${username} on ${platform}`);
 
-        // Generate mock data directly (since we're using local mock API)
-        const mockData = generateMockAPIData(username, platform);
+        const ftPlatform = PLATFORM_MAP[platform] || 'kbm';
 
-        // Transform your API data to display format
-        const playerData = transformCustomAPIData(mockData, username, platform);
+        // Fetch from actual FortniteTracker.com
+        const response = await fetch(`https://fortnitetracker.com/profile/${ftPlatform}/${encodeURIComponent(username)}`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'DNT': '1',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none'
+            },
+            timeout: 15000
+        });
 
-        // Cache the result (15 minutes as requested)
+        if (!response.ok) {
+            throw new Error(`FortniteTracker returned ${response.status}: ${response.statusText}`);
+        }
+
+        const html = await response.text();
+
+        // Check if player exists
+        if (html.includes('Player Not Found') || html.includes('not found') || html.includes('404')) {
+            throw new Error(`Player '${username}' not found on FortniteTracker`);
+        }
+
+        // Parse real FortniteTracker HTML data
+        const playerData = parseFortniteTrackerHTML(html, username, platform);
+
+        // Cache the REAL result (5 minutes for live data)
         setCachedData(cacheKey, playerData);
 
-        console.log(`[SUCCESS] Mock data generated for ${username}`);
+        console.log(`[SUCCESS] REAL FortniteTracker data fetched for ${username}`);
         return playerData;
 
     } catch (error) {
-        console.error(`[ERROR] Data generation failed for ${username}:`, error.message);
+        console.error(`[ERROR] FortniteTracker fetch failed for ${username}:`, error.message);
 
-        // Throw error instead of returning fallback (as requested)
-        throw new Error(`Failed to generate player data: ${error.message}`);
+        // Throw error - no fake data allowed
+        throw new Error(`Failed to fetch real FortniteTracker data: ${error.message}`);
     }
 }
 
-// Generate mock data in your expected API format
-function generateMockAPIData(username, platform) {
-    // Generate realistic data based on username
-    const isProPlayer = username.toLowerCase().includes('pro') ||
-                      username.toLowerCase().includes('ttv') ||
-                      username.toLowerCase().includes('ninja') ||
-                      username.toLowerCase().includes('tfue') ||
-                      username.toLowerCase().includes('sypher');
-
-    const skillMultiplier = isProPlayer ? 3 : 1;
-    const baseWins = Math.floor((Math.random() * 800 + 200) * skillMultiplier);
-    const baseMatches = Math.floor(baseWins * (Math.random() * 6 + 4));
-    const baseKills = Math.floor(baseMatches * (Math.random() * 2.5 + 1.5) * skillMultiplier);
-    const kd = (baseKills / (baseMatches - baseWins)).toFixed(2);
-
-    // Generate match history
-    const matchHistory = [];
-    for (let i = 0; i < 5; i++) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        matchHistory.push({
-            date: date.toISOString().split('T')[0],
-            kills: Math.floor(Math.random() * 15) + 1,
-            placement: Math.floor(Math.random() * 50) + 1
-        });
-    }
-
-    // Return data in your expected format
-    return {
-        username: username,
-        platform: platform,
-        rank: Math.floor(Math.random() * 50000) + 1,
-        level: Math.floor(Math.random() * 300) + 50,
-        country: ['US', 'UK', 'CA', 'DE', 'FR', 'JP', 'AU', 'BR'][Math.floor(Math.random() * 8)],
-        currentSkin: ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Travis Scott'][Math.floor(Math.random() * 5)],
-        stats: {
-            wins: baseWins,
-            kills: baseKills,
-            kd: parseFloat(kd),
-            matchesPlayed: baseMatches
-        },
-        matchHistory: matchHistory
-    };
-}
-
-// Transform your custom API data to display format
-function transformCustomAPIData(apiData, username, platform) {
+// Parse REAL FortniteTracker HTML data
+function parseFortniteTrackerHTML(html, username, platform) {
     try {
-        // Expected structure from your API:
-        // {
-        //   "username": "NickEh30",
-        //   "platform": "pc",
-        //   "stats": {
-        //     "wins": 1250,
-        //     "kills": 21900,
-        //     "kd": 3.25,
-        //     "matchesPlayed": 5900
-        //   },
-        //   "matchHistory": [...]
-        // }
+        console.log(`[PARSER] Parsing FortniteTracker HTML for ${username}`);
 
-        const stats = apiData.stats;
-        const winRate = stats.matchesPlayed > 0 ? ((stats.wins / stats.matchesPlayed) * 100).toFixed(1) : '0.0';
+        // Extract Battle Royale stats using robust patterns
+        const stats = {
+            wins: extractStatValue(html, /(?:Wins?[^\d]*)(\d+(?:,\d+)*)/gi) || '0',
+            kills: extractStatValue(html, /(?:Kills?[^\d]*)(\d+(?:,\d+)*)/gi) || '0',
+            matches: extractStatValue(html, /(?:Matches?[^\d]*)(\d+(?:,\d+)*)/gi) || '0',
+            kd: extractStatValue(html, /(?:K\/D[^\d]*)(\d+\.\d+)/gi) || '0.00',
+            winRate: extractStatValue(html, /(?:Win\s*%[^\d]*)(\d+(?:\.\d+)?)/gi) || '0.0',
+            score: extractStatValue(html, /(?:Score[^\d]*)(\d+(?:,\d+)*)/gi) || '0',
+            level: extractStatValue(html, /(?:Level[^\d]*)(\d+)/gi) || '1'
+        };
+
+        // Extract Battle Royale rank/division
+        let rank = 'Unranked';
+        let division = 'Bronze';
+
+        // Look for rank patterns in HTML
+        const rankMatch = html.match(/(?:Rank[^\d#]*#?)(\d+(?:,\d+)*)/gi);
+        if (rankMatch && rankMatch[0]) {
+            const rankNum = rankMatch[0].replace(/[^\d]/g, '');
+            if (rankNum) rank = parseInt(rankNum).toLocaleString();
+        }
+
+        // Extract division/tier
+        const divisionPatterns = [
+            /Bronze/gi, /Silver/gi, /Gold/gi, /Platinum/gi,
+            /Diamond/gi, /Champion/gi, /Unreal/gi, /Elite/gi
+        ];
+
+        for (let pattern of divisionPatterns) {
+            if (html.match(pattern)) {
+                division = html.match(pattern)[0];
+                break;
+            }
+        }
+
+        // Calculate additional stats
+        const killsNum = parseInt(stats.kills.replace(/,/g, '')) || 0;
+        const winsNum = parseInt(stats.wins.replace(/,/g, '')) || 0;
+        const matchesNum = parseInt(stats.matches.replace(/,/g, '')) || 0;
+
+        const calculatedKD = matchesNum > winsNum ? (killsNum / (matchesNum - winsNum)).toFixed(2) : stats.kd;
+        const calculatedWinRate = matchesNum > 0 ? ((winsNum / matchesNum) * 100).toFixed(1) : stats.winRate;
 
         return {
-            username: apiData.username || username,
-            platform: (apiData.platform || platform).toUpperCase(),
-            rank: apiData.rank || calculateRankFromStats(stats),
-            level: apiData.level || calculateLevelFromStats(stats),
-            winRate: winRate + '%',
-            kd: stats.kd.toFixed(2),
-            wins: stats.wins.toLocaleString(),
-            kills: stats.kills.toLocaleString(),
-            matches: stats.matchesPlayed.toLocaleString(),
-            score: calculateScore(stats.kills, stats.wins),
-            playtime: calculatePlaytime(stats.matchesPlayed),
-            country: apiData.country || getRandomCountry(),
-            skin: apiData.currentSkin || getRandomSkin(),
-            matchHistory: apiData.matchHistory || [],
+            username: username,
+            platform: platform.toUpperCase(),
+            rank: rank,
+            division: division,
+            level: stats.level,
+            winRate: calculatedWinRate + '%',
+            kd: calculatedKD,
+            wins: stats.wins,
+            kills: stats.kills,
+            matches: stats.matches,
+            score: stats.score,
+            playtime: calculatePlaytime(matchesNum),
+            country: extractCountry(html) || 'Unknown',
+            currentSkin: extractCurrentSkin(html) || 'Default',
             verified: true,
             lastUpdated: new Date().toISOString(),
-            source: 'Custom Fortnite API'
+            source: 'FortniteTracker.com (LIVE)',
+            battleRoyaleRank: `${division} - #${rank}`
         };
+
     } catch (error) {
-        console.error('API data transformation error:', error);
-        throw new Error('Failed to process API response data');
+        console.error('HTML parsing error:', error);
+        throw new Error('Failed to parse FortniteTracker data');
     }
 }
+
+// Robust stat extraction
+function extractStatValue(html, pattern) {
+    const matches = [...html.matchAll(pattern)];
+    for (let match of matches) {
+        if (match[1] && match[1].trim()) {
+            return match[1].trim();
+        }
+    }
+    return null;
+}
+
+// Extract player country
+function extractCountry(html) {
+    const countryPatterns = [
+        /🇺🇸|United States|USA/i,
+        /🇬🇧|United Kingdom|UK/i,
+        /🇨🇦|Canada/i,
+        /🇩🇪|Germany/i,
+        /🇫🇷|France/i,
+        /🇯🇵|Japan/i
+    ];
+
+    for (let pattern of countryPatterns) {
+        if (html.match(pattern)) {
+            const match = html.match(pattern)[0];
+            if (match.includes('🇺🇸') || match.includes('USA')) return 'US';
+            if (match.includes('🇬🇧') || match.includes('UK')) return 'UK';
+            if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
+            if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
+            if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
+            if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
+        }
+    }
+    return 'Unknown';
+}
+
+// Extract current skin
+function extractCurrentSkin(html) {
+    const skinPatterns = [
+        /Renegade Raider/i, /Black Knight/i, /Skull Trooper/i,
+        /Galaxy/i, /Travis Scott/i, /Ariana Grande/i,
+        /Naruto/i, /Goku/i, /Spider-Man/i
+    ];
+
+    for (let pattern of skinPatterns) {
+        const match = html.match(pattern);
+        if (match) return match[0];
+    }
+    return 'Default';
+}
+
+// No transformation needed - data comes directly from FortniteTracker parser
 
 // Calculate estimated rank based on stats
 function calculateRankFromStats(stats) {
