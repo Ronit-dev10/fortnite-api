@@ -190,7 +190,7 @@ function extractCountry(html) {
             if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
             if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
             if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
-            if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
+            if (match.includes('🇯����') || match.includes('Japan')) return 'JP';
         }
     }
     return 'Unknown';
@@ -1186,7 +1186,7 @@ app.get('/', (req, res) => {
                     await new Promise(resolve => setTimeout(resolve, 500));
                     loadingBar.updateProgress(35, 'Fetching player data...');
 
-                    // Call your custom API endpoint
+                    // Call the API endpoint
                     const response = await fetch('/api/search/' + state.currentPlatform + '/' + encodeURIComponent(query), {
                         method: 'GET',
                         headers: {
@@ -1194,14 +1194,14 @@ app.get('/', (req, res) => {
                         }
                     });
 
-                    loadingBar.updateProgress(70);
+                    loadingBar.updateProgress(65, 'Processing response...');
 
                     if (!response.ok) {
                         throw new Error('API returned ' + response.status + ': ' + response.statusText);
                     }
 
                     const result = await response.json();
-                    loadingBar.updateProgress(90);
+                    loadingBar.updateProgress(85, 'Parsing player stats...');
 
                     if (!result.success) {
                         throw new Error(result.error || 'API request failed');
@@ -1210,9 +1210,11 @@ app.get('/', (req, res) => {
                     // Cache the result in session storage
                     setSessionCache(cacheKey, result.data);
 
-                    // Display the LIVE API data
+                    loadingBar.updateProgress(95, 'Displaying results...');
+
+                    // Display the data
                     displayLivePlayerData(result.data, false);
-                    loadingBar.updateProgress(100);
+                    loadingBar.updateProgress(100, 'Complete!');
 
                 } catch (error) {
                     console.error('🚨 Custom API search error:', error);
