@@ -623,6 +623,54 @@ class FortniteApi {
         });
     });
   }
-}
 
-module.exports = FortniteApi;
+  // === NEW METHOD ADDED TO CALL FORTNITE TRACKER API WITH PLATFORM MAPPING ===
+
+  async getStatsFromFortniteTracker(username, platform) {
+    // Import fetch (for Node.js environment; remove if native fetch available)
+    const fetch = require('node-fetch');
+
+    // Map your platforms to Fortnite Tracker API platform codes
+    const platformMap = {
+      pc: 'pc',
+      xboxOne: 'xbox',
+      xboxSeriesX: 'xbox',
+      ps4: 'psn',
+      ps5: 'psn',
+    };
+
+    const apiPlatform = platformMap[platform] || 'pc';
+
+    // Put your Fortnite Tracker API key here:
+    const API_KEY = 'YOUR_FORTNITE_TRACKER_API_KEY';
+
+    if (!username) {
+      throw new Error('Please provide a username');
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.fortnitetracker.com/v1/profile/${apiPlatform}/${encodeURIComponent(username)}`,
+        {
+          headers: {
+            'TRN-Api-Key': API_KEY,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(`API error: ${data.error}`);
+      }
+
+      return data; // Return the raw stats data from Fortnite Tracker API
+    } catch (err) {
+      throw new Error(`Failed to fetch from Fortnite Tracker API: ${err.message}`);
+    }
+  }
+}
