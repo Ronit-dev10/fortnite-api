@@ -959,6 +959,13 @@ app.get('/', (req, res) => {
                 <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
                     <strong>Press ENTER to search:</strong> <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>SypherPK</strong>, or any real Fortnite player
                 </p>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: rgba(255, 165, 0, 0.1); border: 1px solid rgba(255, 165, 0, 0.3); border-radius: 10px;">
+                    <h3 style="color: #ff6b6b; margin-bottom: 0.5rem;">⚠️ FortniteTracker Protection Notice</h3>
+                    <p style="font-size: 0.85rem; color: #e2e8f0;">
+                        FortniteTracker.com blocks automated requests. When you search, you'll get a direct link to manually verify the data on FortniteTracker.com.
+                    </p>
+                </div>
             </div>
         </section>
         
