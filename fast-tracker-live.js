@@ -1101,11 +1101,11 @@ app.get('/', (req, res) => {
 
                 const formattedRank = typeof data.rank === 'number' ? data.rank.toLocaleString() : data.rank;
 
-                // Status badges - only show API status
+                // Status badges - show FortniteTracker status
                 const statusBadges = [];
-                statusBadges.push('<span class="live-badge">🔴 LIVE API</span>');
+                statusBadges.push('<span class="live-badge">🔴 FORTNITETRACKER</span>');
                 if (isCached) {
-                    statusBadges.push('<span class="cache-badge">💾 CACHED</span>');
+                    statusBadges.push('<span class="cache-badge">💾 CACHED (5MIN)</span>');
                 }
 
                 // Build match history section if available
