@@ -123,6 +123,8 @@ function parseFortniteTrackerHTML(html, username, platform) {
             level: extractStatValue(html, /(?:Level[^\d]*)(\d+)/gi) || '1'
         };
 
+        console.log(`[PARSER] Extracted stats for ${username}:`, stats);
+
         // Extract Battle Royale rank/division
         let rank = 'Unranked';
         let division = 'Bronze';
