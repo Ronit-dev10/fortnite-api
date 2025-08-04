@@ -449,32 +449,55 @@ app.get('/', (req, res) => {
                 overflow-x: hidden;
             }
             
-            /* Enhanced loading bar */
+            /* Enhanced loading bar with percentage and time */
             .loading-bar {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 4px;
+                height: 6px;
                 background: rgba(0, 212, 255, 0.1);
                 z-index: 9999;
                 opacity: 0;
                 transition: opacity 0.3s ease;
             }
-            
+
             .loading-bar.active {
                 opacity: 1;
             }
-            
+
             .loading-bar-fill {
                 height: 100%;
                 background: linear-gradient(90deg, var(--accent), #06b6d4, #22c55e);
                 width: 0%;
-                transition: width 0.3s ease;
+                transition: width 0.4s ease;
                 box-shadow: 0 0 15px var(--accent);
                 animation: pulse 1.5s infinite;
+                position: relative;
             }
-            
+
+            .loading-info {
+                position: fixed;
+                top: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(10, 14, 26, 0.95);
+                color: var(--accent);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                border: 1px solid rgba(0, 212, 255, 0.3);
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .loading-info.active {
+                opacity: 1;
+            }
+
             @keyframes pulse {
                 0%, 100% { box-shadow: 0 0 15px var(--accent); }
                 50% { box-shadow: 0 0 25px var(--accent), 0 0 35px rgba(0, 212, 255, 0.5); }
