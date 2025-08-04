@@ -1279,7 +1279,11 @@ app.get('/', (req, res) => {
                 resultsSection.innerHTML = errorHTML;
                 resultsSection.classList.add('show');
             }
-            
+
+            // Make functions globally accessible for onclick handlers
+            window.selectPlatform = selectPlatform;
+            window.searchPlayer = searchPlayer;
+
             // Event listeners
             document.addEventListener('DOMContentLoaded', function() {
                 const searchInput = document.getElementById('searchInput');
