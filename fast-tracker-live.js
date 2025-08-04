@@ -386,7 +386,33 @@ app.get('/', (req, res) => {
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-        
+
+        <!-- Ensure critical functions are available immediately -->
+        <script>
+            // Global state
+            var state = {
+                currentPlatform: 'pc',
+                isSearching: false
+            };
+
+            // Platform selection function
+            function selectPlatform(platform) {
+                state.currentPlatform = platform;
+                console.log('Platform switched to:', platform.toUpperCase());
+
+                // Update button states
+                document.querySelectorAll('.platform-btn').forEach(function(btn) {
+                    btn.classList.toggle('active', btn.getAttribute('data-platform') === platform);
+                });
+            }
+
+            // Search function placeholder
+            function searchPlayer() {
+                console.log('Search function called');
+                // Will be overridden by main script
+            }
+        </script>
+
         <style>
             :root {
                 --primary-bg: #0a0e1a;
