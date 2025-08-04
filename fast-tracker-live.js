@@ -110,7 +110,7 @@ async function fetchPlayerStats(username, platform) {
 // Parse REAL FortniteTracker HTML data
 function parseFortniteTrackerHTML(html, username, platform) {
     try {
-        console.log(`[PARSER] Parsing FortniteTracker HTML for ${username}`);
+        console.log(`[PARSER] Parsing FortniteTracker HTML for ${username} (${html.length} chars)`);
 
         // Extract Battle Royale stats using robust patterns
         const stats = {
