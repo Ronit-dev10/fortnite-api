@@ -1233,13 +1233,27 @@ app.get('/', (req, res) => {
                 console.log('Platform switched to:', platform.toUpperCase());
             }
             
-            // Error handling
+            // Enhanced error handling with FortniteTracker links
             function showError(message) {
                 const resultsSection = document.getElementById('resultsSection');
-                resultsSection.innerHTML = 
-                    '<div class="error-message fade-in">' +
-                        '❌ ' + message +
-                    '</div>';
+
+                // Check if the error contains a FortniteTracker URL
+                const urlMatch = message.match(/https:\/\/fortnitetracker\.com\/profile\/[^\s)]+/);
+                let errorHTML = '<div class="error-message fade-in">' + '❌ ' + message;
+
+                if (urlMatch) {
+                    const url = urlMatch[0];
+                    errorHTML += '<br><br>' +
+                        '<a href="' + url + '" target="_blank" class="fortnitetracker-link">' +
+                        '🔗 Click here to manually check on FortniteTracker.com' +
+                        '</a>' +
+                        '<br><small style="color: #a0a9c0; margin-top: 1rem; display: block;">' +
+                        'Copy the stats manually and paste them below if needed' +
+                        '</small>';
+                }
+
+                errorHTML += '</div>';
+                resultsSection.innerHTML = errorHTML;
                 resultsSection.classList.add('show');
             }
             
