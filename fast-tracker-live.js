@@ -174,30 +174,90 @@ function getRandomSkin() {
     return skins[Math.floor(Math.random() * skins.length)];
 }
 
-// API endpoint for live player search
+// Mock Custom API endpoint (replace this with your real API)
+app.get('/api/custom-stats/:platform/:username', (req, res) => {
+    try {
+        const { username, platform } = req.params;
+
+        console.log(`[MOCK API] Generating data for ${username} on ${platform}`);
+
+        // Generate realistic data based on username
+        const isProPlayer = username.toLowerCase().includes('pro') ||
+                          username.toLowerCase().includes('ttv') ||
+                          username.toLowerCase().includes('ninja') ||
+                          username.toLowerCase().includes('tfue') ||
+                          username.toLowerCase().includes('sypher');
+
+        const skillMultiplier = isProPlayer ? 3 : 1;
+        const baseWins = Math.floor((Math.random() * 800 + 200) * skillMultiplier);
+        const baseMatches = Math.floor(baseWins * (Math.random() * 6 + 4));
+        const baseKills = Math.floor(baseMatches * (Math.random() * 2.5 + 1.5) * skillMultiplier);
+        const kd = (baseKills / (baseMatches - baseWins)).toFixed(2);
+
+        // Generate match history
+        const matchHistory = [];
+        for (let i = 0; i < 5; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            matchHistory.push({
+                date: date.toISOString().split('T')[0],
+                kills: Math.floor(Math.random() * 15) + 1,
+                placement: Math.floor(Math.random() * 50) + 1
+            });
+        }
+
+        // Return data in YOUR expected format
+        const apiResponse = {
+            username: username,
+            platform: platform,
+            rank: Math.floor(Math.random() * 50000) + 1,
+            level: Math.floor(Math.random() * 300) + 50,
+            country: ['US', 'UK', 'CA', 'DE', 'FR', 'JP', 'AU', 'BR'][Math.floor(Math.random() * 8)],
+            currentSkin: ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Travis Scott'][Math.floor(Math.random() * 5)],
+            stats: {
+                wins: baseWins,
+                kills: baseKills,
+                kd: parseFloat(kd),
+                matchesPlayed: baseMatches
+            },
+            matchHistory: matchHistory
+        };
+
+        res.json(apiResponse);
+
+    } catch (error) {
+        console.error('Mock API error:', error);
+        res.status(500).json({
+            error: 'Internal server error',
+            message: error.message
+        });
+    }
+});
+
+// Main search endpoint that calls the custom API
 app.get('/api/search/:platform/:username', async (req, res) => {
     try {
         const { username, platform } = req.params;
-        
+
         if (!username || username.length < 2) {
             return res.status(400).json({ error: 'Username must be at least 2 characters' });
         }
-        
+
         if (!PLATFORM_MAP[platform]) {
             return res.status(400).json({ error: 'Invalid platform' });
         }
-        
+
         console.log(`[API] Searching Custom API: ${username} on ${platform.toUpperCase()}`);
 
         const playerData = await fetchPlayerStats(username, platform);
-        
+
         res.json({
             success: true,
             data: playerData,
             cached: getCachedData(`${username}-${platform}`) !== null,
             timestamp: new Date().toISOString()
         });
-        
+
     } catch (error) {
         console.error('Search API error:', error);
         res.status(500).json({
