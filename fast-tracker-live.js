@@ -208,7 +208,7 @@ function extractCountry(html) {
             if (match.includes('🇬🇧') || match.includes('UK')) return 'UK';
             if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
             if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
-            if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
+            if (match.includes('🇫����') || match.includes('France')) return 'FR';
             if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
         }
     }
@@ -1133,6 +1133,7 @@ app.get('/', (req, res) => {
                             '<div class="player-info">' +
                                 '<h2>' + data.username + ' ' + statusBadges.join(' ') + '</h2>' +
                                 '<div class="player-rank">#' + formattedRank + ' Global</div>' +
+                                (data.battleRoyaleRank ? '<div class="battle-royale-rank">🏆 Battle Royale: ' + data.battleRoyaleRank + '</div>' : '') +
                                 '<div class="player-meta">' +
                                     '<span>🌍 ' + data.country + '</span>' +
                                     '<span>•</span>' +
