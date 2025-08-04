@@ -14,15 +14,22 @@ app.use((req, res, next) => {
     next();
 });
 
+// FortniteTracker API configuration
+const FORTNITE_TRACKER_API = {
+    baseURL: 'https://api.fortnitetracker.com/v1',
+    // Replace with your actual TRN API key
+    apiKey: process.env.TRN_API_KEY || 'YOUR_TRN_API_KEY_HERE'
+};
+
 // Platform mapping for FortniteTracker API
 const PLATFORM_MAP = {
-    'pc': 'kbm',
-    'xbox': 'gamepad', 
-    'playstation': 'touch',
+    'pc': 'pc',
+    'xbox': 'xbl', 
+    'playstation': 'psn',
     'mobile': 'touch'
 };
 
-// Cache for responses (15 minute TTL)
+// Cache for API responses (15 minute TTL)
 const apiCache = new Map();
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 
@@ -32,6 +39,7 @@ function getCachedData(key) {
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
         return cached.data;
     }
+    apiCache.delete(key); // Remove expired cache
     return null;
 }
 
@@ -43,130 +51,118 @@ function setCachedData(key, data) {
     });
 }
 
-// Professional player data with realistic stats
-const professionalPlayers = {
-    'ninja': { 
-        username: 'Ninja', rank: 1247, winRate: 32.8, kd: 2.95, wins: 5847, kills: 127893, matches: 17834, 
-        level: 1247, country: 'United States', skin: 'Icon Series Ninja', verified: true, 
-        battleRoyale: { tier: 'Unreal', division: 2, points: 12487 },
-        zeroBuilder: { tier: 'Champion', division: 1, points: 8943 },
-        rankedBR: { tier: 'Champion', division: 3, points: 10284 }
-    },
-    'tfue': { 
-        username: 'Tfue', rank: 892, winRate: 28.4, kd: 3.12, wins: 4923, kills: 98764, matches: 17338, 
-        level: 1156, country: 'United States', skin: 'Crystal', verified: true,
-        battleRoyale: { tier: 'Unreal', division: 1, points: 13892 },
-        zeroBuilder: { tier: 'Champion', division: 2, points: 9234 },
-        rankedBR: { tier: 'Champion', division: 3, points: 11048 }
-    },
-    'sypherpk': { 
-        username: 'SypherPK', rank: 2103, winRate: 25.7, kd: 2.78, wins: 3847, kills: 87234, matches: 14967, 
-        level: 987, country: 'United States', skin: 'Icon Series SypherPK', verified: true,
-        battleRoyale: { tier: 'Champion', division: 3, points: 9847 },
-        zeroBuilder: { tier: 'Diamond', division: 1, points: 7238 },
-        rankedBR: { tier: 'Champion', division: 2, points: 9483 }
-    },
-    'mongraal': {
-        username: 'Mongraal', rank: 567, winRate: 34.2, kd: 3.89, wins: 6234, kills: 145892, matches: 18234,
-        level: 1389, country: 'United Kingdom', skin: 'Superhero', verified: true,
-        battleRoyale: { tier: 'Unreal', division: 3, points: 14892 },
-        zeroBuilder: { tier: 'Champion', division: 3, points: 10847 },
-        rankedBR: { tier: 'Unreal', division: 1, points: 15234 }
-    },
-    'bugha': {
-        username: 'Bugha', rank: 324, winRate: 36.8, kd: 4.12, wins: 7892, kills: 189234, matches: 21456,
-        level: 1567, country: 'United States', skin: 'World Cup Bugha', verified: true,
-        battleRoyale: { tier: 'Unreal', division: 4, points: 17234 },
-        zeroBuilder: { tier: 'Unreal', division: 1, points: 13847 },
-        rankedBR: { tier: 'Unreal', division: 2, points: 16789 }
-    }
-};
-
-// Generate realistic player data
-function generateRealisticPlayerData(username, platform) {
-    const lowerName = username.toLowerCase();
+// Real FortniteTracker API integration
+async function fetchRealPlayerStats(username, platform) {
+    const cacheKey = `${username}-${platform}`;
     
-    // Check if it's a known professional player
-    if (professionalPlayers[lowerName]) {
-        const pro = professionalPlayers[lowerName];
-        return {
-            username: pro.username,
-            platform: platform.toUpperCase(),
-            rank: pro.rank,
-            level: pro.level,
-            winRate: pro.winRate.toFixed(1) + '%',
-            kd: pro.kd.toFixed(2),
-            wins: pro.wins.toLocaleString(),
-            kills: pro.kills.toLocaleString(),
-            matches: pro.matches.toLocaleString(),
-            score: (pro.kills * 100 + pro.wins * 2000).toLocaleString(),
-            playtime: Math.floor(pro.matches * 18 / 60) + 'h',
-            country: pro.country,
-            skin: pro.skin,
-            verified: pro.verified,
-            lastUpdated: new Date().toISOString(),
-            battleRoyale: pro.battleRoyale,
-            zeroBuilder: pro.zeroBuilder,
-            rankedBR: pro.rankedBR,
-            source: 'FortniteTracker.com'
-        };
+    // Check cache first
+    const cached = getCachedData(cacheKey);
+    if (cached) {
+        console.log(`[CACHE] Using cached data for ${username} on ${platform}`);
+        return cached;
     }
     
-    // Generate realistic data for regular players
-    const isGoodPlayer = Math.random() > 0.7;
-    const baseMultiplier = isGoodPlayer ? 1.5 : 1;
-    
-    const level = Math.floor(Math.random() * 800 + 100);
-    const matches = Math.floor(Math.random() * 8000 + 1000) * baseMultiplier;
-    const winRate = (Math.random() * (isGoodPlayer ? 15 : 8) + (isGoodPlayer ? 5 : 1));
-    const wins = Math.floor(matches * (winRate / 100));
-    const kd = (Math.random() * (isGoodPlayer ? 2.5 : 1.5) + (isGoodPlayer ? 1.5 : 0.8));
-    const kills = Math.floor((matches - wins) * kd);
-    
-    // Generate ranked data
-    const tiers = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Champion', 'Unreal'];
-    const tierWeights = [0.3, 0.25, 0.2, 0.15, 0.07, 0.025, 0.005];
-    
-    function getRandomTier() {
-        const rand = Math.random();
-        let cumulative = 0;
-        for (let i = 0; i < tierWeights.length; i++) {
-            cumulative += tierWeights[i];
-            if (rand <= cumulative) {
-                return {
-                    tier: tiers[i],
-                    division: Math.floor(Math.random() * 3) + 1,
-                    points: Math.floor(Math.random() * 3000 + (i * 1500))
-                };
+    try {
+        const mappedPlatform = PLATFORM_MAP[platform];
+        if (!mappedPlatform) {
+            throw new Error(`Invalid platform: ${platform}`);
+        }
+        
+        console.log(`[API] Fetching real data for ${username} on ${mappedPlatform}`);
+        
+        const response = await axios.get(
+            `${FORTNITE_TRACKER_API.baseURL}/profile/${mappedPlatform}/${encodeURIComponent(username)}`,
+            {
+                headers: {
+                    'TRN-Api-Key': FORTNITE_TRACKER_API.apiKey,
+                    'User-Agent': 'FortniteTracker-API-Client/1.0'
+                },
+                timeout: 10000 // 10 second timeout
+            }
+        );
+        
+        if (!response.data || !response.data.epicUserHandle) {
+            throw new Error('Player not found on FortniteTracker');
+        }
+        
+        const playerData = parseFortniteTrackerResponse(response.data, platform);
+        
+        // Cache the result
+        setCachedData(cacheKey, playerData);
+        
+        return playerData;
+        
+    } catch (error) {
+        console.error(`[ERROR] FortniteTracker API failed for ${username}:`, error.message);
+        
+        if (error.response) {
+            if (error.response.status === 404) {
+                throw new Error('Player not found on FortniteTracker');
+            } else if (error.response.status === 429) {
+                throw new Error('Rate limit exceeded. Please try again later');
+            } else if (error.response.status === 401) {
+                throw new Error('Invalid API key');
             }
         }
-        return { tier: 'Bronze', division: 1, points: Math.floor(Math.random() * 500) };
+        
+        throw new Error(`Failed to fetch player data: ${error.message}`);
     }
+}
+
+// Parse FortniteTracker API response
+function parseFortniteTrackerResponse(data, platform) {
+    const stats = data.stats || {};
     
-    const countries = ['United States', 'United Kingdom', 'Canada', 'Germany', 'France', 'Japan', 'Australia', 'Brazil', 'Mexico', 'South Korea'];
-    const skins = ['Default', 'Crystal', 'Aura', 'Dynamo', 'Superhero', 'Driver', 'Fishstick', 'Peely', 'Midas', 'Kit', 'Raven', 'John Wick'];
+    // Get Solo stats (p2) as primary, with fallbacks to other modes
+    const soloStats = stats.p2 || {};
+    const duoStats = stats.p10 || {};
+    const squadStats = stats.p9 || {};
+    
+    // Current season stats if available
+    const currentSoloStats = stats.curr_p2 || soloStats;
+    
+    // Extract key stats with proper fallbacks
+    const kills = getSafeStat(currentSoloStats.kills) || getSafeStat(soloStats.kills) || 0;
+    const matches = getSafeStat(currentSoloStats.matches) || getSafeStat(soloStats.matches) || 0;
+    const wins = getSafeStat(currentSoloStats.top1) || getSafeStat(soloStats.top1) || 0;
+    const kd = getSafeStat(currentSoloStats.kd) || getSafeStat(soloStats.kd) || 0;
+    const score = getSafeStat(currentSoloStats.score) || getSafeStat(soloStats.score) || 0;
+    
+    // Calculate additional stats
+    const winRate = matches > 0 ? ((wins / matches) * 100).toFixed(1) : '0.0';
+    const playtime = getSafeStat(currentSoloStats.minutesPlayed) || getSafeStat(soloStats.minutesPlayed) || 0;
+    const playtimeHours = Math.floor(playtime / 60);
     
     return {
-        username: username,
+        username: data.epicUserHandle,
         platform: platform.toUpperCase(),
-        rank: Math.floor(Math.random() * 1000000 + 5000),
-        level: level,
-        winRate: winRate.toFixed(1) + '%',
-        kd: kd.toFixed(2),
-        wins: wins.toLocaleString(),
+        platformName: data.platformName || platform.toUpperCase(),
+        level: getSafeStat(data.lifeTimeStats?.find(s => s.key === 'Level')?.value) || 0,
         kills: kills.toLocaleString(),
         matches: matches.toLocaleString(),
-        score: (kills * 100 + wins * 2000).toLocaleString(),
-        playtime: Math.floor(matches * 18 / 60) + 'h',
-        country: countries[Math.floor(Math.random() * countries.length)],
-        skin: skins[Math.floor(Math.random() * skins.length)],
-        verified: Math.random() > 0.95,
+        wins: wins.toLocaleString(),
+        kd: typeof kd === 'number' ? kd.toFixed(2) : '0.00',
+        winRate: winRate + '%',
+        score: score.toLocaleString(),
+        playtime: playtimeHours > 0 ? playtimeHours + 'h' : Math.floor(playtime) + 'm',
         lastUpdated: new Date().toISOString(),
-        battleRoyale: getRandomTier(),
-        zeroBuilder: getRandomTier(),
-        rankedBR: getRandomTier(),
-        source: 'FortniteTracker.com'
+        source: 'FortniteTracker.com',
+        raw: {
+            solo: soloStats,
+            duo: duoStats,
+            squad: squadStats,
+            current: currentSoloStats
+        }
     };
+}
+
+// Helper function to safely extract stat values
+function getSafeStat(stat) {
+    if (!stat) return null;
+    if (typeof stat === 'object' && stat.value !== undefined) {
+        return typeof stat.value === 'string' ? parseFloat(stat.value.replace(/,/g, '')) : stat.value;
+    }
+    return typeof stat === 'string' ? parseFloat(stat.replace(/,/g, '')) : stat;
 }
 
 // Main search endpoint
@@ -175,69 +171,53 @@ app.get('/api/search/:platform/:username', async (req, res) => {
         const { username, platform } = req.params;
         
         if (!username || username.length < 2) {
-            return res.status(400).json({ error: 'Username must be at least 2 characters' });
+            return res.status(400).json({ 
+                success: false,
+                error: 'Username must be at least 2 characters' 
+            });
         }
         
         if (!PLATFORM_MAP[platform]) {
-            return res.status(400).json({ error: 'Invalid platform' });
+            return res.status(400).json({ 
+                success: false,
+                error: 'Invalid platform. Use: pc, xbox, playstation, or mobile' 
+            });
         }
         
-        console.log(`[API] Searching: ${username} on ${platform.toUpperCase()}`);
+        console.log(`[API] Searching real FortniteTracker: ${username} on ${platform.toUpperCase()}`);
         
-        const cacheKey = `${username}-${platform}`;
-        let playerData = getCachedData(cacheKey);
-        
-        if (!playerData) {
-            playerData = generateRealisticPlayerData(username, platform);
-            setCachedData(cacheKey, playerData);
-        }
+        const playerData = await fetchRealPlayerStats(username, platform);
         
         res.json({
             success: true,
             data: playerData,
-            cached: getCachedData(cacheKey) !== null,
+            cached: getCachedData(`${username}-${platform}`) !== null,
             timestamp: new Date().toISOString()
         });
         
     } catch (error) {
-        console.error('Search API error:', error);
+        console.error('Search API error:', error.message);
         res.status(500).json({
             success: false,
-            error: 'Failed to fetch player data',
-            message: error.message
+            error: error.message,
+            timestamp: new Date().toISOString()
         });
     }
 });
 
-// Leaderboard endpoint
-app.get('/api/leaderboards/:type', (req, res) => {
-    const { type } = req.params;
-    
-    const leaderboards = {
-        wins: [
-            { rank: 1, username: 'Bugha', wins: 7892, platform: 'PC', country: 'US' },
-            { rank: 2, username: 'Mongraal', wins: 6234, platform: 'PC', country: 'UK' },
-            { rank: 3, username: 'Ninja', wins: 5847, platform: 'PC', country: 'US' },
-            { rank: 4, username: 'Tfue', wins: 4923, platform: 'PC', country: 'US' },
-            { rank: 5, username: 'SypherPK', wins: 3847, platform: 'PC', country: 'US' }
-        ],
-        kills: [
-            { rank: 1, username: 'Bugha', kills: 189234, platform: 'PC', country: 'US' },
-            { rank: 2, username: 'Mongraal', kills: 145892, platform: 'PC', country: 'UK' },
-            { rank: 3, username: 'Ninja', kills: 127893, platform: 'PC', country: 'US' },
-            { rank: 4, username: 'Tfue', kills: 98764, platform: 'PC', country: 'US' },
-            { rank: 5, username: 'SypherPK', kills: 87234, platform: 'PC', country: 'US' }
-        ]
-    };
-    
+// Health check endpoint
+app.get('/api/health', (req, res) => {
     res.json({
-        success: true,
-        data: leaderboards[type] || leaderboards.wins,
-        type: type
+        status: 'healthy',
+        apiKey: FORTNITE_TRACKER_API.apiKey ? 'configured' : 'missing',
+        cache: {
+            entries: apiCache.size,
+            ttl: CACHE_TTL / 1000 + 's'
+        }
     });
 });
 
-// Serve the professional HTML page
+// Serve the HTML page with real API integration
 app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -245,7 +225,7 @@ app.get('/', (req, res) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FortniteTracker - Player Stats & Leaderboards</title>
+        <title>FortniteTracker - Real Player Stats</title>
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -286,7 +266,7 @@ app.get('/', (req, res) => {
             .header {
                 background: var(--bg-secondary);
                 border-bottom: 1px solid var(--border);
-                padding: 0.75rem 0;
+                padding: 1rem 0;
                 position: sticky;
                 top: 0;
                 z-index: 100;
@@ -297,14 +277,14 @@ app.get('/', (req, res) => {
                 max-width: 1200px;
                 margin: 0 auto;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
                 padding: 0 1.5rem;
             }
             
             .logo {
-                font-size: 1.5rem;
-                font-weight: 700;
+                font-size: 1.75rem;
+                font-weight: 800;
                 color: var(--accent-orange);
                 text-decoration: none;
                 display: flex;
@@ -312,55 +292,25 @@ app.get('/', (req, res) => {
                 gap: 0.5rem;
             }
             
-            .nav-links {
-                display: flex;
-                gap: 0.25rem;
-                list-style: none;
-            }
-            
-            .nav-link {
-                background: transparent;
-                border: none;
-                color: var(--text-secondary);
-                padding: 0.5rem 0.875rem;
-                border-radius: 6px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                font-size: 0.875rem;
-                font-weight: 500;
-                text-decoration: none;
-                white-space: nowrap;
-            }
-            
-            .nav-link:hover {
-                background: rgba(255, 255, 255, 0.05);
-                color: var(--text-primary);
-            }
-            
-            .nav-link.active {
-                background: var(--accent-blue);
-                color: white;
-            }
-            
             /* Search Section */
             .search-section {
                 background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
-                padding: 3rem 1.5rem;
+                padding: 4rem 1.5rem;
                 text-align: center;
                 border-bottom: 1px solid var(--border);
             }
             
             .search-title {
-                font-size: 2rem;
-                font-weight: 700;
+                font-size: 2.5rem;
+                font-weight: 800;
                 margin-bottom: 0.5rem;
                 color: var(--text-primary);
             }
             
             .search-subtitle {
                 color: var(--text-secondary);
-                margin-bottom: 2rem;
-                font-size: 1rem;
+                margin-bottom: 3rem;
+                font-size: 1.1rem;
             }
             
             .search-form {
@@ -372,18 +322,19 @@ app.get('/', (req, res) => {
             .search-input {
                 width: 100%;
                 background: var(--bg-card);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 0.875rem 1rem 0.875rem 3rem;
-                font-size: 1rem;
+                border: 2px solid var(--border);
+                border-radius: 12px;
+                padding: 1rem 1.25rem 1rem 3.5rem;
+                font-size: 1.1rem;
                 color: var(--text-primary);
-                transition: all 0.2s ease;
+                transition: all 0.3s ease;
             }
             
             .search-input:focus {
                 outline: none;
                 border-color: var(--accent-blue);
-                box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.1);
+                box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.1);
+                transform: translateY(-2px);
             }
             
             .search-input::placeholder {
@@ -392,45 +343,47 @@ app.get('/', (req, res) => {
             
             .search-icon {
                 position: absolute;
-                left: 1rem;
+                left: 1.25rem;
                 top: 50%;
                 transform: translateY(-50%);
                 color: var(--text-muted);
-                font-size: 1.125rem;
+                font-size: 1.25rem;
             }
             
             .platform-selector {
                 display: flex;
-                gap: 0.5rem;
+                gap: 0.75rem;
                 justify-content: center;
-                margin-top: 1.5rem;
+                margin-top: 2rem;
                 flex-wrap: wrap;
             }
             
             .platform-btn {
                 background: var(--bg-card);
-                border: 1px solid var(--border);
+                border: 2px solid var(--border);
                 color: var(--text-secondary);
-                padding: 0.5rem 1rem;
-                border-radius: 6px;
+                padding: 0.75rem 1.25rem;
+                border-radius: 8px;
                 cursor: pointer;
-                transition: all 0.2s ease;
-                font-size: 0.875rem;
-                font-weight: 500;
+                transition: all 0.3s ease;
+                font-size: 0.95rem;
+                font-weight: 600;
                 display: flex;
                 align-items: center;
-                gap: 0.375rem;
+                gap: 0.5rem;
             }
             
             .platform-btn:hover {
                 border-color: var(--accent-blue);
                 color: var(--text-primary);
+                transform: translateY(-2px);
             }
             
             .platform-btn.active {
                 background: var(--accent-blue);
                 border-color: var(--accent-blue);
                 color: white;
+                transform: translateY(-2px);
             }
             
             /* Loading Bar */
@@ -439,7 +392,7 @@ app.get('/', (req, res) => {
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 3px;
+                height: 4px;
                 background: var(--bg-secondary);
                 z-index: 1000;
                 opacity: 0;
@@ -454,269 +407,233 @@ app.get('/', (req, res) => {
                 height: 100%;
                 background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
                 width: 0%;
-                transition: width 0.3s ease;
+                transition: width 0.4s ease;
+                box-shadow: 0 0 10px var(--accent-blue);
             }
             
             .loading-info {
                 position: fixed;
-                top: 1rem;
-                right: 1rem;
+                top: 1.5rem;
+                right: 1.5rem;
                 background: var(--bg-card);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 0.75rem 1rem;
-                font-size: 0.875rem;
+                border: 2px solid var(--border);
+                border-radius: 12px;
+                padding: 1rem 1.25rem;
+                font-size: 0.9rem;
                 color: var(--text-primary);
                 z-index: 1001;
                 opacity: 0;
-                transition: opacity 0.3s ease;
-                box-shadow: 0 4px 12px var(--shadow);
+                transition: all 0.3s ease;
+                box-shadow: 0 8px 24px var(--shadow);
+                min-width: 200px;
             }
             
             .loading-info.active {
                 opacity: 1;
+                transform: scale(1.02);
             }
             
-            /* Content Sections */
+            .loading-percent {
+                font-weight: 700;
+                color: var(--accent-orange);
+                font-size: 1.1rem;
+            }
+            
+            /* Content */
             .main-content {
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 2rem 1.5rem;
-            }
-            
-            .content-section {
-                display: none;
-            }
-            
-            .content-section.active {
-                display: block;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-                font-weight: 700;
-                margin-bottom: 1.5rem;
-                color: var(--text-primary);
+                padding: 3rem 1.5rem;
             }
             
             /* Player Card */
             .player-card {
                 background: var(--bg-card);
-                border: 1px solid var(--border);
-                border-radius: 12px;
-                padding: 2rem;
+                border: 2px solid var(--border);
+                border-radius: 16px;
+                padding: 2.5rem;
                 margin-bottom: 2rem;
-                box-shadow: 0 1px 3px var(--shadow);
+                box-shadow: 0 4px 12px var(--shadow);
+                transition: all 0.3s ease;
+            }
+            
+            .player-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px var(--shadow);
             }
             
             .player-header {
                 display: flex;
                 align-items: center;
-                gap: 1.5rem;
-                margin-bottom: 2rem;
+                gap: 2rem;
+                margin-bottom: 2.5rem;
                 flex-wrap: wrap;
             }
             
             .player-avatar {
-                width: 80px;
-                height: 80px;
+                width: 90px;
+                height: 90px;
                 background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 2rem;
-                font-weight: 700;
+                font-size: 2.5rem;
+                font-weight: 800;
                 color: white;
                 flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(31, 111, 235, 0.3);
             }
             
             .player-info {
                 flex: 1;
-                min-width: 200px;
+                min-width: 250px;
             }
             
             .player-name {
-                font-size: 1.5rem;
-                font-weight: 700;
-                margin-bottom: 0.25rem;
+                font-size: 1.75rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
                 display: flex;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 0.75rem;
+                flex-wrap: wrap;
             }
             
-            .verified-badge {
-                background: var(--accent-blue);
+            .live-badge {
+                background: linear-gradient(45deg, var(--success), #16a34a);
                 color: white;
-                padding: 0.125rem 0.5rem;
-                border-radius: 12px;
+                padding: 0.25rem 0.75rem;
+                border-radius: 20px;
                 font-size: 0.75rem;
-                font-weight: 600;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+            }
+            
+            .cached-badge {
+                background: linear-gradient(45deg, var(--warning), #f97316);
+                color: white;
+                padding: 0.25rem 0.75rem;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
             }
             
             .player-meta {
                 color: var(--text-secondary);
-                font-size: 0.875rem;
+                font-size: 1rem;
                 display: flex;
                 align-items: center;
                 gap: 1rem;
                 flex-wrap: wrap;
+                margin-bottom: 0.5rem;
             }
             
-            .player-rank {
-                font-size: 1.125rem;
-                font-weight: 600;
+            .player-platform {
+                background: var(--bg-secondary);
                 color: var(--accent-orange);
-                margin-top: 0.5rem;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 1rem;
             }
             
             /* Stats Grid */
             .stats-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
+                gap: 1.5rem;
                 margin-bottom: 2rem;
             }
             
             .stat-card {
                 background: var(--bg-secondary);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.5rem;
+                border: 2px solid var(--border);
+                border-radius: 12px;
+                padding: 2rem;
                 text-align: center;
-                transition: all 0.2s ease;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .stat-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
             }
             
             .stat-card:hover {
                 border-color: var(--accent-blue);
-                transform: translateY(-1px);
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px var(--shadow);
             }
             
             .stat-value {
-                font-size: 1.75rem;
-                font-weight: 700;
+                font-size: 2rem;
+                font-weight: 800;
                 color: var(--text-primary);
                 display: block;
-                margin-bottom: 0.25rem;
+                margin-bottom: 0.5rem;
             }
             
             .stat-label {
                 color: var(--text-secondary);
-                font-size: 0.875rem;
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-            
-            /* Ranked Cards */
-            .ranked-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1rem;
-                margin-top: 2rem;
-            }
-            
-            .ranked-card {
-                background: var(--bg-secondary);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.5rem;
-            }
-            
-            .ranked-title {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 font-weight: 600;
-                margin-bottom: 1rem;
-                color: var(--text-primary);
+                text-transform: uppercase;
+                letter-spacing: 1px;
             }
             
-            .ranked-tier {
-                font-size: 1.25rem;
+            /* Error States */
+            .error-card {
+                background: var(--bg-card);
+                border: 2px solid var(--error);
+                border-radius: 12px;
+                padding: 2rem;
+                text-align: center;
+                color: var(--error);
+            }
+            
+            .error-title {
+                font-size: 1.5rem;
                 font-weight: 700;
-                color: var(--accent-orange);
                 margin-bottom: 0.5rem;
             }
             
-            .ranked-points {
+            .error-message {
+                font-size: 1rem;
                 color: var(--text-secondary);
-                font-size: 0.875rem;
             }
             
-            /* Leaderboard */
-            .leaderboard-controls {
-                display: flex;
-                gap: 0.5rem;
-                margin-bottom: 1.5rem;
-                flex-wrap: wrap;
-            }
-            
-            .leaderboard-btn {
+            /* Success States */
+            .success-card {
                 background: var(--bg-card);
-                border: 1px solid var(--border);
-                color: var(--text-secondary);
-                padding: 0.5rem 1rem;
-                border-radius: 6px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                font-size: 0.875rem;
-                font-weight: 500;
-            }
-            
-            .leaderboard-btn:hover {
-                border-color: var(--accent-blue);
-                color: var(--text-primary);
-            }
-            
-            .leaderboard-btn.active {
-                background: var(--accent-blue);
-                border-color: var(--accent-blue);
-                color: white;
-            }
-            
-            .leaderboard-table {
-                background: var(--bg-card);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                overflow: hidden;
-            }
-            
-            .leaderboard-row {
-                display: grid;
-                grid-template-columns: auto 1fr auto auto auto;
-                gap: 1rem;
-                align-items: center;
-                padding: 1rem 1.5rem;
-                border-bottom: 1px solid var(--border);
-                transition: background 0.2s ease;
-            }
-            
-            .leaderboard-row:hover {
-                background: var(--bg-secondary);
-            }
-            
-            .leaderboard-row:last-child {
-                border-bottom: none;
-            }
-            
-            .rank-number {
-                font-weight: 700;
-                color: var(--accent-orange);
-                min-width: 2rem;
-            }
-            
-            .player-name-cell {
-                font-weight: 600;
-                color: var(--text-primary);
-            }
-            
-            .country-flag {
-                font-size: 1.125rem;
+                border: 2px solid var(--success);
+                border-radius: 12px;
+                padding: 2rem;
+                text-align: center;
+                color: var(--success);
             }
             
             /* Responsive */
             @media (max-width: 768px) {
-                .nav-links {
-                    display: none;
+                .search-section {
+                    padding: 3rem 1rem;
+                }
+                
+                .search-title {
+                    font-size: 2rem;
                 }
                 
                 .player-header {
@@ -728,29 +645,23 @@ app.get('/', (req, res) => {
                     justify-content: center;
                 }
                 
-                .leaderboard-row {
-                    grid-template-columns: auto 1fr auto;
-                    gap: 0.5rem;
-                    padding: 0.75rem 1rem;
-                }
-                
                 .platform-selector {
-                    gap: 0.25rem;
+                    gap: 0.5rem;
                 }
                 
                 .platform-btn {
-                    padding: 0.375rem 0.75rem;
-                    font-size: 0.8rem;
+                    padding: 0.6rem 1rem;
+                    font-size: 0.85rem;
                 }
             }
             
             /* Utilities */
             .fade-in {
-                animation: fadeIn 0.5s ease-in-out;
+                animation: fadeIn 0.6s ease-in-out;
             }
             
             @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
+                from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
             }
             
@@ -766,29 +677,23 @@ app.get('/', (req, res) => {
         </div>
         
         <div class="loading-info" id="loadingInfo">
-            <span id="loadingText">Loading...</span>
-            <span id="loadingPercent">0%</span>
+            <div><span id="loadingText">Loading...</span></div>
+            <div><span class="loading-percent" id="loadingPercent">0%</span></div>
         </div>
         
         <!-- Header -->
         <header class="header">
             <nav class="nav-container">
-                <a href="#" class="logo" onclick="showSection('home')">
+                <div class="logo">
                     🎮 FortniteTracker
-                </a>
-                <div class="nav-links">
-                    <button class="nav-link active" onclick="showSection('home')">Player Search</button>
-                    <button class="nav-link" onclick="showSection('leaderboards')">Leaderboards</button>
-                    <button class="nav-link" onclick="showSection('stats')">Global Stats</button>
-                    <button class="nav-link" onclick="showSection('weapons')">Weapons</button>
                 </div>
             </nav>
         </header>
         
         <!-- Search Section -->
         <section class="search-section">
-            <h1 class="search-title">Fortnite Player Statistics</h1>
-            <p class="search-subtitle">Search any Fortnite player and view their complete statistics</p>
+            <h1 class="search-title">Real Fortnite Player Statistics</h1>
+            <p class="search-subtitle">Search any Fortnite player and view their live statistics from FortniteTracker.com</p>
             
             <div class="search-form">
                 <div style="position: relative;">
@@ -796,7 +701,7 @@ app.get('/', (req, res) => {
                     <input 
                         type="text" 
                         class="search-input" 
-                        placeholder="Enter player name..."
+                        placeholder="Enter Fortnite username..."
                         id="searchInput"
                         autocomplete="off"
                     >
@@ -821,78 +726,14 @@ app.get('/', (req, res) => {
         
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Home Section -->
-            <section id="home-section" class="content-section active">
-                <div id="playerResults"></div>
-            </section>
-            
-            <!-- Leaderboards Section -->
-            <section id="leaderboards-section" class="content-section">
-                <h2 class="section-title">Global Leaderboards</h2>
-                
-                <div class="leaderboard-controls">
-                    <button class="leaderboard-btn active" onclick="loadLeaderboard('wins')">Most Wins</button>
-                    <button class="leaderboard-btn" onclick="loadLeaderboard('kills')">Most Kills</button>
-                </div>
-                
-                <div class="leaderboard-table" id="leaderboardTable">
-                    <!-- Leaderboard content will be loaded here -->
-                </div>
-            </section>
-            
-            <!-- Global Stats Section -->
-            <section id="stats-section" class="content-section">
-                <h2 class="section-title">Global Game Statistics</h2>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value">400M+</span>
-                        <span class="stat-label">Registered Players</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">85M</span>
-                        <span class="stat-label">Monthly Active</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">2.8B</span>
-                        <span class="stat-label">Total Matches</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">150+</span>
-                        <span class="stat-label">Countries</span>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Weapons Section -->
-            <section id="weapons-section" class="content-section">
-                <h2 class="section-title">Current Season Weapons</h2>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value">Assault Rifle</span>
-                        <span class="stat-label">Most Popular</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">Pump Shotgun</span>
-                        <span class="stat-label">Highest DPS</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">Sniper Rifle</span>
-                        <span class="stat-label">Longest Range</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">SMG</span>
-                        <span class="stat-label">Fastest Fire Rate</span>
-                    </div>
-                </div>
-            </section>
+            <div id="playerResults"></div>
         </main>
         
         <script>
             // Global state
             let currentPlatform = 'pc';
             let isSearching = false;
+            let searchTimeout = null;
             
             // Loading bar controller
             class LoadingController {
@@ -902,9 +743,11 @@ app.get('/', (req, res) => {
                     this.info = document.getElementById('loadingInfo');
                     this.text = document.getElementById('loadingText');
                     this.percent = document.getElementById('loadingPercent');
+                    this.startTime = 0;
                 }
                 
                 show(message = 'Loading...') {
+                    this.startTime = Date.now();
                     this.bar.classList.add('active');
                     this.info.classList.add('active');
                     this.text.textContent = message;
@@ -920,10 +763,11 @@ app.get('/', (req, res) => {
                 }
                 
                 hide() {
+                    this.updateProgress(100, 'Complete!');
                     setTimeout(() => {
                         this.bar.classList.remove('active');
                         this.info.classList.remove('active');
-                    }, 500);
+                    }, 800);
                 }
             }
             
@@ -935,72 +779,76 @@ app.get('/', (req, res) => {
                 document.querySelectorAll('.platform-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.platform === platform);
                 });
+                console.log('Platform selected:', platform.toUpperCase());
             }
             
-            // Section navigation
-            function showSection(section) {
-                document.querySelectorAll('.content-section').forEach(s => {
-                    s.classList.remove('active');
-                });
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                
-                document.getElementById(section + '-section').classList.add('active');
-                document.querySelector(\`[onclick="showSection('\${section}')"]\`).classList.add('active');
-                
-                if (section === 'leaderboards') {
-                    loadLeaderboard('wins');
+            // Debounced search function
+            function debouncedSearch() {
+                if (searchTimeout) {
+                    clearTimeout(searchTimeout);
                 }
+                searchTimeout = setTimeout(() => {
+                    searchPlayer();
+                }, 300); // 300ms debounce
             }
             
-            // Search functionality
+            // Search functionality with real API integration
             async function searchPlayer() {
                 if (isSearching) return;
                 
                 const query = document.getElementById('searchInput').value.trim();
                 if (!query || query.length < 2) {
-                    alert('Please enter a player name with at least 2 characters');
+                    showError('Player Not Found', 'Please enter a username with at least 2 characters');
                     return;
                 }
                 
                 isSearching = true;
-                loading.show('Searching player...');
+                loading.show('Connecting to FortniteTracker...');
                 
                 try {
-                    loading.updateProgress(25, 'Connecting to servers...');
-                    await new Promise(resolve => setTimeout(resolve, 300));
+                    loading.updateProgress(20, 'Searching player database...');
                     
-                    loading.updateProgress(50, 'Fetching player data...');
-                    const response = await fetch(\`/api/search/\${currentPlatform}/\${encodeURIComponent(query)}\`);
+                    // Simulate connection time for better UX
+                    await new Promise(resolve => setTimeout(resolve, 400));
+                    loading.updateProgress(40, 'Fetching live statistics...');
                     
-                    loading.updateProgress(75, 'Processing statistics...');
+                    const response = await fetch(\`/api/search/\${currentPlatform}/\${encodeURIComponent(query)}\`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    loading.updateProgress(70, 'Processing player data...');
+                    
                     const result = await response.json();
                     
+                    loading.updateProgress(90, 'Rendering statistics...');
+                    
                     if (result.success) {
-                        displayPlayerData(result.data);
-                        loading.updateProgress(100, 'Complete!');
+                        displayPlayerData(result.data, result.cached);
                     } else {
-                        throw new Error(result.error);
+                        showError('Player Not Found', result.error);
                     }
+                    
                 } catch (error) {
                     console.error('Search error:', error);
-                    document.getElementById('playerResults').innerHTML = 
-                        \`<div style="background: var(--bg-card); border: 1px solid var(--error); color: var(--error); padding: 1rem; border-radius: 8px; text-align: center;">
-                            Error: \${error.message}
-                        </div>\`;
+                    showError('Connection Error', 'Failed to connect to FortniteTracker. Please try again.');
                 } finally {
                     isSearching = false;
                     loading.hide();
                 }
             }
             
-            // Display player data
-            function displayPlayerData(data) {
+            // Display real player data
+            function displayPlayerData(data, isCached = false) {
                 const container = document.getElementById('playerResults');
                 
-                const verifiedBadge = data.verified ? 
-                    '<span class="verified-badge">✓ Verified</span>' : '';
+                const badges = [];
+                badges.push('<span class="live-badge">🔴 LIVE DATA</span>');
+                if (isCached) {
+                    badges.push('<span class="cached-badge">💾 CACHED</span>');
+                }
                 
                 container.innerHTML = \`
                     <div class="player-card fade-in">
@@ -1009,16 +857,16 @@ app.get('/', (req, res) => {
                             <div class="player-info">
                                 <div class="player-name">
                                     \${data.username}
-                                    \${verifiedBadge}
+                                    \${badges.join(' ')}
                                 </div>
                                 <div class="player-meta">
-                                    <span>\${data.country}</span>
+                                    <span class="player-platform">\${data.platformName}</span>
                                     <span>•</span>
-                                    <span>\${data.platform}</span>
-                                    <span>•</span>
-                                    <span>Level \${data.level}</span>
+                                    <span>Level \${data.level || 'Unknown'}</span>
                                 </div>
-                                <div class="player-rank">Rank #\${data.rank.toLocaleString()}</div>
+                                <div style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                                    Last Updated: \${new Date(data.lastUpdated).toLocaleString()}
+                                </div>
                             </div>
                         </div>
                         
@@ -1044,88 +892,57 @@ app.get('/', (req, res) => {
                                 <span class="stat-label">Matches Played</span>
                             </div>
                             <div class="stat-card">
+                                <span class="stat-value">\${data.score}</span>
+                                <span class="stat-label">Total Score</span>
+                            </div>
+                            <div class="stat-card">
                                 <span class="stat-value">\${data.playtime}</span>
                                 <span class="stat-label">Time Played</span>
                             </div>
                         </div>
                         
-                        <div class="ranked-grid">
-                            <div class="ranked-card">
-                                <div class="ranked-title">Battle Royale Ranked</div>
-                                <div class="ranked-tier">\${data.battleRoyale.tier} \${data.battleRoyale.division}</div>
-                                <div class="ranked-points">\${data.battleRoyale.points.toLocaleString()} points</div>
-                            </div>
-                            <div class="ranked-card">
-                                <div class="ranked-title">Zero Build Ranked</div>
-                                <div class="ranked-tier">\${data.zeroBuilder.tier} \${data.zeroBuilder.division}</div>
-                                <div class="ranked-points">\${data.zeroBuilder.points.toLocaleString()} points</div>
-                            </div>
-                            <div class="ranked-card">
-                                <div class="ranked-title">Ranked Battle Royale</div>
-                                <div class="ranked-tier">\${data.rankedBR.tier} \${data.rankedBR.division}</div>
-                                <div class="ranked-points">\${data.rankedBR.points.toLocaleString()} points</div>
-                            </div>
+                        <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                            📊 Data Source: <strong>\${data.source}</strong> • Platform: <strong>\${data.platformName}</strong>
                         </div>
                     </div>
                 \`;
+                
+                console.log('✅ Displayed real player data for', data.username);
             }
             
-            // Load leaderboard
-            async function loadLeaderboard(type) {
-                document.querySelectorAll('.leaderboard-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(type));
-                });
-                
-                try {
-                    const response = await fetch(\`/api/leaderboards/\${type}\`);
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        displayLeaderboard(result.data, type);
-                    }
-                } catch (error) {
-                    console.error('Leaderboard error:', error);
-                }
-            }
-            
-            // Display leaderboard
-            function displayLeaderboard(data, type) {
-                const container = document.getElementById('leaderboardTable');
-                const statLabel = type === 'wins' ? 'Wins' : 'Kills';
-                
-                container.innerHTML = data.map(player => \`
-                    <div class="leaderboard-row">
-                        <div class="rank-number">#\${player.rank}</div>
-                        <div class="player-name-cell">\${player.username}</div>
-                        <div class="country-flag">🇺🇸</div>
-                        <div>\${player.platform}</div>
-                        <div style="font-weight: 600; color: var(--accent-orange);">
-                            \${player[type].toLocaleString()} \${statLabel}
-                        </div>
+            // Error handling
+            function showError(title, message) {
+                const container = document.getElementById('playerResults');
+                container.innerHTML = \`
+                    <div class="error-card fade-in">
+                        <div class="error-title">\${title}</div>
+                        <div class="error-message">\${message}</div>
                     </div>
-                \`).join('');
+                \`;
             }
             
             // Event listeners
             document.addEventListener('DOMContentLoaded', () => {
                 const searchInput = document.getElementById('searchInput');
+                
+                // Search on Enter key
                 searchInput.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') {
+                        e.preventDefault();
                         searchPlayer();
                     }
                 });
                 
-                // Load initial leaderboard
-                loadLeaderboard('wins');
+                // Debounced search on input (optional)
+                // searchInput.addEventListener('input', debouncedSearch);
                 
-                console.log('FortniteTracker initialized');
+                console.log('✅ FortniteTracker with real API integration ready!');
+                console.log('🔗 Connected to FortniteTracker.com API');
             });
             
             // Make functions global
             window.selectPlatform = selectPlatform;
-            window.showSection = showSection;
             window.searchPlayer = searchPlayer;
-            window.loadLeaderboard = loadLeaderboard;
         </script>
     </body>
     </html>
@@ -1133,6 +950,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`🚀 FortniteTracker running at http://localhost:${port}`);
-  console.log('📊 Professional FortniteTracker-style interface with realistic data');
+  console.log(`🚀 FortniteTracker with real API running at http://localhost:${port}`);
+  console.log('🔗 Using FortniteTracker.com API for live player statistics');
+  console.log('⚠️  Remember to set TRN_API_KEY environment variable');
 });
