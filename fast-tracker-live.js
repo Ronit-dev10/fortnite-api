@@ -190,7 +190,7 @@ function extractCountry(html) {
             if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
             if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
             if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
-            if (match.includes('🇯����') || match.includes('Japan')) return 'JP';
+            if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
         }
     }
     return 'Unknown';
@@ -1376,7 +1376,11 @@ app.get('/', (req, res) => {
 
             // Make functions globally accessible for onclick handlers
             window.selectPlatform = selectPlatform;
+
+            // Override the placeholder search function with the real one
             window.searchPlayer = searchPlayer;
+
+            console.log('🔄 Search function updated with full functionality');
 
             // Event listeners
             document.addEventListener('DOMContentLoaded', function() {
