@@ -1245,16 +1245,20 @@ app.get('/', (req, res) => {
                 console.log('✅ Displayed LIVE API data for ' + data.username + ' on ' + data.platform);
             }
             
-            // Platform selection
+            // Platform selection (globally accessible)
             function selectPlatform(platform) {
                 state.currentPlatform = platform;
-                
+
                 document.querySelectorAll('.platform-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.platform === platform);
                 });
-                
+
                 console.log('Platform switched to:', platform.toUpperCase());
             }
+
+            // Make functions globally accessible
+            window.selectPlatform = selectPlatform;
+            window.searchPlayer = searchPlayer;
             
             // Enhanced error handling with FortniteTracker links
             function showError(message) {
