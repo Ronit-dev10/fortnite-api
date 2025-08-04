@@ -9,24 +9,24 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS for API calls
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
 
 // FortniteTracker API configuration
 const FORTNITE_TRACKER_API = {
-    baseURL: 'https://api.fortnitetracker.com/v1',
-    // Replace with your actual TRN API key
-    apiKey: process.env.TRN_API_KEY || 'YOUR_TRN_API_KEY_HERE'
+  baseURL: 'https://api.fortnitetracker.com/v1',
+  // Replace with your actual TRN API key
+  apiKey: process.env.TRN_API_KEY || 'YOUR_TRN_API_KEY_HERE',
 };
 
 // Platform mapping for FortniteTracker API
 const PLATFORM_MAP = {
-    'pc': 'pc',
-    'xbox': 'xbl', 
-    'playstation': 'psn',
-    'mobile': 'touch'
+  pc: 'pc',
+  xbox: 'xbl',
+  playstation: 'psn',
+  mobile: 'touch',
 };
 
 // Cache for API responses (15 minute TTL)
@@ -35,186 +35,185 @@ const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 
 // Helper function to get cached data
 function getCachedData(key) {
-    const cached = apiCache.get(key);
-    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-        return cached.data;
-    }
-    apiCache.delete(key); // Remove expired cache
-    return null;
+  const cached = apiCache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
+  }
+  apiCache.delete(key); // Remove expired cache
+  return null;
 }
 
 // Helper function to set cached data
 function setCachedData(key, data) {
-    apiCache.set(key, {
-        data,
-        timestamp: Date.now()
-    });
+  apiCache.set(key, {
+    data,
+    timestamp: Date.now(),
+  });
 }
 
 // Real FortniteTracker API integration
 async function fetchRealPlayerStats(username, platform) {
-    const cacheKey = `${username}-${platform}`;
-    
-    // Check cache first
-    const cached = getCachedData(cacheKey);
-    if (cached) {
-        console.log(`[CACHE] Using cached data for ${username} on ${platform}`);
-        return cached;
+  const cacheKey = `${username}-${platform}`;
+
+  // Check cache first
+  const cached = getCachedData(cacheKey);
+  if (cached) {
+    console.log(`[CACHE] Using cached data for ${username} on ${platform}`);
+    return cached;
+  }
+
+  try {
+    const mappedPlatform = PLATFORM_MAP[platform];
+    if (!mappedPlatform) {
+      throw new Error(`Invalid platform: ${platform}`);
     }
-    
-    try {
-        const mappedPlatform = PLATFORM_MAP[platform];
-        if (!mappedPlatform) {
-            throw new Error(`Invalid platform: ${platform}`);
-        }
-        
-        console.log(`[API] Fetching real data for ${username} on ${mappedPlatform}`);
-        
-        const response = await axios.get(
-            `${FORTNITE_TRACKER_API.baseURL}/profile/${mappedPlatform}/${encodeURIComponent(username)}`,
-            {
-                headers: {
-                    'TRN-Api-Key': FORTNITE_TRACKER_API.apiKey,
-                    'User-Agent': 'FortniteTracker-API-Client/1.0'
-                },
-                timeout: 10000 // 10 second timeout
-            }
-        );
-        
-        if (!response.data || !response.data.epicUserHandle) {
-            throw new Error('Player not found on FortniteTracker');
-        }
-        
-        const playerData = parseFortniteTrackerResponse(response.data, platform);
-        
-        // Cache the result
-        setCachedData(cacheKey, playerData);
-        
-        return playerData;
-        
-    } catch (error) {
-        console.error(`[ERROR] FortniteTracker API failed for ${username}:`, error.message);
-        
-        if (error.response) {
-            if (error.response.status === 404) {
-                throw new Error('Player not found on FortniteTracker');
-            } else if (error.response.status === 429) {
-                throw new Error('Rate limit exceeded. Please try again later');
-            } else if (error.response.status === 401) {
-                throw new Error('Invalid API key');
-            }
-        }
-        
-        throw new Error(`Failed to fetch player data: ${error.message}`);
+
+    console.log(`[API] Fetching real data for ${username} on ${mappedPlatform}`);
+
+    const response = await axios.get(
+      `${FORTNITE_TRACKER_API.baseURL}/profile/${mappedPlatform}/${encodeURIComponent(username)}`,
+      {
+        headers: {
+          'TRN-Api-Key': FORTNITE_TRACKER_API.apiKey,
+          'User-Agent': 'FortniteTracker-API-Client/1.0',
+        },
+        timeout: 10000, // 10 second timeout
+      },
+    );
+
+    if (!response.data || !response.data.epicUserHandle) {
+      throw new Error('Player not found on FortniteTracker');
     }
+
+    const playerData = parseFortniteTrackerResponse(response.data, platform);
+
+    // Cache the result
+    setCachedData(cacheKey, playerData);
+
+    return playerData;
+  } catch (error) {
+    console.error(`[ERROR] FortniteTracker API failed for ${username}:`, error.message);
+
+    if (error.response) {
+      if (error.response.status === 404) {
+        throw new Error('Player not found on FortniteTracker');
+      } else if (error.response.status === 429) {
+        throw new Error('Rate limit exceeded. Please try again later');
+      } else if (error.response.status === 401) {
+        throw new Error('Invalid API key');
+      }
+    }
+
+    throw new Error(`Failed to fetch player data: ${error.message}`);
+  }
 }
 
 // Parse FortniteTracker API response
 function parseFortniteTrackerResponse(data, platform) {
-    const stats = data.stats || {};
-    
-    // Get Solo stats (p2) as primary, with fallbacks to other modes
-    const soloStats = stats.p2 || {};
-    const duoStats = stats.p10 || {};
-    const squadStats = stats.p9 || {};
-    
-    // Current season stats if available
-    const currentSoloStats = stats.curr_p2 || soloStats;
-    
-    // Extract key stats with proper fallbacks
-    const kills = getSafeStat(currentSoloStats.kills) || getSafeStat(soloStats.kills) || 0;
-    const matches = getSafeStat(currentSoloStats.matches) || getSafeStat(soloStats.matches) || 0;
-    const wins = getSafeStat(currentSoloStats.top1) || getSafeStat(soloStats.top1) || 0;
-    const kd = getSafeStat(currentSoloStats.kd) || getSafeStat(soloStats.kd) || 0;
-    const score = getSafeStat(currentSoloStats.score) || getSafeStat(soloStats.score) || 0;
-    
-    // Calculate additional stats
-    const winRate = matches > 0 ? ((wins / matches) * 100).toFixed(1) : '0.0';
-    const playtime = getSafeStat(currentSoloStats.minutesPlayed) || getSafeStat(soloStats.minutesPlayed) || 0;
-    const playtimeHours = Math.floor(playtime / 60);
-    
-    return {
-        username: data.epicUserHandle,
-        platform: platform.toUpperCase(),
-        platformName: data.platformName || platform.toUpperCase(),
-        level: getSafeStat(data.lifeTimeStats?.find(s => s.key === 'Level')?.value) || 0,
-        kills: kills.toLocaleString(),
-        matches: matches.toLocaleString(),
-        wins: wins.toLocaleString(),
-        kd: typeof kd === 'number' ? kd.toFixed(2) : '0.00',
-        winRate: winRate + '%',
-        score: score.toLocaleString(),
-        playtime: playtimeHours > 0 ? playtimeHours + 'h' : Math.floor(playtime) + 'm',
-        lastUpdated: new Date().toISOString(),
-        source: 'FortniteTracker.com',
-        raw: {
-            solo: soloStats,
-            duo: duoStats,
-            squad: squadStats,
-            current: currentSoloStats
-        }
-    };
+  const stats = data.stats || {};
+
+  // Get Solo stats (p2) as primary, with fallbacks to other modes
+  const soloStats = stats.p2 || {};
+  const duoStats = stats.p10 || {};
+  const squadStats = stats.p9 || {};
+
+  // Current season stats if available
+  const currentSoloStats = stats.curr_p2 || soloStats;
+
+  // Extract key stats with proper fallbacks
+  const kills = getSafeStat(currentSoloStats.kills) || getSafeStat(soloStats.kills) || 0;
+  const matches = getSafeStat(currentSoloStats.matches) || getSafeStat(soloStats.matches) || 0;
+  const wins = getSafeStat(currentSoloStats.top1) || getSafeStat(soloStats.top1) || 0;
+  const kd = getSafeStat(currentSoloStats.kd) || getSafeStat(soloStats.kd) || 0;
+  const score = getSafeStat(currentSoloStats.score) || getSafeStat(soloStats.score) || 0;
+
+  // Calculate additional stats
+  const winRate = matches > 0 ? ((wins / matches) * 100).toFixed(1) : '0.0';
+  const playtime =
+    getSafeStat(currentSoloStats.minutesPlayed) || getSafeStat(soloStats.minutesPlayed) || 0;
+  const playtimeHours = Math.floor(playtime / 60);
+
+  return {
+    username: data.epicUserHandle,
+    platform: platform.toUpperCase(),
+    platformName: data.platformName || platform.toUpperCase(),
+    level: getSafeStat(data.lifeTimeStats?.find(s => s.key === 'Level')?.value) || 0,
+    kills: kills.toLocaleString(),
+    matches: matches.toLocaleString(),
+    wins: wins.toLocaleString(),
+    kd: typeof kd === 'number' ? kd.toFixed(2) : '0.00',
+    winRate: winRate + '%',
+    score: score.toLocaleString(),
+    playtime: playtimeHours > 0 ? playtimeHours + 'h' : Math.floor(playtime) + 'm',
+    lastUpdated: new Date().toISOString(),
+    source: 'FortniteTracker.com',
+    raw: {
+      solo: soloStats,
+      duo: duoStats,
+      squad: squadStats,
+      current: currentSoloStats,
+    },
+  };
 }
 
 // Helper function to safely extract stat values
 function getSafeStat(stat) {
-    if (!stat) return null;
-    if (typeof stat === 'object' && stat.value !== undefined) {
-        return typeof stat.value === 'string' ? parseFloat(stat.value.replace(/,/g, '')) : stat.value;
-    }
-    return typeof stat === 'string' ? parseFloat(stat.replace(/,/g, '')) : stat;
+  if (!stat) return null;
+  if (typeof stat === 'object' && stat.value !== undefined) {
+    return typeof stat.value === 'string' ? parseFloat(stat.value.replace(/,/g, '')) : stat.value;
+  }
+  return typeof stat === 'string' ? parseFloat(stat.replace(/,/g, '')) : stat;
 }
 
 // Main search endpoint
 app.get('/api/search/:platform/:username', async (req, res) => {
-    try {
-        const { username, platform } = req.params;
-        
-        if (!username || username.length < 2) {
-            return res.status(400).json({ 
-                success: false,
-                error: 'Username must be at least 2 characters' 
-            });
-        }
-        
-        if (!PLATFORM_MAP[platform]) {
-            return res.status(400).json({ 
-                success: false,
-                error: 'Invalid platform. Use: pc, xbox, playstation, or mobile' 
-            });
-        }
-        
-        console.log(`[API] Searching real FortniteTracker: ${username} on ${platform.toUpperCase()}`);
-        
-        const playerData = await fetchRealPlayerStats(username, platform);
-        
-        res.json({
-            success: true,
-            data: playerData,
-            cached: getCachedData(`${username}-${platform}`) !== null,
-            timestamp: new Date().toISOString()
-        });
-        
-    } catch (error) {
-        console.error('Search API error:', error.message);
-        res.status(500).json({
-            success: false,
-            error: error.message,
-            timestamp: new Date().toISOString()
-        });
+  try {
+    const { username, platform } = req.params;
+
+    if (!username || username.length < 2) {
+      return res.status(400).json({
+        success: false,
+        error: 'Username must be at least 2 characters',
+      });
     }
+
+    if (!PLATFORM_MAP[platform]) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid platform. Use: pc, xbox, playstation, or mobile',
+      });
+    }
+
+    console.log(`[API] Searching real FortniteTracker: ${username} on ${platform.toUpperCase()}`);
+
+    const playerData = await fetchRealPlayerStats(username, platform);
+
+    res.json({
+      success: true,
+      data: playerData,
+      cached: getCachedData(`${username}-${platform}`) !== null,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error('Search API error:', error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'healthy',
-        apiKey: FORTNITE_TRACKER_API.apiKey ? 'configured' : 'missing',
-        cache: {
-            entries: apiCache.size,
-            ttl: CACHE_TTL / 1000 + 's'
-        }
-    });
+  res.json({
+    status: 'healthy',
+    apiKey: FORTNITE_TRACKER_API.apiKey ? 'configured' : 'missing',
+    cache: {
+      entries: apiCache.size,
+      ttl: CACHE_TTL / 1000 + 's',
+    },
+  });
 });
 
 // Serve the HTML page with real API integration

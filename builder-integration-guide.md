@@ -3,12 +3,14 @@
 ## 🚀 Quick Setup for Builder.io
 
 ### Step 1: Install Builder.io SDK
+
 ```bash
 npm install @builder.io/sdk-react
 npm install @builder.io/react  # For visual editing
 ```
 
 ### Step 2: Environment Setup
+
 ```bash
 # .env.local
 NEXT_PUBLIC_BUILDER_API_KEY=your-builder-api-key
@@ -17,6 +19,7 @@ NEXT_PUBLIC_BUILDER_API_KEY=your-builder-api-key
 ### Step 3: Create Builder.io Components
 
 #### High-Performance Player Search Component
+
 ```tsx
 // components/PlayerSearch.tsx
 'use client';
@@ -31,10 +34,10 @@ interface PlayerSearchProps {
 }
 
 export const PlayerSearch = ({
-  placeholder = "Search player username...",
+  placeholder = 'Search player username...',
   onSearch,
   platforms = ['pc', 'xbox', 'playstation', 'mobile'],
-  autoComplete = true
+  autoComplete = true,
 }: PlayerSearchProps) => {
   const [query, setQuery] = useState('');
   const [platform, setPlatform] = useState(platforms[0]);
@@ -47,10 +50,8 @@ export const PlayerSearch = ({
     debounce((searchQuery: string) => {
       if (searchQuery.length >= 2 && autoComplete) {
         // Fetch suggestions from API or cache
-        const mockSuggestions = [
-          'Ninja', 'Tfue', 'SypherPK', 'Bugha', 'Mongraal'
-        ].filter(name => 
-          name.toLowerCase().includes(searchQuery.toLowerCase())
+        const mockSuggestions = ['Ninja', 'Tfue', 'SypherPK', 'Bugha', 'Mongraal'].filter(name =>
+          name.toLowerCase().includes(searchQuery.toLowerCase()),
         );
         setSuggestions(mockSuggestions);
         setShowSuggestions(true);
@@ -58,7 +59,7 @@ export const PlayerSearch = ({
         setShowSuggestions(false);
       }
     }, 200),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -67,10 +68,10 @@ export const PlayerSearch = ({
 
   const handleSearch = async () => {
     if (!query.trim()) return;
-    
+
     setLoading(true);
     setShowSuggestions(false);
-    
+
     try {
       if (onSearch) {
         await onSearch(query.trim(), platform);
@@ -95,7 +96,7 @@ export const PlayerSearch = ({
         <input
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className="search-input"
@@ -108,7 +109,7 @@ export const PlayerSearch = ({
         >
           {loading ? '⏳' : '🔍'} {loading ? 'Searching...' : 'Search'}
         </button>
-        
+
         {/* Autocomplete dropdown */}
         {showSuggestions && suggestions.length > 0 && (
           <div className="autocomplete-dropdown">
@@ -122,9 +123,7 @@ export const PlayerSearch = ({
                   handleSearch();
                 }}
               >
-                <div className="player-avatar-small">
-                  {suggestion.charAt(0).toUpperCase()}
-                </div>
+                <div className="player-avatar-small">{suggestion.charAt(0).toUpperCase()}</div>
                 <div>
                   <div className="suggestion-name">{suggestion}</div>
                   <div className="suggestion-platform">{platform.toUpperCase()} Player</div>
@@ -137,7 +136,7 @@ export const PlayerSearch = ({
 
       {/* Platform selector */}
       <div className="platform-selector">
-        {platforms.map((p) => (
+        {platforms.map(p => (
           <button
             key={p}
             onClick={() => setPlatform(p)}
@@ -154,7 +153,7 @@ export const PlayerSearch = ({
 // Utility functions
 function debounce<T extends (...args: any[]) => any>(
   func: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   let timeoutId: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
@@ -168,13 +167,14 @@ function getPlatformIcon(platform: string): string {
     pc: '🖥️',
     xbox: '🎮',
     playstation: '🕹️',
-    mobile: '📱'
+    mobile: '📱',
   };
   return icons[platform as keyof typeof icons] || '🎮';
 }
 ```
 
 #### Performance-Optimized Player Stats Component
+
 ```tsx
 // components/PlayerStats.tsx
 'use client';
@@ -205,15 +205,15 @@ interface PlayerStatsProps {
   lazyLoad?: boolean;
 }
 
-export const PlayerStats = ({ 
-  playerData, 
-  loading = false, 
+export const PlayerStats = ({
+  playerData,
+  loading = false,
   error,
-  lazyLoad = true 
+  lazyLoad = true,
 }: PlayerStatsProps) => {
   const [ref, isVisible] = useIntersectionObserver({
     threshold: 0.1,
-    triggerOnce: true
+    triggerOnce: true,
   });
 
   const [shouldRender, setShouldRender] = useState(!lazyLoad);
@@ -233,11 +233,7 @@ export const PlayerStats = ({
   }
 
   if (error) {
-    return (
-      <div className="error-message">
-        ❌ {error}
-      </div>
-    );
+    return <div className="error-message">❌ {error}</div>;
   }
 
   if (!playerData) {
@@ -251,15 +247,13 @@ export const PlayerStats = ({
     { label: 'Kills', value: playerData.kills },
     { label: 'Matches', value: playerData.matches },
     { label: 'Score', value: playerData.score },
-    { label: 'Playtime', value: playerData.playtime }
+    { label: 'Playtime', value: playerData.playtime },
   ];
 
   return (
     <div ref={ref} className="player-card fade-in">
       <div className="player-header">
-        <div className="player-avatar">
-          {playerData.username.charAt(0).toUpperCase()}
-        </div>
+        <div className="player-avatar">{playerData.username.charAt(0).toUpperCase()}</div>
         <div className="player-info">
           <h2>{playerData.username}</h2>
           <div className="player-rank">#{playerData.rank.toLocaleString()} Global</div>
@@ -270,12 +264,10 @@ export const PlayerStats = ({
             <span>•</span>
             <span>Level {playerData.level}</span>
           </div>
-          <div className="player-skin">
-            Current Skin: {playerData.skin}
-          </div>
+          <div className="player-skin">Current Skin: {playerData.skin}</div>
         </div>
       </div>
-      
+
       <div className="stats-grid">
         {stats.map((stat, index) => (
           <div key={index} className="stat-card">
@@ -300,18 +292,21 @@ const PlayerStatsSkeleton = () => (
       </div>
     </div>
     <div className="stats-grid">
-      {Array(7).fill(null).map((_, index) => (
-        <div key={index} className="stat-card">
-          <div className="skeleton skeleton-text" />
-          <div className="skeleton skeleton-text" />
-        </div>
-      ))}
+      {Array(7)
+        .fill(null)
+        .map((_, index) => (
+          <div key={index} className="stat-card">
+            <div className="skeleton skeleton-text" />
+            <div className="skeleton skeleton-text" />
+          </div>
+        ))}
     </div>
   </div>
 );
 ```
 
 #### Custom Hook for Intersection Observer
+
 ```tsx
 // hooks/useIntersectionObserver.ts
 import { useEffect, useRef, useState } from 'react';
@@ -325,7 +320,7 @@ interface UseIntersectionObserverProps {
 export const useIntersectionObserver = ({
   threshold = 0.1,
   rootMargin = '0px',
-  triggerOnce = true
+  triggerOnce = true,
 }: UseIntersectionObserverProps = {}) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -342,7 +337,7 @@ export const useIntersectionObserver = ({
           setIsVisible(false);
         }
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     if (ref.current) {
@@ -364,11 +359,11 @@ import { type RegisteredComponent } from "@builder.io/sdk-react";
 import dynamic from 'next/dynamic';
 
 // Dynamic imports for code splitting
-const PlayerSearch = dynamic(() => 
+const PlayerSearch = dynamic(() =>
   import('./components/PlayerSearch').then(mod => ({ default: mod.PlayerSearch }))
 );
 
-const PlayerStats = dynamic(() => 
+const PlayerStats = dynamic(() =>
   import('./components/PlayerStats').then(mod => ({ default: mod.PlayerStats }))
 );
 
@@ -479,8 +474,12 @@ export const customComponents: RegisteredComponent[] = [
 }
 
 @keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Mobile optimizations */
@@ -489,7 +488,7 @@ export const customComponents: RegisteredComponent[] = [
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
-  
+
   .player-card {
     min-height: 300px;
     padding: 1rem;
@@ -501,7 +500,7 @@ export const customComponents: RegisteredComponent[] = [
   .fade-in {
     animation: none;
   }
-  
+
   .skeleton {
     animation: none;
     background: #f0f0f0;
@@ -531,8 +530,8 @@ import { useEffect } from 'react';
 export const PerformanceMonitor = () => {
   useEffect(() => {
     if (typeof window !== 'undefined' && 'performance' in window) {
-      const observer = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
+      const observer = new PerformanceObserver(list => {
+        list.getEntries().forEach(entry => {
           if (entry.entryType === 'navigation') {
             console.log('Page Load Time:', entry.duration);
           }
@@ -541,9 +540,9 @@ export const PerformanceMonitor = () => {
           }
         });
       });
-      
+
       observer.observe({ entryTypes: ['navigation', 'paint'] });
-      
+
       return () => observer.disconnect();
     }
   }, []);
@@ -562,8 +561,9 @@ export const PerformanceMonitor = () => {
 6. **Deploy with edge caching** for maximum performance
 
 The optimized version I created includes all the performance features you requested:
+
 - ⚡ Loading bar for searches
-- 📱 Mobile-first responsive design  
+- 📱 Mobile-first responsive design
 - 🚀 Debounced search with caching
 - 💾 LocalStorage caching (15min TTL)
 - 🎯 Intersection Observer for lazy loading

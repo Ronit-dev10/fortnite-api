@@ -655,7 +655,7 @@ class FortniteApi {
           headers: {
             'TRN-Api-Key': API_KEY,
           },
-        }
+        },
       );
 
       if (!response.ok) {
