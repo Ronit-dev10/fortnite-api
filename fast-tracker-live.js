@@ -791,11 +791,40 @@ app.get('/', (req, res) => {
         </section>
         
         <script>
-            // Global state
+            // Global state with session storage
             const state = {
                 currentPlatform: 'pc',
-                isSearching: false
+                isSearching: false,
+                searchTimeout: null
             };
+
+            // Session storage helpers (15 minute cache as requested)
+            function getSessionCache(key) {
+                try {
+                    const cached = sessionStorage.getItem('fortnite_' + key);
+                    if (cached) {
+                        const data = JSON.parse(cached);
+                        if (Date.now() - data.timestamp < 15 * 60 * 1000) {
+                            return data.playerData;
+                        }
+                        sessionStorage.removeItem('fortnite_' + key);
+                    }
+                } catch (e) {
+                    console.warn('Session cache error:', e);
+                }
+                return null;
+            }
+
+            function setSessionCache(key, playerData) {
+                try {
+                    sessionStorage.setItem('fortnite_' + key, JSON.stringify({
+                        playerData,
+                        timestamp: Date.now()
+                    }));
+                } catch (e) {
+                    console.warn('Session cache write error:', e);
+                }
+            }
             
             // Enhanced loading bar controller
             class LoadingBar {
