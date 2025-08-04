@@ -55,8 +55,6 @@ async function fetchPlayerStats(username, platform) {
     }
 
     try {
-        const fetch = require('node-fetch');
-
         console.log(`[API] Fetching ${username} from custom API on ${platform}`);
 
         // Call our local mock API endpoint (replace with your real API when ready)
@@ -1140,7 +1138,7 @@ app.get('/', (req, res) => {
                 });
 
                 console.log('✅ FastTracker with Custom API integration ready!');
-                console.log('�� Features: Debounced search (300ms), Session cache (15min), Live API data');
+                console.log('⚡ Features: Debounced search (300ms), Session cache (15min), Live API data');
             });
         </script>
     </body>
