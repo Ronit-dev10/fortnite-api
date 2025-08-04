@@ -55,35 +55,11 @@ async function fetchPlayerStats(username, platform) {
     }
 
     try {
-        console.log(`[LIVE] Fetching REAL data from FortniteTracker.com for ${username} on ${platform}`);
+        console.log(`[LIVE] FortniteTracker blocks automated requests. Using manual verification system for ${username} on ${platform}`);
 
-        const ftPlatform = PLATFORM_MAP[platform] || 'kbm';
-
-        // Fetch from actual FortniteTracker.com using axios
-        const response = await axios.get(`https://fortnitetracker.com/profile/${ftPlatform}/${encodeURIComponent(username)}`, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'DNT': '1',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none'
-            },
-            timeout: 15000,
-            validateStatus: function (status) {
-                return status < 500; // Accept any status less than 500
-            }
-        });
-
-        if (response.status >= 400) {
-            throw new Error(`FortniteTracker returned ${response.status}: ${response.statusText}`);
-        }
-
-        const html = response.data;
+        // FortniteTracker.com blocks automated requests with 403 errors
+        // Instead, we'll create a system that prompts for manual verification
+        throw new Error(`FortniteTracker.com blocks automated requests. Please manually check: https://fortnitetracker.com/profile/${PLATFORM_MAP[platform] || 'kbm'}/${encodeURIComponent(username)}`);
 
         // Check if player exists
         if (html.includes('Player Not Found') || html.includes('not found') || html.includes('404')) {
@@ -214,7 +190,7 @@ function extractCountry(html) {
             if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
             if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
             if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
-            if (match.includes('🇯����') || match.includes('Japan')) return 'JP';
+            if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
         }
     }
     return 'Unknown';
