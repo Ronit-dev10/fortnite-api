@@ -747,8 +747,8 @@ app.get('/', (req, res) => {
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
-                <h1>Real FortniteTracker Data</h1>
-                <p class="hero-subtitle">Live player statistics fetched directly from FortniteTracker.com</p>
+                <h1>Custom Fortnite Stats API</h1>
+                <p class="hero-subtitle">Lightning-fast player statistics from your custom API endpoint</p>
                 
                 <div class="search-container">
                     <input 
