@@ -406,10 +406,19 @@ app.get('/', (req, res) => {
                 });
             }
 
-            // Search function placeholder
+            // Search function placeholder (will be overridden)
             function searchPlayer() {
-                console.log('Search function called');
-                // Will be overridden by main script
+                console.log('⚠️ Search function called before main script loaded');
+                showLoadingWithMessage('Loading search functionality...');
+            }
+
+            // Loading message function
+            function showLoadingWithMessage(message) {
+                const resultsSection = document.getElementById('resultsSection');
+                if (resultsSection) {
+                    resultsSection.innerHTML = '<div style="text-align: center; padding: 2rem; color: #00d4ff;"><h3>' + message + '</h3></div>';
+                    resultsSection.classList.add('show');
+                }
             }
         </script>
 
