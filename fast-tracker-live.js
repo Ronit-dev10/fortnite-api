@@ -666,11 +666,64 @@ app.get('/', (req, res) => {
                 }
             }
             
+            /* Match History Section */
+            .match-history-section {
+                margin: 2rem 0;
+                padding: 1.5rem;
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 12px;
+                border: 1px solid var(--border);
+            }
+
+            .match-history-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .match-card {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1rem;
+                text-align: center;
+                transition: transform 0.2s ease;
+            }
+
+            .match-card:hover {
+                transform: translateY(-2px);
+                border-color: rgba(0, 212, 255, 0.3);
+            }
+
+            .match-date {
+                color: var(--text-secondary);
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .match-stats {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .match-kills {
+                color: var(--accent);
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .match-placement {
+                color: var(--warning);
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
             /* Utilities */
             .fade-in {
                 animation: fadeIn 0.5s ease-in-out;
             }
-            
+
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
