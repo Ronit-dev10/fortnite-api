@@ -816,6 +816,24 @@ app.get('/', (req, res) => {
                 text-align: center;
                 margin: 2rem 0;
             }
+
+            .fortnitetracker-link {
+                display: inline-block;
+                background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                margin-top: 1rem;
+                transition: all 0.2s ease;
+            }
+
+            .fortnitetracker-link:hover {
+                background: linear-gradient(135deg, #0284c7, #0891b2);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+            }
             
             /* Responsive design */
             @media (min-width: 768px) {
