@@ -839,26 +839,39 @@ app.get('/', (req, res) => {
                 }
             }
             
-            // Display real FortniteTracker data
-            function displayRealPlayerData(data, isCached = false) {
+            // Display live API data (no fallback handling)
+            function displayLivePlayerData(data, isCached = false) {
                 const resultsSection = document.getElementById('resultsSection');
-                
+
                 const formattedRank = typeof data.rank === 'number' ? data.rank.toLocaleString() : data.rank;
-                
-                // Status badges
+
+                // Status badges - only show API status
                 const statusBadges = [];
-                if (data.verified && !data.fallback) {
-                    statusBadges.push('<span class="live-badge">🔴 LIVE DATA</span>');
-                }
+                statusBadges.push('<span class="live-badge">🔴 LIVE API</span>');
                 if (isCached) {
                     statusBadges.push('<span class="cache-badge">💾 CACHED</span>');
                 }
-                if (data.fallback) {
-                    statusBadges.push('<span class="fallback-badge">⚠️ FALLBACK</span>');
-                }
-                
-                resultsSection.innerHTML = 
-                    '<div class="player-card fade-in ' + (data.verified && !data.fallback ? 'verified' : '') + '">' +
+
+                // Build match history section if available
+                let matchHistoryHtml = '';
+                if (data.matchHistory && data.matchHistory.length > 0) {
+                    matchHistoryHtml = '<div class="match-history-section">' +
+                        '<h3 style="margin-bottom: 1rem; color: var(--accent);">Recent Match History</h3>' +
+                        '<div class="match-history-grid">' +
+                        data.matchHistory.slice(0, 5).map(match =>
+                            '<div class="match-card">' +
+                                '<div class="match-date">' + new Date(match.date).toLocaleDateString() + '</div>' +
+                                '<div class="match-stats">' +
+                                    '<span class="match-kills">' + match.kills + ' Kills</span>' +
+                                    '<span class="match-placement">#' + match.placement + '</span>' +
+                                '</div>' +
+                            '</div>'
+                        ).join('') +
+                        '</div>' +
+                    '</div>';\n                }
+
+                resultsSection.innerHTML =
+                    '<div class="player-card fade-in verified">' +
                         '<div class="player-header">' +
                             '<div class="player-avatar">' + data.username.charAt(0).toUpperCase() + '</div>' +
                             '<div class="player-info">' +
@@ -874,10 +887,10 @@ app.get('/', (req, res) => {
                                 '<div style="color: var(--text-secondary); margin-top: 0.5rem;">' +
                                     'Current Skin: ' + data.skin +
                                 '</div>' +
-                                (data.lastUpdated ? '<div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.5rem;">Last Updated: ' + new Date(data.lastUpdated).toLocaleString() + '</div>' : '') +
+                                '<div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.5rem;">Last Updated: ' + new Date(data.lastUpdated).toLocaleString() + '</div>' +
                             '</div>' +
                         '</div>' +
-                        
+
                         '<div class="stats-grid">' +
                             '<div class="stat-card highlight">' +
                                 '<span class="stat-value">' + data.wins + '</span>' +
@@ -908,25 +921,17 @@ app.get('/', (req, res) => {
                                 '<span class="stat-name">Playtime</span>' +
                             '</div>' +
                         '</div>' +
-                        
-                        (!data.verified || data.fallback ? 
-                        '<div class="data-notice">' +
-                            (data.fallback ? '⚠️ Live FortniteTracker data unavailable. Showing estimated stats.' : '���� Data fetched from FortniteTracker.com') +
-                        '</div>' : '') +
-                        
+
+                        matchHistoryHtml +
+
                         '<div class="data-source">' +
-                            '📊 Data Source: <strong>' + (data.source || 'FortniteTracker.com') + '</strong> • Platform: <strong>' + data.platform + '</strong>' +
+                            '📊 Data Source: <strong>' + data.source + '</strong> • Platform: <strong>' + data.platform + '</strong>' +
                         '</div>' +
                     '</div>';
-                
+
                 resultsSection.classList.add('show');
-                resultsSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                console.log('Displayed ' + (data.verified && !data.fallback ? 'LIVE' : 'FALLBACK') + ' data for ' + data.username + ' on ' + data.platform);
-            }
+                resultsSection.scrollIntoView({
+                    behavior: 'smooth',\n                    block: 'start'\n                });\n                \n                console.log('✅ Displayed LIVE API data for ' + data.username + ' on ' + data.platform);\n            }
             
             // Platform selection
             function selectPlatform(platform) {
