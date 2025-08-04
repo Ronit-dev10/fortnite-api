@@ -1172,17 +1172,19 @@ app.get('/', (req, res) => {
                 }
 
                 state.isSearching = true;
-                loadingBar.show();
+                loadingBar.show('Initializing search...');
 
                 try {
                     const searchBtn = document.getElementById('searchBtn');
                     searchBtn.disabled = true;
-                    searchBtn.textContent = '⏳ Searching FortniteTracker...';
+                    searchBtn.textContent = '⏳ Searching...';
 
-                    loadingBar.updateProgress(10);
+                    loadingBar.updateProgress(15, 'Connecting to FortniteTracker...');
                     console.log('🔍 Searching ' + query + ' on ' + state.currentPlatform.toUpperCase() + ' via FortniteTracker.com');
 
-                    loadingBar.updateProgress(30);
+                    // Simulate some processing time for better UX
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    loadingBar.updateProgress(35, 'Fetching player data...');
 
                     // Call your custom API endpoint
                     const response = await fetch('/api/search/' + state.currentPlatform + '/' + encodeURIComponent(query), {
