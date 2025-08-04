@@ -944,7 +944,7 @@ app.get('/', (req, res) => {
                 </div>
                 
                 <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                    Try searching: <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>SypherPK</strong>, or any Fortnite player
+                    <strong>Press ENTER to search:</strong> <strong>Ninja</strong>, <strong>Tfue</strong>, <strong>SypherPK</strong>, or any real Fortnite player
                 </p>
             </div>
         </section>
