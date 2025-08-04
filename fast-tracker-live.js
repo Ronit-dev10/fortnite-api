@@ -1049,10 +1049,10 @@ app.get('/', (req, res) => {
                 try {
                     const searchBtn = document.getElementById('searchBtn');
                     searchBtn.disabled = true;
-                    searchBtn.textContent = '⏳ Searching API...';
+                    searchBtn.textContent = '⏳ Searching FortniteTracker...';
 
                     loadingBar.updateProgress(10);
-                    console.log('🔍 Searching ' + query + ' on ' + state.currentPlatform.toUpperCase() + ' via Custom API');
+                    console.log('🔍 Searching ' + query + ' on ' + state.currentPlatform.toUpperCase() + ' via FortniteTracker.com');
 
                     loadingBar.updateProgress(30);
 
