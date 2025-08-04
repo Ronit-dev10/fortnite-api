@@ -1214,24 +1214,17 @@ app.get('/', (req, res) => {
             document.addEventListener('DOMContentLoaded', function() {
                 const searchInput = document.getElementById('searchInput');
 
-                // Debounced input listener (300ms delay as requested)
-                searchInput.addEventListener('input', function(e) {
-                    const query = e.target.value.trim();
-                    if (query.length >= 2) {
-                        debouncedSearch(query);
-                    }
-                });
-
+                // ONLY search on Enter key press (no auto-search)
                 searchInput.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        clearTimeout(state.searchTimeout); // Cancel debounce
                         searchPlayer();
                     }
                 });
 
-                console.log('✅ FastTracker with Custom API integration ready!');
-                console.log('⚡ Features: Debounced search (300ms), Session cache (15min), Live API data');
+                console.log('✅ FastTracker with REAL FortniteTracker integration ready!');
+                console.log('🔴 LIVE DATA: Press Enter to search real FortniteTracker.com data');
+                console.log('📊 Features: Real Battle Royale ranks, Live stats, 5min cache');
             });
         </script>
     </body>
