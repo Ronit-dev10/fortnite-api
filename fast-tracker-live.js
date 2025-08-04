@@ -58,8 +58,8 @@ async function fetchPlayerStats(username, platform) {
 
         console.log(`[API] Fetching ${username} from custom API on ${platform}`);
 
-        // YOUR CUSTOM API ENDPOINT
-        const response = await fetch(`https://myapi.com/stats/${platform}/${encodeURIComponent(username)}`, {
+        // Call our local mock API endpoint (replace with your real API when ready)
+        const response = await fetch(`/api/custom-stats/${platform}/${encodeURIComponent(username)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
