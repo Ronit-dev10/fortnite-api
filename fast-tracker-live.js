@@ -21,9 +21,9 @@ const PLATFORM_MAP = {
     'mobile': 'touch'
 };
 
-// Cache for API responses (5 minute TTL)
+// Cache for API responses (15 minute TTL as requested)
 const apiCache = new Map();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 
 // Helper function to get cached data
 function getCachedData(key) {
@@ -42,147 +42,123 @@ function setCachedData(key, data) {
     });
 }
 
-// Real FortniteTracker integration with web scraping
-async function fetchFortniteTrackerData(username, platform) {
+// Custom Fortnite Stats API integration
+async function fetchPlayerStats(username, platform) {
     const cacheKey = `${username}-${platform}`;
-    
-    // Check cache first
+
+    // Check cache first (15 minute session cache as requested)
     const cached = getCachedData(cacheKey);
     if (cached) {
         console.log(`[CACHE] Using cached data for ${username} on ${platform}`);
         return cached;
     }
-    
+
     try {
         const fetch = require('node-fetch');
-        const ftPlatform = PLATFORM_MAP[platform] || 'kbm';
-        
-        console.log(`[LIVE] Fetching ${username} from FortniteTracker on ${ftPlatform}`);
-        
-        // Fetch from FortniteTracker.com
-        const response = await fetch(`https://fortnitetracker.com/profile/${ftPlatform}/${encodeURIComponent(username)}`, {
+
+        console.log(`[API] Fetching ${username} from custom API on ${platform}`);
+
+        // YOUR CUSTOM API ENDPOINT
+        const response = await fetch(`https://myapi.com/stats/${platform}/${encodeURIComponent(username)}`, {
+            method: 'GET',
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'DNT': '1',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             timeout: 10000
         });
-        
+
         if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            throw new Error(`API failed with status ${response.status}: ${response.statusText}`);
         }
-        
-        const html = await response.text();
-        
-        // Check if player exists
-        if (html.includes('Player Not Found') || html.includes('404') || html.includes('not found')) {
-            throw new Error('Player not found on FortniteTracker');
+
+        const data = await response.json();
+
+        // Validate API response structure
+        if (!data || !data.stats) {
+            throw new Error('Invalid API response structure');
         }
-        
-        const playerData = parseFortniteTrackerHTML(html, username, platform);
-        
-        // Cache the result
+
+        // Transform your API data to display format
+        const playerData = transformCustomAPIData(data, username, platform);
+
+        // Cache the result (15 minutes as requested)
         setCachedData(cacheKey, playerData);
-        
-        console.log(`[SUCCESS] Live data fetched for ${username}`);
+
+        console.log(`[SUCCESS] Live data fetched from custom API for ${username}`);
         return playerData;
-        
+
     } catch (error) {
-        console.error(`[ERROR] FortniteTracker fetch failed for ${username}:`, error.message);
-        
-        // Return fallback data with error indication
-        return {
-            username,
-            platform: platform.toUpperCase(),
-            error: true,
-            errorMessage: 'Unable to fetch live data from FortniteTracker',
-            fallback: true,
-            ...generateFallbackData(username, platform)
-        };
+        console.error(`[ERROR] Custom API fetch failed for ${username}:`, error.message);
+
+        // Throw error instead of returning fallback (as requested)
+        throw new Error(`Failed to fetch player data: ${error.message}`);
     }
 }
 
-// Parse HTML from FortniteTracker
-function parseFortniteTrackerHTML(html, username, platform) {
+// Transform your custom API data to display format
+function transformCustomAPIData(apiData, username, platform) {
     try {
-        // Extract stats using regex patterns (simplified approach)
-        const wins = extractStatFromHTML(html, /Wins[\s\S]*?(\d{1,3}(?:,\d{3})*)/) || '0';
-        const kills = extractStatFromHTML(html, /Kills[\s\S]*?(\d{1,3}(?:,\d{3})*)/) || '0';
-        const matches = extractStatFromHTML(html, /Matches[\s\S]*?(\d{1,3}(?:,\d{3})*)/) || '0';
-        const kd = extractStatFromHTML(html, /K\/D[\s\S]*?(\d+\.\d+)/) || '0.00';
-        const winRate = extractStatFromHTML(html, /Win %[\s\S]*?(\d+\.\d+)/) || '0.0';
-        
-        // Extract rank if available
-        let rank = extractStatFromHTML(html, /Rank[\s\S]*?#(\d{1,3}(?:,\d{3})*)/);
-        if (!rank) {
-            rank = Math.floor(Math.random() * 100000) + 1;
-        } else {
-            rank = rank.replace(/,/g, '');
-        }
-        
+        // Expected structure from your API:
+        // {
+        //   "username": "NickEh30",
+        //   "platform": "pc",
+        //   "stats": {
+        //     "wins": 1250,
+        //     "kills": 21900,
+        //     "kd": 3.25,
+        //     "matchesPlayed": 5900
+        //   },
+        //   "matchHistory": [...]
+        // }
+
+        const stats = apiData.stats;
+        const winRate = stats.matchesPlayed > 0 ? ((stats.wins / stats.matchesPlayed) * 100).toFixed(1) : '0.0';
+
         return {
-            username,
-            platform: platform.toUpperCase(),
-            rank: parseInt(rank),
-            level: Math.floor(Math.random() * 500) + 100,
+            username: apiData.username || username,
+            platform: (apiData.platform || platform).toUpperCase(),
+            rank: apiData.rank || calculateRankFromStats(stats),
+            level: apiData.level || calculateLevelFromStats(stats),
             winRate: winRate + '%',
-            kd: kd,
-            wins: wins,
-            kills: kills,
-            matches: matches,
-            score: calculateScore(parseInt(kills.replace(/,/g, '') || 0), parseInt(wins.replace(/,/g, '') || 0)),
-            playtime: Math.floor(parseInt(matches.replace(/,/g, '') || 0) * 15 / 60) + 'h',
-            country: getRandomCountry(),
-            skin: getRandomSkin(),
+            kd: stats.kd.toFixed(2),
+            wins: stats.wins.toLocaleString(),
+            kills: stats.kills.toLocaleString(),
+            matches: stats.matchesPlayed.toLocaleString(),
+            score: calculateScore(stats.kills, stats.wins),
+            playtime: calculatePlaytime(stats.matchesPlayed),
+            country: apiData.country || getRandomCountry(),
+            skin: apiData.currentSkin || getRandomSkin(),
+            matchHistory: apiData.matchHistory || [],
             verified: true,
             lastUpdated: new Date().toISOString(),
-            source: 'FortniteTracker.com'
+            source: 'Custom Fortnite API'
         };
     } catch (error) {
-        console.error('HTML parsing error:', error);
-        return generateFallbackData(username, platform);
+        console.error('API data transformation error:', error);
+        throw new Error('Failed to process API response data');
     }
 }
 
-// Helper function to extract stats from HTML
-function extractStatFromHTML(html, regex) {
-    const match = html.match(regex);
-    return match ? match[1] : null;
+// Calculate estimated rank based on stats
+function calculateRankFromStats(stats) {
+    const score = stats.wins * 1000 + stats.kills * 50;
+    // Higher score = better rank (lower number)
+    return Math.max(1, Math.floor(100000 - (score / 100)));
 }
 
-// Generate fallback data when API fails
-function generateFallbackData(username, platform) {
-    const skillLevel = username.toLowerCase().includes('pro') || username.toLowerCase().includes('ttv') ? 'pro' : 'average';
-    const multiplier = skillLevel === 'pro' ? 3 : 1;
-    
-    const baseWins = Math.floor((Math.random() * 500 + 100) * multiplier);
-    const baseMatches = Math.floor(baseWins * (Math.random() * 8 + 4));
-    const baseKills = Math.floor(baseMatches * (Math.random() * 3 + 1) * multiplier);
-    
-    return {
-        username,
-        platform: platform.toUpperCase(),
-        rank: Math.floor(Math.random() * 100000) + 1,
-        level: Math.floor(Math.random() * 500) + 50,
-        winRate: ((baseWins / baseMatches) * 100).toFixed(1) + '%',
-        kd: (baseKills / (baseMatches - baseWins)).toFixed(2),
-        wins: baseWins.toLocaleString(),
-        kills: baseKills.toLocaleString(),
-        matches: baseMatches.toLocaleString(),
-        score: calculateScore(baseKills, baseWins),
-        playtime: Math.floor(baseMatches * 15 / 60) + 'h',
-        country: getRandomCountry(),
-        skin: getRandomSkin(),
-        verified: false,
-        fallback: true,
-        source: 'Estimated Data'
-    };
+// Calculate estimated level based on stats
+function calculateLevelFromStats(stats) {
+    return Math.floor(stats.kills / 100) + Math.floor(stats.wins / 10) + 50;
 }
+
+// Calculate playtime based on matches
+function calculatePlaytime(matches) {
+    const hours = Math.floor(matches * 15 / 60); // 15 min avg per match
+    return hours + 'h';
+}
+
+// Removed fallback data generation - API should always provide real data
 
 function calculateScore(kills, wins) {
     return (kills * 50 + wins * 1000).toLocaleString();
@@ -211,9 +187,9 @@ app.get('/api/search/:platform/:username', async (req, res) => {
             return res.status(400).json({ error: 'Invalid platform' });
         }
         
-        console.log(`[API] Searching FortniteTracker: ${username} on ${platform.toUpperCase()}`);
-        
-        const playerData = await fetchFortniteTrackerData(username, platform);
+        console.log(`[API] Searching Custom API: ${username} on ${platform.toUpperCase()}`);
+
+        const playerData = await fetchPlayerStats(username, platform);
         
         res.json({
             success: true,
