@@ -1,4 +1,5 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -1139,7 +1140,7 @@ app.get('/', (req, res) => {
                 });
 
                 console.log('✅ FastTracker with Custom API integration ready!');
-                console.log('⚡ Features: Debounced search (300ms), Session cache (15min), Live API data');
+                console.log('�� Features: Debounced search (300ms), Session cache (15min), Live API data');
             });
         </script>
     </body>
