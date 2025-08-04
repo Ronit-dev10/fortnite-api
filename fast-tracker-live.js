@@ -59,8 +59,8 @@ async function fetchPlayerStats(username, platform) {
 
         const ftPlatform = PLATFORM_MAP[platform] || 'kbm';
 
-        // Fetch from actual FortniteTracker.com
-        const response = await fetch(`https://fortnitetracker.com/profile/${ftPlatform}/${encodeURIComponent(username)}`, {
+        // Fetch from actual FortniteTracker.com using axios
+        const response = await axios.get(`https://fortnitetracker.com/profile/${ftPlatform}/${encodeURIComponent(username)}`, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -73,14 +73,17 @@ async function fetchPlayerStats(username, platform) {
                 'Sec-Fetch-Mode': 'navigate',
                 'Sec-Fetch-Site': 'none'
             },
-            timeout: 15000
+            timeout: 15000,
+            validateStatus: function (status) {
+                return status < 500; // Accept any status less than 500
+            }
         });
 
-        if (!response.ok) {
+        if (response.status >= 400) {
             throw new Error(`FortniteTracker returned ${response.status}: ${response.statusText}`);
         }
 
-        const html = await response.text();
+        const html = response.data;
 
         // Check if player exists
         if (html.includes('Player Not Found') || html.includes('not found') || html.includes('404')) {
