@@ -984,9 +984,14 @@ app.get('/', (req, res) => {
         </style>
     </head>
     <body>
-        <!-- Enhanced loading bar -->
+        <!-- Enhanced loading bar with percentage -->
         <div class="loading-bar" id="loadingBar">
             <div class="loading-bar-fill" id="loadingBarFill"></div>
+        </div>
+        <div class="loading-info" id="loadingInfo">
+            <span id="loadingText">Loading...</span>
+            <span id="loadingPercent">0%</span>
+            <span id="loadingTime"></span>
         </div>
         
         <!-- Header -->
