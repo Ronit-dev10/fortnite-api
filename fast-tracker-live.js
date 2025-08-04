@@ -817,13 +817,13 @@ app.get('/', (req, res) => {
                     
                     const result = await response.json();
                     loadingBar.updateProgress(90);
-                    
+
                     if (!result.success) {
                         throw new Error(result.error || 'Failed to fetch player data');
                     }
-                    
-                    // Display the REAL data
-                    displayRealPlayerData(result.data, result.cached);
+
+                    // Display the LIVE API data (no fallback)
+                    displayLivePlayerData(result.data, result.cached);
                     loadingBar.updateProgress(100);
                     
                 } catch (error) {
@@ -911,7 +911,7 @@ app.get('/', (req, res) => {
                         
                         (!data.verified || data.fallback ? 
                         '<div class="data-notice">' +
-                            (data.fallback ? '⚠️ Live FortniteTracker data unavailable. Showing estimated stats.' : '💡 Data fetched from FortniteTracker.com') +
+                            (data.fallback ? '⚠️ Live FortniteTracker data unavailable. Showing estimated stats.' : '���� Data fetched from FortniteTracker.com') +
                         '</div>' : '') +
                         
                         '<div class="data-source">' +
