@@ -1093,7 +1093,7 @@ app.get('/', (req, res) => {
 
                     const searchBtn = document.getElementById('searchBtn');
                     searchBtn.disabled = false;
-                    searchBtn.textContent = '🔍 Search Live';
+                    searchBtn.textContent = '🔍 Search FortniteTracker';
                 }
             }
 
