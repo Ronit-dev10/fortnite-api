@@ -1238,7 +1238,12 @@ app.get('/', (req, res) => {
 
                 resultsSection.classList.add('show');
                 resultsSection.scrollIntoView({
-                    behavior: 'smooth',\n                    block: 'start'\n                });\n                \n                console.log('✅ Displayed LIVE API data for ' + data.username + ' on ' + data.platform);\n            }
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                console.log('✅ Displayed LIVE API data for ' + data.username + ' on ' + data.platform);
+            }
             
             // Platform selection
             function selectPlatform(platform) {
