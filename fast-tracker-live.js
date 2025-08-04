@@ -1061,15 +1061,25 @@ app.get('/', (req, res) => {
             // Event listeners
             document.addEventListener('DOMContentLoaded', function() {
                 const searchInput = document.getElementById('searchInput');
-                
+
+                // Debounced input listener (300ms delay as requested)
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.trim();
+                    if (query.length >= 2) {
+                        debouncedSearch(query);
+                    }
+                });
+
                 searchInput.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
+                        clearTimeout(state.searchTimeout); // Cancel debounce
                         searchPlayer();
                     }
                 });
-                
-                console.log('✅ FastTracker with LIVE FortniteTracker integration ready!');
+
+                console.log('✅ FastTracker with Custom API integration ready!');
+                console.log('⚡ Features: Debounced search (300ms), Session cache (15min), Live API data');
             });
         </script>
     </body>
