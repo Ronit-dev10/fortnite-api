@@ -1091,33 +1091,60 @@ app.get('/', (req, res) => {
                 }
             }
             
-            // Enhanced loading bar controller
+            // Enhanced loading bar controller with percentage and time estimation
             class LoadingBar {
                 constructor() {
                     this.element = document.getElementById('loadingBar');
                     this.fill = document.getElementById('loadingBarFill');
+                    this.info = document.getElementById('loadingInfo');
+                    this.textElement = document.getElementById('loadingText');
+                    this.percentElement = document.getElementById('loadingPercent');
+                    this.timeElement = document.getElementById('loadingTime');
                     this.isActive = false;
+                    this.startTime = 0;
+                    this.currentStep = '';
                 }
-                
-                show() {
+
+                show(initialText) {
+                    if (!initialText) initialText = 'Searching...';
                     this.isActive = true;
+                    this.startTime = Date.now();
                     this.element.classList.add('active');
-                    this.updateProgress(0);
+                    this.info.classList.add('active');
+                    this.updateProgress(0, initialText);
                 }
-                
-                updateProgress(percent) {
+
+                updateProgress(percent, stepText) {
                     if (this.isActive) {
                         this.fill.style.width = percent + '%';
+                        this.percentElement.textContent = Math.round(percent) + '%';
+
+                        if (stepText) {
+                            this.currentStep = stepText;
+                            this.textElement.textContent = stepText;
+                        }
+
+                        // Calculate estimated time remaining
+                        if (percent > 0 && percent < 100) {
+                            const elapsed = Date.now() - this.startTime;
+                            const estimated = (elapsed / percent) * (100 - percent);
+                            const seconds = Math.ceil(estimated / 1000);
+                            this.timeElement.textContent = ' (~' + seconds + 's remaining)';
+                        } else {
+                            this.timeElement.textContent = '';
+                        }
                     }
                 }
-                
+
                 hide() {
                     this.isActive = false;
-                    this.updateProgress(100);
-                    setTimeout(() => {
-                        this.element.classList.remove('active');
-                        this.updateProgress(0);
-                    }, 500);
+                    this.updateProgress(100, 'Complete!');
+                    const self = this;
+                    setTimeout(function() {
+                        self.element.classList.remove('active');
+                        self.info.classList.remove('active');
+                        self.updateProgress(0);
+                    }, 800);
                 }
             }
             
