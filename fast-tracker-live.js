@@ -43,7 +43,7 @@ function setCachedData(key, data) {
     });
 }
 
-// Custom Fortnite Stats API integration
+// Direct mock API integration (no external fetch needed)
 async function fetchPlayerStats(username, platform) {
     const cacheKey = `${username}-${platform}`;
 
@@ -55,44 +55,71 @@ async function fetchPlayerStats(username, platform) {
     }
 
     try {
-        console.log(`[API] Fetching ${username} from custom API on ${platform}`);
+        console.log(`[API] Generating mock data for ${username} on ${platform}`);
 
-        // Call our local mock API endpoint (replace with your real API when ready)
-        const response = await fetch(`/api/custom-stats/${platform}/${encodeURIComponent(username)}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            timeout: 10000
-        });
-
-        if (!response.ok) {
-            throw new Error(`API failed with status ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        // Validate API response structure
-        if (!data || !data.stats) {
-            throw new Error('Invalid API response structure');
-        }
+        // Generate mock data directly (since we're using local mock API)
+        const mockData = generateMockAPIData(username, platform);
 
         // Transform your API data to display format
-        const playerData = transformCustomAPIData(data, username, platform);
+        const playerData = transformCustomAPIData(mockData, username, platform);
 
         // Cache the result (15 minutes as requested)
         setCachedData(cacheKey, playerData);
 
-        console.log(`[SUCCESS] Live data fetched from custom API for ${username}`);
+        console.log(`[SUCCESS] Mock data generated for ${username}`);
         return playerData;
 
     } catch (error) {
-        console.error(`[ERROR] Custom API fetch failed for ${username}:`, error.message);
+        console.error(`[ERROR] Data generation failed for ${username}:`, error.message);
 
         // Throw error instead of returning fallback (as requested)
-        throw new Error(`Failed to fetch player data: ${error.message}`);
+        throw new Error(`Failed to generate player data: ${error.message}`);
     }
+}
+
+// Generate mock data in your expected API format
+function generateMockAPIData(username, platform) {
+    // Generate realistic data based on username
+    const isProPlayer = username.toLowerCase().includes('pro') ||
+                      username.toLowerCase().includes('ttv') ||
+                      username.toLowerCase().includes('ninja') ||
+                      username.toLowerCase().includes('tfue') ||
+                      username.toLowerCase().includes('sypher');
+
+    const skillMultiplier = isProPlayer ? 3 : 1;
+    const baseWins = Math.floor((Math.random() * 800 + 200) * skillMultiplier);
+    const baseMatches = Math.floor(baseWins * (Math.random() * 6 + 4));
+    const baseKills = Math.floor(baseMatches * (Math.random() * 2.5 + 1.5) * skillMultiplier);
+    const kd = (baseKills / (baseMatches - baseWins)).toFixed(2);
+
+    // Generate match history
+    const matchHistory = [];
+    for (let i = 0; i < 5; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        matchHistory.push({
+            date: date.toISOString().split('T')[0],
+            kills: Math.floor(Math.random() * 15) + 1,
+            placement: Math.floor(Math.random() * 50) + 1
+        });
+    }
+
+    // Return data in your expected format
+    return {
+        username: username,
+        platform: platform,
+        rank: Math.floor(Math.random() * 50000) + 1,
+        level: Math.floor(Math.random() * 300) + 50,
+        country: ['US', 'UK', 'CA', 'DE', 'FR', 'JP', 'AU', 'BR'][Math.floor(Math.random() * 8)],
+        currentSkin: ['Renegade Raider', 'Black Knight', 'Skull Trooper', 'Galaxy', 'Travis Scott'][Math.floor(Math.random() * 5)],
+        stats: {
+            wins: baseWins,
+            kills: baseKills,
+            kd: parseFloat(kd),
+            matchesPlayed: baseMatches
+        },
+        matchHistory: matchHistory
+    };
 }
 
 // Transform your custom API data to display format
