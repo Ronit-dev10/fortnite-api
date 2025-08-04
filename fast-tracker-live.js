@@ -858,67 +858,89 @@ app.get('/', (req, res) => {
             
             const loadingBar = new LoadingBar();
             
-            // REAL FortniteTracker search function
+            // Custom API search function with session caching
             async function searchPlayer(username = null) {
                 if (state.isSearching) return;
-                
+
                 const searchInput = document.getElementById('searchInput');
                 const query = username || searchInput.value.trim();
-                
+
                 if (!query || query.length < 2) {
                     showError('Please enter a username with at least 2 characters');
                     return;
                 }
-                
+
+                // Check session cache first
+                const cacheKey = query.toLowerCase() + '_' + state.currentPlatform;
+                const cachedData = getSessionCache(cacheKey);
+                if (cachedData) {
+                    console.log('📋 Using session cached data for ' + query);
+                    displayLivePlayerData(cachedData, true);
+                    return;
+                }
+
                 state.isSearching = true;
                 loadingBar.show();
-                
+
                 try {
                     const searchBtn = document.getElementById('searchBtn');
                     searchBtn.disabled = true;
-                    searchBtn.textContent = '⏳ Searching...';
-                    
+                    searchBtn.textContent = '⏳ Searching API...';
+
                     loadingBar.updateProgress(10);
-                    console.log('Searching ' + query + ' on ' + state.currentPlatform.toUpperCase() + ' via FortniteTracker');
-                    
+                    console.log('🔍 Searching ' + query + ' on ' + state.currentPlatform.toUpperCase() + ' via Custom API');
+
                     loadingBar.updateProgress(30);
-                    
-                    // Real API call to our backend
+
+                    // Call your custom API endpoint
                     const response = await fetch('/api/search/' + state.currentPlatform + '/' + encodeURIComponent(query), {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     });
-                    
+
                     loadingBar.updateProgress(70);
-                    
+
                     if (!response.ok) {
-                        throw new Error('HTTP ' + response.status + ': Failed to fetch data');
+                        throw new Error('API returned ' + response.status + ': ' + response.statusText);
                     }
-                    
+
                     const result = await response.json();
                     loadingBar.updateProgress(90);
 
                     if (!result.success) {
-                        throw new Error(result.error || 'Failed to fetch player data');
+                        throw new Error(result.error || 'API request failed');
                     }
 
-                    // Display the LIVE API data (no fallback)
-                    displayLivePlayerData(result.data, result.cached);
+                    // Cache the result in session storage
+                    setSessionCache(cacheKey, result.data);
+
+                    // Display the LIVE API data
+                    displayLivePlayerData(result.data, false);
                     loadingBar.updateProgress(100);
-                    
+
                 } catch (error) {
-                    console.error('FortniteTracker search error:', error);
-                    showError('Failed to fetch live data: ' + error.message);
+                    console.error('🚨 Custom API search error:', error);
+                    showError('Failed to fetch player data from API: ' + error.message);
                 } finally {
                     state.isSearching = false;
                     loadingBar.hide();
-                    
+
                     const searchBtn = document.getElementById('searchBtn');
                     searchBtn.disabled = false;
                     searchBtn.textContent = '🔍 Search Live';
                 }
+            }
+
+            // Debounced search (300ms as requested)
+            function debouncedSearch(query) {
+                clearTimeout(state.searchTimeout);
+                state.searchTimeout = setTimeout(() => {
+                    if (query && query.length >= 2) {
+                        searchPlayer(query);
+                    }
+                }, 300);
             }
             
             // Display live API data (no fallback handling)
