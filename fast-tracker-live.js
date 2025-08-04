@@ -740,7 +740,7 @@ app.get('/', (req, res) => {
         <header class="header">
             <nav class="nav-container">
                 <div class="logo">⚡ FastTracker</div>
-                <div class="status-indicator">🔴 LIVE DATA</div>
+                <div class="status-indicator">🔴 LIVE API</div>
             </nav>
         </header>
         
