@@ -214,7 +214,7 @@ function extractCountry(html) {
             if (match.includes('🇨🇦') || match.includes('Canada')) return 'CA';
             if (match.includes('🇩🇪') || match.includes('Germany')) return 'DE';
             if (match.includes('🇫🇷') || match.includes('France')) return 'FR';
-            if (match.includes('🇯🇵') || match.includes('Japan')) return 'JP';
+            if (match.includes('🇯����') || match.includes('Japan')) return 'JP';
         }
     }
     return 'Unknown';
@@ -331,7 +331,39 @@ app.get('/api/custom-stats/:platform/:username', (req, res) => {
     }
 });
 
-// Main search endpoint that calls the custom API
+// Test endpoint to verify FortniteTracker integration
+app.get('/api/test/:username', async (req, res) => {
+    try {
+        const { username } = req.params;
+        console.log(`[TEST] Testing FortniteTracker fetch for ${username}`);
+
+        const response = await axios.get(`https://fortnitetracker.com/profile/kbm/${encodeURIComponent(username)}`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            },
+            timeout: 10000
+        });
+
+        const html = response.data;
+        const isPlayerFound = !html.includes('Player Not Found') && !html.includes('not found');
+
+        res.json({
+            success: true,
+            playerFound: isPlayerFound,
+            htmlLength: html.length,
+            containsStats: html.includes('Wins') || html.includes('Kills'),
+            sampleHTML: html.substring(0, 500) + '...'
+        });
+
+    } catch (error) {
+        res.json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Main search endpoint that calls the FortniteTracker API
 app.get('/api/search/:platform/:username', async (req, res) => {
     try {
         const { username, platform } = req.params;
