@@ -1256,10 +1256,6 @@ app.get('/', (req, res) => {
                 console.log('Platform switched to:', platform.toUpperCase());
             }
 
-            // Make functions globally accessible
-            window.selectPlatform = selectPlatform;
-            window.searchPlayer = searchPlayer;
-            
             // Enhanced error handling with FortniteTracker links
             function showError(message) {
                 const resultsSection = document.getElementById('resultsSection');
